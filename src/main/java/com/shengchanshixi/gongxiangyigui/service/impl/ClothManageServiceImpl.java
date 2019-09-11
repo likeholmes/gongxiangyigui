@@ -182,4 +182,9 @@ public class ClothManageServiceImpl implements ClothManageService {
         cloth.setTime(now);
         return clothDao.save(cloth);
     }
+
+    @Override
+    public Cloth findById(int id) {
+        return clothDao.findById(id);
+    }
 }

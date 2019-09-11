@@ -10,46 +10,45 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping(value = "/api/cloth")
+@RestController
+@RequestMapping(value = "/cloths")
 public class ClothManageController {
     @Autowired
     private ClothManageService clothManageService;
 
-    /*@ApiOperation(value = "获取服装列表",notes = "")
-    @GetMapping(value = "/list")
-    public String getCloth(Model model){
-        //int page=1,size=10;
+    @ApiOperation(value = "获取全部商品信息",notes = "将所有商品信息分页显示")
+    @GetMapping(value = "")
+    public List<Cloth> getClothPage(){
+        //int page=1,size=3;
         //Sort sort = new Sort(Sort.Direction.DESC, "id");
         //Pageable pageable = new PageRequest(page, size, sort);
-        List<Cloth> cloths=clothManageService.findAllList();
-        model.addAttribute("cloths",cloths);
-        return "cloth/list";
-    }*/
-
-    @ApiOperation(value = "获取服装分页",notes = "")
-    @GetMapping(value = "/list")
-    public String getClothBySearch(Model model){
-        int page=1,size=3;
-        Sort sort = new Sort(Sort.Direction.DESC, "id");
-        Pageable pageable = new PageRequest(page, size, sort);
-        Page<Cloth> cloths=clothManageService.findAllPage(pageable);
-        model.addAttribute("cloths",cloths);
-        return "cloth/list";
+        //Page<Cloth> cloths=clothManageService.findAllPage(pageable);
+        //return cloths;
+        return clothManageService.findAllList();
     }
 
-    @ApiOperation(value = "跳转dao添加页面",notes = "")
-    @RequestMapping(value = "/toAdd")
-    public String toAdd()
-    {
-        return "cloth/add";
+    @ApiOperation(value = "添加商品信息",notes = "暂时还没确定传入的是什么信息")
+    @PostMapping(value = "/cloth")
+    public List<Cloth> addCloth(@RequestBody Cloth cloth){
+        clothManageService.add(cloth);
+        return clothManageService.findAllList();
     }
+
+    @ApiOperation(value = "修改商品信息",notes = "暂时还没确定传入的是什么信息")
+    @PutMapping(value = "/{id}")
+    public Cloth addCloth(@PathVariable int id,@RequestBody Cloth ncloth){
+        return clothManageService.update(ncloth);
+    }
+
+    @ApiOperation(value = "获取商品信息",notes = "可以查看商品图片")
+    @GetMapping(value = "/{id}")
+    public Cloth addCloth(@PathVariable int id){
+        return clothManageService.findById(id);
+    }
+
 
 }

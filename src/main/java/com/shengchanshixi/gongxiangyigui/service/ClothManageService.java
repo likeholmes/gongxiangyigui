@@ -15,6 +15,8 @@ public interface ClothManageService {
 
     List<Cloth> findByNameList(String name);
 
+    Cloth findById(int id);
+
     Page<Cloth> findByNamePage(String name,Pageable pageable);
 
     List<Cloth> findByBrandList(String brand);
