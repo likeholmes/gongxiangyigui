@@ -17,10 +17,10 @@ import java.util.List;
 public class FeedbackServiceImpl implements FeedbackService {
 
     @Autowired
-    FeedbackDao feedbackDao;
+    private FeedbackDao feedbackDao;
 
     @Autowired
-    MsgDao msgDao;
+    private MsgDao msgDao;
 
     @Override
     public void delete(int id) {

@@ -13,7 +13,7 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    TagDao tagDao;
+    private TagDao tagDao;
 
     @Override
     public List<Tag> findAllList() {

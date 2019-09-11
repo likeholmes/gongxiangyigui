@@ -15,7 +15,7 @@ import java.util.List;
 public class ClothManageServiceImpl implements ClothManageService {
 
     @Autowired
-    ClothDao clothDao;
+    private ClothDao clothDao;
 
     //返回所有服装数据的分页
     @Override

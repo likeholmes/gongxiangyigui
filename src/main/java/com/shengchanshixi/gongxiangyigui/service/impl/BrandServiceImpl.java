@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class BrandServiceImpl implements BrandService {
 
     @Autowired
-    BrandDao brandDao;
+    private BrandDao brandDao;
 
     @Override
     public void delete(int id) {

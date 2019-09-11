@@ -15,10 +15,10 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    CommentDao commentDao;
+    private CommentDao commentDao;
 
     @Autowired
-    ComPicDao comPicDao;
+    private ComPicDao comPicDao;
 
     @Override
     public void delete(int id) {

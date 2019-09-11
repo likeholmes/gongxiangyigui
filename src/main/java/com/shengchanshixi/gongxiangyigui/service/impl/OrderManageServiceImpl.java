@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderManageServiceImpl implements OrderManageService {
 
     @Autowired
-    OrderDao orderDao;
+    private OrderDao orderDao;
 
     @Override
     public List<Order> findAllList() {

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class ComPicServiceImpl implements ComPicService {
 
     @Autowired
-    ComPicDao comPicDao;
+    private ComPicDao comPicDao;
 
     @Override
     public void delete(int id) {

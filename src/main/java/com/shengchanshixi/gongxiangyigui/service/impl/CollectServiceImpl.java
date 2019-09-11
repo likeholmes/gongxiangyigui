@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class CollectServiceImpl implements CollectService {
 
     @Autowired
-    CollectDao collectDao;
+    private CollectDao collectDao;
     @Override
     public void deleteByUserid(String userid) {
         collectDao.deleteByUserid(userid);

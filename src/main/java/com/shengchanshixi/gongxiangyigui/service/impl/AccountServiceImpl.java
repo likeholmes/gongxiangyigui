@@ -22,16 +22,16 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
 
     @Autowired
-    FeedbackService feedbackService;
+    private FeedbackService feedbackService;
 
     @Autowired
-    CollectDao collectDao;
+    private CollectDao collectDao;
 
     @Override
     public List<User> findAllList() {
