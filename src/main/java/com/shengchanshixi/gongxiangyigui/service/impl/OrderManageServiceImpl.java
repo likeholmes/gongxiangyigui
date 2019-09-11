@@ -43,12 +43,12 @@ public class OrderManageServiceImpl implements OrderManageService {
 
     @Override
     public Page<Order> findForCheckOrder(Pageable pageable) {
-        return orderDao.findByBacktrackIsNotNullAndbAndBugstaIsNull(pageable);
+        return orderDao.findByBacktrackIsNotNullAndBugstaIsNull(pageable);
     }
 
     @Override
     public Page<Order> findForBackOrder(Pageable pageable) {
-        return orderDao.findByDelivtimeIsNotNullAndRecevtimeIsNullAAndBugstaIsNull(pageable);
+        return orderDao.findByDelivtimeIsNotNullAndRecevtimeIsNullAndBugstaIsNull(pageable);
     }
 
     @Override
@@ -68,12 +68,12 @@ public class OrderManageServiceImpl implements OrderManageService {
 
     @Override
     public List<Order> findForCheckOrder() {
-        return orderDao.findByBacktrackIsNotNullAndbAndBugstaIsNull();
+        return orderDao.findByBacktrackIsNotNullAndBugstaIsNull();
     }
 
     @Override
     public List<Order> findForBackOrder() {
-        return orderDao.findByDelivtimeIsNotNullAndRecevtimeIsNullAAndBugstaIsNull();
+        return orderDao.findByDelivtimeIsNotNullAndRecevtimeIsNullAndBugstaIsNull();
     }
 
     //传递的参数类型待定

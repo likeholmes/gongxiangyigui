@@ -19,16 +19,16 @@ public interface OrderDao extends JpaRepository<Order,Long> {
 
     Page<Order> findByDelivtimeIsNull(Pageable pageable);
 
-    Page<Order> findByDelivtimeIsNotNullAndRecevtimeIsNullAAndBugstaIsNull(Pageable pageable);
+    Page<Order> findByDelivtimeIsNotNullAndRecevtimeIsNullAndBugstaIsNull(Pageable pageable);
 
-    Page<Order> findByBacktrackIsNotNullAndbAndBugstaIsNull(Pageable pageable);
+    Page<Order> findByBacktrackIsNotNullAndBugstaIsNull(Pageable pageable);
 
     List<Order> findByStatusAndBugdeal(String status,String bugdeal);
 
     List<Order> findByDelivtimeIsNull();
 
-    List<Order> findByDelivtimeIsNotNullAndRecevtimeIsNullAAndBugstaIsNull();
+    List<Order> findByDelivtimeIsNotNullAndRecevtimeIsNullAndBugstaIsNull();
 
-    List<Order> findByBacktrackIsNotNullAndbAndBugstaIsNull();
+    List<Order> findByBacktrackIsNotNullAndBugstaIsNull();
 
 }
