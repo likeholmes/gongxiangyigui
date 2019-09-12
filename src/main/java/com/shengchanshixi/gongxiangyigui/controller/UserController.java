@@ -54,14 +54,15 @@ public class UserController extends BaseController {
         }
     }*/
     @PostMapping(value = "/login")
-    public String login(User user) {
+    public String login(@RequestBody User user) {
         System.out.println("有用户正在登录");
         try {
 
             User loginUser = accountService.findById(user.getId());
             if (null == loginUser) {
+                System.out.println("没找到该用户");
                 return "0";
-            } else if (!loginUser.getId().equals(user.getPwd())) {
+            } else if (!loginUser.getPwd().equals(user.getPwd())) {
                 return "0";
             }
             return "1";
