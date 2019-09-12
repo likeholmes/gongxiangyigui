@@ -68,13 +68,13 @@ public class ClothManageController extends BaseController{
     }
 
     @ApiOperation(value = "通过商品名字搜索商品信息",notes = "将所有商品信息列表显示")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/search")
     public String getClothByName(@RequestParam("name") String name,Model model){
         return null;
     }
 
     //还有各种分页显示，搜索，过滤等先省略
     @ApiOperation(value = "排序显示商品信息",notes = "将所有商品信息按某种顺序显示")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/sort")
     public String getClothSortByKey(@RequestParam("key") String key){ return null; }
 }

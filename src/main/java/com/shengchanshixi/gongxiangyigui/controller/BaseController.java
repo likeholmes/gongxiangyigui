@@ -1,5 +1,6 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
+import com.shengchanshixi.gongxiangyigui.entity.Admin;
 import com.shengchanshixi.gongxiangyigui.entity.User;
 import com.shengchanshixi.gongxiangyigui.entity.result.ExceptionMsg;
 import com.shengchanshixi.gongxiangyigui.entity.result.Response;
@@ -34,6 +35,10 @@ public class BaseController {
 
     protected HttpSession getSession() {
         return getRequest().getSession();
+    }
+
+    protected Admin getAdmin() {
+        return (Admin) getSession().getAttribute(Const.LOGIN_SESSION_KEY);
     }
 
     protected User getUser() {

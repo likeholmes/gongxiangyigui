@@ -13,7 +13,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/recom")
-public class RecommendController {
+public class RecommendController extends BaseController{
     @ApiOperation(value = "上新推荐",notes = "从新dao旧显示20个服装信息")
     @RequestMapping(value = "/new")
     //如何分页显示，应该传入什么API和参数

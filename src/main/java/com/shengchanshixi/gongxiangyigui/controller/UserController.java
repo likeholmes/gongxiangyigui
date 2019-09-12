@@ -11,6 +11,7 @@ import com.shengchanshixi.gongxiangyigui.service.AccountService;
 import com.shengchanshixi.gongxiangyigui.util.Const;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -28,9 +29,10 @@ public class UserController extends BaseController {
     @Autowired
     private AccountService accountService;
 
-    @ApiOperation(value = "用户登录",notes = "")
+    /*@ApiOperation(value = "用户登录",notes = "")
     @PostMapping(value = "/login")
     public ResponseData login(User user, HttpServletResponse response){
+        System.out.println("有用户正在登录");
         try {
 
             User loginUser=accountService.findById(user.getId());
@@ -49,6 +51,24 @@ public class UserController extends BaseController {
             // TODO: handle exception
             logger.error("login failed, ", e);
             return new ResponseData(ExceptionMsg.FAILED);
+        }
+    }*/
+    @PostMapping(value = "/login")
+    public String login(User user) {
+        System.out.println("有用户正在登录");
+        try {
+
+            User loginUser = accountService.findById(user.getId());
+            if (null == loginUser) {
+                return "0";
+            } else if (!loginUser.getId().equals(user.getPwd())) {
+                return "0";
+            }
+            return "1";
+        } catch (Exception e) {
+            // TODO: handle exception
+            logger.error("login failed, ", e);
+            return "0";
         }
     }
 
