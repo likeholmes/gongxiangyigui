@@ -1,5 +1,6 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
+import com.shengchanshixi.gongxiangyigui.entity.Cloth;
 import com.shengchanshixi.gongxiangyigui.entity.Collect;
 import com.shengchanshixi.gongxiangyigui.entity.Order;
 import com.shengchanshixi.gongxiangyigui.entity.User;
@@ -31,6 +32,7 @@ public class UserController extends BaseController {
     @PostMapping(value = "/login")
     public ResponseData login(User user, HttpServletResponse response){
         try {
+
             User loginUser=accountService.findById(user.getId());
             if (null == loginUser)   {
                 return new ResponseData(ExceptionMsg.LoginNameNotExists);
@@ -78,9 +80,9 @@ public class UserController extends BaseController {
         return null;
     }
 
-    @ApiOperation(value = "开通会员",notes = "调用会员付款UI")
+    @ApiOperation(value = "开通会员",notes = "更改会员状态")
     @RequestMapping(value = "/vip")
-    public Response vip()
+    public Response vip(int level)
     {
         return null;
     }
@@ -97,30 +99,31 @@ public class UserController extends BaseController {
         return null;
     }
 
-    @ApiOperation(value = "收藏列表",notes = "显示用户所有的收藏")
-    @RequestMapping(value = "/collect/list")
+    @ApiOperation(value = "我的收藏",notes = "显示用户所有的收藏")
+    @RequestMapping(value = "/collects")
     public List<Collect> getCollectList(){
         return null;
     }
 
     @ApiOperation(value = "已收藏的商品信息",notes = "显示某个已收藏商品的详细信息")
-    @RequestMapping(value = "/{id}")
+    @RequestMapping(value = "/collects/{id}")
     public Collect getCollect(@PathVariable("id")int id){
         //转到商品详情页
         return null;
     }
 
     @ApiOperation(value = "用户订单",notes = "显示用户所有订单")
-    @RequestMapping(value = "/orders")
+    @GetMapping(value = "/orders")
     public List<Order> getOrderList(){
         return null;
     }
 
-    //支付页
+    //获取订单详情
+    @ApiOperation(value = "获取订单信息",notes = "显示选取的商品信息")
+    @GetMapping(value = "/orders/{id}")
+    public Order getOrder(@PathVariable("id")int id){
+        return null;
+    }
 
-    //商品详情页
 
-    //订单详情页
-
-    //评论页
 }

@@ -19,20 +19,20 @@ public class SelectController extends BaseController {
 
     @ApiOperation(value = "搜索筛选",notes = "通过搜索栏筛选商品信息")
     @RequestMapping(value = "/key")
-    List<Cloth> search(String key){
+    public List<Cloth> search(String key){
         return null;
     }
 
     //获取全部标签信息
     @ApiOperation(value = "获取所有标签信息",notes = "")
     @RequestMapping(value = "/tags")
-    List<Tag> getTagList(){
+    public List<Tag> getTagList(){
         return null;
     }
 
     @ApiOperation(value = "全部筛选",notes = "通过设置条件筛选商品信息")
     @RequestMapping(value = "/term")
-    List<Cloth> searchBytags(HttpServletRequest request){
+    public List<Cloth> searchBytags(HttpServletRequest request){
         return null;
     }
 
