@@ -40,6 +40,8 @@ public interface ClothManageService {
 
     List<Cloth> findBySpecial();
 
+    Cloth findAfterTime(Long time);
+
     void delete(int id);
 
     Cloth update(Cloth cloth);

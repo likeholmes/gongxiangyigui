@@ -1,6 +1,8 @@
 package com.shengchanshixi.gongxiangyigui.service.impl;
 
+import com.shengchanshixi.gongxiangyigui.dao.ClothDao;
 import com.shengchanshixi.gongxiangyigui.dao.TagDao;
+import com.shengchanshixi.gongxiangyigui.entity.Cloth;
 import com.shengchanshixi.gongxiangyigui.entity.Tag;
 import com.shengchanshixi.gongxiangyigui.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ public class TagServiceImpl implements TagService {
 
     @Autowired
     private TagDao tagDao;
+
+    @Autowired
+    private ClothDao clothDao;
 
     @Override
     public List<Tag> findAllList() {
@@ -29,6 +34,31 @@ public class TagServiceImpl implements TagService {
     //未考虑安全性
     @Override
     public void delete(String tag) {
+        List<Cloth> cloths=clothDao.findByScenesOrSizeOrStyleOrColorOrPartOrSeason(tag);
+        for (Cloth cloth:cloths
+                ) {
+            switch (tagDao.findByTag(tag).getSort()){
+                case "尺寸":
+                    cloth.setSize("无");
+                    break;
+                case "场景":
+                    cloth.setScenes("无");
+                    break;
+                case "季节":
+                    cloth.setSeason("无");
+                    break;
+                case "部位":
+                    cloth.setPart("无");
+                    break;
+                case "颜色":
+                    cloth.setColor("无");
+                    break;
+                case "风格":
+                    cloth.setStyle("无");
+                    break;
+            }
+            clothDao.save(cloth);
+        }
         tagDao.deleteByTag(tag);
     }
 

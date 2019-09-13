@@ -70,6 +70,10 @@ public interface ClothDao extends JpaRepository<Cloth,Long> {
 
     List<Cloth> findByColcntIsGreaterThanEqualOrderByColcntDesc(int cnt);
 
+    List<Cloth> findByScenesOrSizeOrStyleOrColorOrPartOrSeason(String tag);
+
+    List<Cloth> findByTimeAfter(java.sql.Timestamp time);
+
     @Transactional
     @Query(value = "delete from cloth_info where id=?1 ", nativeQuery = true)
     @Modifying

@@ -117,9 +117,6 @@ public class ClothManageServiceImpl implements ClothManageService {
                 case "品牌":
                     clothSet.addAll(clothDao.findByBrand(tag.getTag()));
                     break;
-                case "衣位数":
-                    clothSet.addAll(clothDao.findByClothcub(tag.getTag()));
-                    break;
             }
         }
         List<Cloth> cloths=new ArrayList<>();
@@ -210,5 +207,14 @@ public class ClothManageServiceImpl implements ClothManageService {
             return null;
         cloth.setColcnt(cloth.getColcnt()-1);
         return clothDao.save(cloth);
+    }
+
+    @Override
+    public Cloth findAfterTime(Long time) {
+        java.sql.Timestamp now=new java.sql.Timestamp(time);
+        List<Cloth> cloths=clothDao.findByTimeAfter(now);
+        if (null==cloths)
+            return null;
+        return cloths.get(0);
     }
 }

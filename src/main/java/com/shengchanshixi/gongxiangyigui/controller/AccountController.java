@@ -1,26 +1,61 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
+import com.shengchanshixi.gongxiangyigui.entity.User;
+import com.shengchanshixi.gongxiangyigui.service.AccountService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/account")
 public class AccountController extends BaseController {
-    @ApiOperation(value = "冻结账户",notes = "")
+    @Autowired
+    private AccountService accountService;
+
+    @ApiOperation(value = "冻结账户", notes = "")
     @RequestMapping(value = "/lock/{id}")
-    public String lock(@PathVariable("id")String id,Model model){
-        return null;
+    public String lock(@PathVariable("id") String id) {
+        try {
+            User user = accountService.lockAccount(id);
+            if (null == user) {
+                logger.warn("未成功冻结用户");
+            }
+        } catch (Exception e) {
+            logger.error("冻结用户出错",e);
+            return null;
+        }
+        return "redirect:/list";
     }
 
-    @ApiOperation(value = "解冻账户",notes = "")
+    @ApiOperation(value = "解冻账户", notes = "")
     @RequestMapping(value = "/unlock/{id}")
-    public String unlock(@PathVariable("id")String id,Model model){
+    public String unlock(@PathVariable("id") String id) {
+        try {
+            User user = accountService.unlockAccount(id);
+            if (null == user) {
+                logger.warn("未成功解锁用户");
+            }
+        } catch (Exception e) {
+            logger.error("解锁用户出错",e);
+            return null;
+        }
+        return "redirect:/list";
+    }
+
+    @ApiOperation(value = "显示所有账户", notes = "")
+    @RequestMapping(value = "/list")
+    public String getAccounts(Model model) {
+        List<User> users=accountService.findAllList();
+        model.addAttribute("users",users);
         return null;
     }
 
-    @ApiOperation(value = "显示所有账户",notes = "")
-    @GetMapping(value = "")
-    public String getAccounts(Model model){return null;}
+    @RequestMapping("")
+    public String index() {
+        return "redirect:/list";
+    }
 }
