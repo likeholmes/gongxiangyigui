@@ -1,6 +1,7 @@
 package com.shengchanshixi.gongxiangyigui.service.impl;
 
 import com.shengchanshixi.gongxiangyigui.dao.ComPicDao;
+import com.shengchanshixi.gongxiangyigui.entity.ComPic;
 import com.shengchanshixi.gongxiangyigui.service.ComPicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,5 +15,10 @@ public class ComPicServiceImpl implements ComPicService {
     @Override
     public void delete(int id) {
         comPicDao.deleteById(id);
+    }
+
+    @Override
+    public void add(ComPic comPic) {
+
     }
 }

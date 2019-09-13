@@ -18,4 +18,5 @@ public interface BrandDao extends JpaRepository<Brand,Long> {
 
     List<Brand> findByName(String name);
 
+    Brand findById(int id);
 }

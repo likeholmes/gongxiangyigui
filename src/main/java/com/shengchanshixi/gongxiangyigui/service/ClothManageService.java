@@ -1,7 +1,10 @@
 package com.shengchanshixi.gongxiangyigui.service;
 
 import com.shengchanshixi.gongxiangyigui.dao.ClothDao;
+import com.shengchanshixi.gongxiangyigui.entity.Brand;
 import com.shengchanshixi.gongxiangyigui.entity.Cloth;
+import com.shengchanshixi.gongxiangyigui.entity.Tag;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -9,64 +12,42 @@ import java.util.List;
 
 public interface ClothManageService {
 
-    Page<Cloth> findAllPage(Pageable pageable);
+    Page<Cloth> findAll(Pageable pageable);
 
-    List<Cloth> findAllList();
+    List<Cloth> findAll();
 
-    List<Cloth> findByNameList(String name);
+    List<Cloth> findByName(String name);
 
     Cloth findById(int id);
 
-    Page<Cloth> findByNamePage(String name,Pageable pageable);
+    Page<Cloth> findByName(String name,Pageable pageable);
 
-    List<Cloth> findByBrandList(String brand);
+    List<Cloth> findByConditon(List<Tag> tags);
 
-    Page<Cloth> findByBrandPage(String brand,Pageable pageable);
+    Page<Cloth> findByCondition(List<Tag> tags,Pageable pageable);
 
-    List<Cloth> findByClothstaList(String clothsta);
+    List<Cloth> findByCondition(List<Tag> tags, Brand brand);
 
-    Page<Cloth> findByClothstaPage(String clothsta,Pageable pageable);
+    Page<Cloth> findByCondition(List<Tag> tags, Brand brand,Pageable pageable);
 
-    List<Cloth> findByShelfstaList(String shelfsta);
+    List<Cloth> findBySearch(String key);
 
-    Page<Cloth> findByShelfstaPage(String shelfsta,Pageable pageable);
+    Page<Cloth> findBySearch(String key,Pageable pageable);
 
-    List<Cloth> findBySizeList(String size);
+    List<Cloth> findByTime();
 
-    Page<Cloth> findBySizePage(String size,Pageable pageable);
+    List<Cloth> findByRandom();
 
-    List<Cloth> findByPartList(String part);
-
-    Page<Cloth> findByPartPage(String part,Pageable pageable);
-
-    List<Cloth> findByClothcubList(String clothcub);
-
-    Page<Cloth> findByClothcubPage(String clothcub,Pageable pageable);
-
-    List<Cloth> findByScenesList(String scenes);
-
-    Page<Cloth> findByScenesPage(String scenes,Pageable pageable);
-
-    List<Cloth> findBySeasonList(String season);
-
-    Page<Cloth> findBySeasonPage(String season,Pageable pageable);
-
-    List<Cloth> findByColorList(String color);
-
-    Page<Cloth> findByColorPage(String color,Pageable pageable);
-
-    List<Cloth> findByStyleList(String style);
-
-    Page<Cloth> findByStylePage(String style,Pageable pageable);
-
-    List<Cloth> findBySortList(String sort);
-
-    Page<Cloth> findBySortPage(String sort,Pageable pageable);
+    List<Cloth> findBySpecial();
 
     void delete(int id);
 
     Cloth update(Cloth cloth);
 
     Cloth add(Cloth cloth);
+
+    Cloth collect(int id);
+
+    Cloth uncollect(int id);
 
 }

@@ -17,4 +17,5 @@ public interface TagDao extends JpaRepository<Tag,Long> {
 
     List<Tag> findBySort(String sort);
 
+    Tag findByTag(String tag);
 }

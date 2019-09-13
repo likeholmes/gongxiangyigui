@@ -42,4 +42,24 @@ public class TagServiceImpl implements TagService {
         Sort sort = new Sort(Sort.Direction.ASC, "cnt");
         return tagDao.findAll(sort);
     }
+
+    //被访问数增加
+    @Override
+    public Tag collectOrSearchTag(String tag) {
+        Tag ntag=tagDao.findByTag(tag);
+        if(null==ntag)
+            return null;
+        ntag.setCnt(ntag.getCnt()+1);
+        return tagDao.save(ntag);
+    }
+
+    //被收藏数减少
+    @Override
+    public Tag uncollectTag(String tag) {
+        Tag ntag=tagDao.findByTag(tag);
+        if (null==ntag)
+            return null;
+        ntag.setCnt(ntag.getCnt()-1);
+        return tagDao.save(ntag);
+    }
 }

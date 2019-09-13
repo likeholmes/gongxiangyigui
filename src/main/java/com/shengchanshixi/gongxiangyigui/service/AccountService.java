@@ -23,7 +23,9 @@ public interface AccountService {
 
     Page<User> findAllSortPage(Pageable pageable);
 
-    User ProcessAccount(User user);
+    User lockAccount(String id);
+
+    User unlockAccount(String id);
 
     User add(User user);
 

@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface OrderManageService{
 
-    List<Order> findAllList();
+    List<Order> findAll();
 
-    Page<Order> findAllPage(Pageable pageable);
+    Page<Order> findAll(Pageable pageable);
 
     Page<Order> findByUserid(String userid,Pageable pageable);
 
@@ -32,13 +32,17 @@ public interface OrderManageService{
 
     List<Order> findForBackOrder();
 
-    Order ProcessBugOrder(Order bugorder);
+    Order dealBugOrder(String id);
     
-    Order ProcessSendOrder(Order sendorder);
+    Order dealSendOrder(String id,String trackid);
     
-    Order ProcessCheckOrder(Order checkorder);
+    Order checkClothOk(String id);
+
+    Order checkClothBad(String id);
+
+    Order checkClothGone(String id);
     
-    Order ProcessBackOrder(Order backorder);
+    Order dealBackOrder(String id);
 
     Order add(Order order);
 

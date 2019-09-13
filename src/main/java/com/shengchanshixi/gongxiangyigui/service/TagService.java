@@ -17,4 +17,8 @@ public interface TagService {
 
     List<Tag> findAllAscByCnt();
 
+    Tag collectOrSearchTag(String tag);
+
+    Tag uncollectTag(String tag);
+
 }

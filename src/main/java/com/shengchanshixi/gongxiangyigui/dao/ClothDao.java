@@ -62,6 +62,14 @@ public interface ClothDao extends JpaRepository<Cloth,Long> {
 
     Page<Cloth> findBySort(String sort,Pageable pageable);
 
+    List<Cloth> findByTimeAfterOrderByTimeDesc(java.sql.Timestamp time);
+
+    List<Cloth> findByNameLikeOrBrandLikeOrColorLikeOrScenesLikeOrPartLikeOrStyleLike(String key);
+
+    Page<Cloth> findByNameLikeOrBrandLikeOrColorLikeOrScenesLikeOrPartLikeOrStyleLike(String key,Pageable pageable);
+
+    List<Cloth> findByColcntIsGreaterThanEqualOrderByColcntDesc(int cnt);
+
     @Transactional
     @Query(value = "delete from cloth_info where id=?1 ", nativeQuery = true)
     @Modifying

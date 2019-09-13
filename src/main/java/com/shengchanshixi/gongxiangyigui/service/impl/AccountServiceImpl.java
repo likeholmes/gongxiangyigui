@@ -58,13 +58,6 @@ public class AccountServiceImpl implements AccountService {
         return userDao.findByStatus(status,pageable);
     }
 
-    @Override
-    public User ProcessAccount(User user) {
-        //管理员点击冻结或解锁按钮更改用户状态
-        User old=userDao.findById(user.getId());
-        old.setStatus(user.getStatus());
-        return userDao.save(old);
-    }
 
     @Override
     public User add(User user) {
@@ -101,5 +94,25 @@ public class AccountServiceImpl implements AccountService {
         collectDao.deleteByUserid(id);
 
         userDao.deleteById(id);
+    }
+
+    //解锁用户
+    @Override
+    public User lockAccount(String id) {
+        User user=findById(id);
+        if(null==user)
+            return null;
+        user.setStatus("冻结");
+        return userDao.save(user);
+    }
+
+    //冻结用户
+    @Override
+    public User unlockAccount(String id) {
+        User user=findById(id);
+        if(null==user)
+            return null;
+        user.setStatus("正常");
+        return userDao.save(user);
     }
 }
