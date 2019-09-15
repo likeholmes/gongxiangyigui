@@ -8,6 +8,9 @@ import com.shengchanshixi.gongxiangyigui.entity.result.ExceptionMsg;
 import com.shengchanshixi.gongxiangyigui.entity.result.Response;
 import com.shengchanshixi.gongxiangyigui.entity.result.ResponseData;
 import com.shengchanshixi.gongxiangyigui.service.AccountService;
+import com.shengchanshixi.gongxiangyigui.service.ClothManageService;
+import com.shengchanshixi.gongxiangyigui.service.CollectService;
+import com.shengchanshixi.gongxiangyigui.service.OrderManageService;
 import com.shengchanshixi.gongxiangyigui.util.Const;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,15 @@ public class UserController extends BaseController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private ClothManageService clothManageService;
+
+    @Autowired
+    private CollectService collectService;
+
+    @Autowired
+    private OrderManageService orderManageService;
 
     /*@ApiOperation(value = "用户登录",notes = "")
     @PostMapping(value = "/login")
@@ -73,14 +85,16 @@ public class UserController extends BaseController {
         }
     }
 
+    //TODO:返回值类型
     @ApiOperation(value = "用户注册",notes = "")
     @PostMapping(value = "/regist")
-    public Response create(User user) {
+    public String create(User user) {
         try {
             User registerUser=accountService.findById(user.getId());
             if (null!=registerUser)
             {
-                return result(ExceptionMsg.UserNameUsed);
+                //return result(ExceptionMsg.UserNameUsed);
+                return "0";
             }
             user.setPwd(getPwd(user.getPwd()));
             user.setRegtime(new java.sql.Timestamp(System.currentTimeMillis()));
@@ -89,62 +103,85 @@ public class UserController extends BaseController {
         }catch (Exception e)
         {
             logger.error("create user failed, ", e);
-            return result(ExceptionMsg.FAILED);
+            //return result(ExceptionMsg.FAILED);
+            return "0";
         }
-        return result();
+        //return result();
+        return "1";
     }
 
     @ApiOperation(value = "用户个人信息",notes = "")
     @RequestMapping(value = "/info")
     public User getUserInfo()
     {
-        return null;
+        return getUser();
     }
 
+    //TODO:返回值不确定
     @ApiOperation(value = "开通会员",notes = "更改会员状态")
     @RequestMapping(value = "/vip")
-    public Response vip(int level)
+    public String vip(int level)
     {
-        return null;
+        try {
+            User user=getUser();
+            accountService.openVip(user,level);
+            return "1";
+        }catch (Exception e){
+            logger.error("开通会员错误");
+            return "0";
+        }
     }
 
+    //TODO:返回值不确定
     @ApiOperation(value = "收藏",notes = "")
     @RequestMapping(value = "/like/{id}")
-    public Response like(@PathVariable("id") int id) {
-        return null;
+    public String like(@PathVariable("id") int id) {
+        try {
+            collectService.add(getUserId(),id);
+            return "1";
+        }catch (Exception e){
+            logger.error("开通会员错误");
+            return "0";
+        }
     }
 
     @ApiOperation(value = "取消收藏",notes = "")
     @RequestMapping(value = "/unlike/{id}")
-    public Response delete(@PathVariable("id") int id) {
-        return null;
+    public String delete(@PathVariable("id") int id) {
+        try {
+            collectService.delete(getUserId(),id);
+            return "1";
+        }catch (Exception e){
+            logger.error("开通会员错误");
+            return "0";
+        }
+
     }
 
     @ApiOperation(value = "我的收藏",notes = "显示用户所有的收藏")
     @RequestMapping(value = "/collects")
     public List<Collect> getCollectList(){
-        return null;
+        return collectService.findCollects(getUserId());
     }
 
     @ApiOperation(value = "已收藏的商品信息",notes = "显示某个已收藏商品的详细信息")
     @RequestMapping(value = "/collects/{id}")
-    public Collect getCollect(@PathVariable("id")int id){
+    public Cloth getCollect(@PathVariable("id")int id){
         //转到商品详情页
-        return null;
+        return clothManageService.findById(id);
     }
 
     @ApiOperation(value = "用户订单",notes = "显示用户所有订单")
     @GetMapping(value = "/orders")
     public List<Order> getOrderList(){
-        return null;
+        return orderManageService.findByUserid(getUserId());
     }
 
     //获取订单详情
     @ApiOperation(value = "获取订单信息",notes = "显示选取的商品信息")
     @GetMapping(value = "/orders/{id}")
-    public Order getOrder(@PathVariable("id")int id){
-        return null;
+    public Order getOrder(@PathVariable("id")String id){
+        return orderManageService.findById(id);
     }
-
 
 }

@@ -15,7 +15,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,22 +63,44 @@ public class ClothManageController extends BaseController{
 
     @ApiOperation(value = "添加商品信息",notes = "添加后显示商品总页面")
     @PostMapping(value = "/add")
-    public String addCloth(Cloth cloth,List<ClothPic> clothPics){
-        if(null==clothManageService.add(cloth))
-            logger.warn("添加信息未成功");
-        else {
-            //添加图片
-            Cloth ncloth = clothManageService.findAfterTime(System.currentTimeMillis());
-            if (null == ncloth) {
+    public String addCloth(Cloth cloth,@RequestParam(value = "files") MultipartFile[] files){
+        try {
+            if(null==clothManageService.add(cloth))
                 logger.warn("添加信息未成功");
-            } else {
-                //TODO:图片未上传
-                for (ClothPic clothPic : clothPics
-                        ) {
-                    clothPic.setClothId(ncloth.getId());
+            else {
+                //添加图片
+                Cloth ncloth = clothManageService.findAfterTime(System.currentTimeMillis());
+                if (null == ncloth) {
+                    logger.warn("添加信息未成功");
+                } else {
+                    //TODO:图片未上传
+                    if (files==null||files.length<1){
+                        logger.warn("文件为空");
+                        return "redirect:/list";
+                    }
+                    for (int i = 0; i < files.length; i++) {
+                        MultipartFile uploadFile = files[i];
+                        String filename = uploadFile.getOriginalFilename();
+                        String realPath=getSession().getServletContext().getRealPath("/clothPics/");
+                        File dir=new File(realPath);
+                        //服务端保存的文件对象
+                        File fileServer = new File(dir, filename);
+                        System.out.println("file文件真实路径:" + fileServer.getAbsolutePath());
+                        //实现上传
+                        uploadFile.transferTo(fileServer);
+                        String filePath = getRequest().getScheme() + "://" +
+                                getRequest().getServerName() + ":"
+                                + getRequest().getServerPort()
+                                + "/clothPics/" + filename;
+                        ClothPic clothPic=new ClothPic();
+                        clothPic.setClothId(ncloth.getId());
+                        clothPic.setUrl(filePath);
+                        clothPicService.add(clothPic);
+                    }
                 }
             }
-
+        }catch (Exception e){
+            logger.error("添加失败");
         }
         return "redirect:/list";
     }

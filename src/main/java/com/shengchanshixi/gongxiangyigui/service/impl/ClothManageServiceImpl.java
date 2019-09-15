@@ -129,16 +129,6 @@ public class ClothManageServiceImpl implements ClothManageService {
         return null;
     }
 
-    @Override
-    public List<Cloth> findByCondition(List<Tag> tags, Brand brand) {
-        return null;
-    }
-
-    @Override
-    public Page<Cloth> findByCondition(List<Tag> tags, Brand brand, Pageable pageable) {
-        return null;
-    }
-
     //搜索筛选
     @Override
     public List<Cloth> findBySearch(String key) {

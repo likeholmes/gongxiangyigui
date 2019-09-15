@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -162,5 +163,32 @@ public class OrderManageServiceImpl implements OrderManageService {
         java.sql.Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
         order.setOrdertime(now);
         return orderDao.save(order);
+    }
+
+    @Override
+    public Order findById(String id) {
+        return orderDao.findById(id);
+    }
+
+    @Override
+    public List<Order> searchByKey(String key, List<Order> orders) {
+        List<Order> orderList=new ArrayList<>();
+        for (Order order:orders
+             ) {
+            if (null!=order.getTrackid()&&order.getTrackid().contains(key)){
+                orderList.add(order);
+            }else if (null!=order.getBacktrack()&&order.getBacktrack().contains(key)){
+                orderList.add(order);
+            }else if (null!=order.getBugsta()&&order.getBugsta().contains(key)){
+                orderList.add(order);
+            }else if (null!=order.getId()&&order.getId().contains(key)){
+                orderList.add(order);
+            }else if (null!=order.getStatus()&&order.getStatus().contains(key)){
+                orderList.add(order);
+            }else if (null!=order.getUserid()&&order.getUserid().contains(key)){
+                orderList.add(order);
+            }
+        }
+        return orderList;
     }
 }

@@ -18,7 +18,6 @@ public class User {
     private int level;
     private int clothcub;
     private int follwer;
-    private int like;
     private String province;
     private String city;
     private String district;
@@ -146,16 +145,6 @@ public class User {
     }
 
     @Basic
-    @Column(name = "like")
-    public int getLike() {
-        return like;
-    }
-
-    public void setLike(int like) {
-        this.like = like;
-    }
-
-    @Basic
     @Column(name = "province")
     public String getProvince() {
         return province;
@@ -215,7 +204,6 @@ public class User {
         if (level != user.level) return false;
         if (clothcub != user.clothcub) return false;
         if (follwer != user.follwer) return false;
-        if (like != user.like) return false;
         if (id != null ? !id.equals(user.id) : user.id != null) return false;
         if (pwd != null ? !pwd.equals(user.pwd) : user.pwd != null) return false;
         if (status != null ? !status.equals(user.status) : user.status != null) return false;
@@ -248,7 +236,6 @@ public class User {
         result = 31 * result + level;
         result = 31 * result + clothcub;
         result = 31 * result + follwer;
-        result = 31 * result + like;
         result = 31 * result + (province != null ? province.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (district != null ? district.hashCode() : 0);

@@ -64,12 +64,18 @@ public interface ClothDao extends JpaRepository<Cloth,Long> {
 
     List<Cloth> findByTimeAfterOrderByTimeDesc(java.sql.Timestamp time);
 
+    @Transactional
+    @Query(value = "SELECT * from cloth_info where name LIKE ?1 OR brand LIKE ?1 OR color LIKE ?1 OR part LIKE ?1 OR season=?1 or scenes LIKE ?1 OR style LIKE ?1", nativeQuery = true)
+    @Modifying
     List<Cloth> findByNameLikeOrBrandLikeOrColorLikeOrScenesLikeOrPartLikeOrStyleLike(String key);
 
     Page<Cloth> findByNameLikeOrBrandLikeOrColorLikeOrScenesLikeOrPartLikeOrStyleLike(String key,Pageable pageable);
 
     List<Cloth> findByColcntIsGreaterThanEqualOrderByColcntDesc(int cnt);
 
+    @Transactional
+    @Query(value = "SELECT * from cloth_info where scenes=?1 OR style=?1 OR color=?1 OR part=?1 OR season=?1 or cloth_info.size=?1", nativeQuery = true)
+    @Modifying
     List<Cloth> findByScenesOrSizeOrStyleOrColorOrPartOrSeason(String tag);
 
     List<Cloth> findByTimeAfter(java.sql.Timestamp time);

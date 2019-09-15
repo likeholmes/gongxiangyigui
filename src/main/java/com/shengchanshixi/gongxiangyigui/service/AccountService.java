@@ -32,4 +32,6 @@ public interface AccountService {
     User update(User user);
 
     void delete(String id);
+
+    User openVip(User user,int level);
 }

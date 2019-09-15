@@ -26,10 +26,6 @@ public interface ClothManageService {
 
     Page<Cloth> findByCondition(List<Tag> tags,Pageable pageable);
 
-    List<Cloth> findByCondition(List<Tag> tags, Brand brand);
-
-    Page<Cloth> findByCondition(List<Tag> tags, Brand brand,Pageable pageable);
-
     List<Cloth> findBySearch(String key);
 
     Page<Cloth> findBySearch(String key,Pageable pageable);

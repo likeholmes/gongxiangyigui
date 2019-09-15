@@ -4,6 +4,7 @@ import com.shengchanshixi.gongxiangyigui.dao.AdminDao;
 import com.shengchanshixi.gongxiangyigui.dao.ClothDao;
 import com.shengchanshixi.gongxiangyigui.entity.Admin;
 import com.shengchanshixi.gongxiangyigui.entity.Cloth;
+import com.shengchanshixi.gongxiangyigui.service.AccountService;
 import com.shengchanshixi.gongxiangyigui.service.ClothManageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,12 +17,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class GongxiangyiguiApplicationTests {
 
 	@Autowired
-	AdminDao adminDao;
+	private AdminDao adminDao;
 	@Autowired
-	ClothManageService clothManageService;
+	private ClothManageService clothManageService;
+	@Autowired
+	private AccountService accountService;
 	
 	@Test
 	public void contextLoads() {
+	}
+
+	@Test
+	public void testLockUser(){
+		System.out.println(accountService.findById("wang"));
+		accountService.lockAccount("wang");
 	}
 
 	@Test
@@ -46,12 +55,14 @@ public class GongxiangyiguiApplicationTests {
 		//cloth.setId(5);
 		//clothManageService.update(cloth);
 		//System.out.println(clothManageService.findByNameList("时尚"));
-		for (Cloth c:clothManageService.findByNameList("时尚")
+		for (Cloth c:clothManageService.findByName("时尚")
 			 ) {
 			System.out.print(c.getId()+" ");
 			System.out.println(c.getName());
 		}
 	}
+
+
 }
 
 

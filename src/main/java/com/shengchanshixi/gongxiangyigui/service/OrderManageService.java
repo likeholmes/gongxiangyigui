@@ -12,6 +12,8 @@ public interface OrderManageService{
 
     Page<Order> findAll(Pageable pageable);
 
+    Order findById(String id);
+
     Page<Order> findByUserid(String userid,Pageable pageable);
 
     Page<Order> findForBugOrder(Pageable pageable);
@@ -45,6 +47,8 @@ public interface OrderManageService{
     Order dealBackOrder(String id);
 
     Order add(Order order);
+
+    List<Order> searchByKey(String key,List<Order> orders);
 
     //退款
 

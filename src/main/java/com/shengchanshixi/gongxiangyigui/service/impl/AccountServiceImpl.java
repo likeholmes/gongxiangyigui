@@ -102,6 +102,7 @@ public class AccountServiceImpl implements AccountService {
         User user=findById(id);
         if(null==user)
             return null;
+        System.out.println(user.toString());
         user.setStatus("冻结");
         return userDao.save(user);
     }
@@ -113,6 +114,16 @@ public class AccountServiceImpl implements AccountService {
         if(null==user)
             return null;
         user.setStatus("正常");
+        return userDao.save(user);
+    }
+
+    //开通会员
+
+    @Override
+    public User openVip(User user, int level) {
+        user.setLevel(level);
+        java.sql.Timestamp now=new java.sql.Timestamp(System.currentTimeMillis());
+        user.setViptime(now);
         return userDao.save(user);
     }
 }
