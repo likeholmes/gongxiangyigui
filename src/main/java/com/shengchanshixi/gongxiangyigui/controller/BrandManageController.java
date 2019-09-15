@@ -29,7 +29,7 @@ public class BrandManageController extends BaseController{
 
     @ApiOperation(value = "添加品牌",notes = "")
     @PostMapping(value = "/add")
-    public String addBrand(Brand brand){
+    public String addBrand(@RequestBody Brand brand){
         brandService.add(brand);
         return "redirect:/list";
     }

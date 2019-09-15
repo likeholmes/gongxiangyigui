@@ -26,7 +26,7 @@ import java.util.List;
  * 服装控制器
  */
 @Controller
-@RequestMapping(value = "/cloths")
+@RequestMapping(value = "/cloth")
 public class ClothManageController extends BaseController{
     @Autowired
     private ClothManageService clothManageService;
@@ -63,7 +63,7 @@ public class ClothManageController extends BaseController{
 
     @ApiOperation(value = "添加商品信息",notes = "添加后显示商品总页面")
     @PostMapping(value = "/add")
-    public String addCloth(Cloth cloth,@RequestParam(value = "files") MultipartFile[] files){
+    public String addCloth(@RequestBody Cloth cloth,@RequestBody MultipartFile[] files){
         try {
             if(null==clothManageService.add(cloth))
                 logger.warn("添加信息未成功");
@@ -153,7 +153,7 @@ public class ClothManageController extends BaseController{
 
     @ApiOperation(value = "修改商品信息",notes = "修改后返回商品页面")
     @PutMapping(value = "/{id}")
-    public String editCloth(@PathVariable("id")int id,Cloth cloth,List<ClothPic> clothPics){
+    public String editCloth(@PathVariable("id")int id,@RequestBody Cloth cloth){
         cloth.setId(id);
         clothManageService.update(cloth);
         //TODO:修改图片？？

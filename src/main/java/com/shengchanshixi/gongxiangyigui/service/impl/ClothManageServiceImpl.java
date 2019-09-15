@@ -59,6 +59,7 @@ public class ClothManageServiceImpl implements ClothManageService {
             old.setName(cloth.getName());
         }
         return clothDao.save(old);*/
+        System.out.println(cloth.toString());
         return clothDao.save(cloth);
     }
 
@@ -203,7 +204,7 @@ public class ClothManageServiceImpl implements ClothManageService {
     public Cloth findAfterTime(Long time) {
         java.sql.Timestamp now=new java.sql.Timestamp(time);
         List<Cloth> cloths=clothDao.findByTimeAfter(now);
-        if (null==cloths)
+        if (cloths==null||cloths.size()==0)
             return null;
         return cloths.get(0);
     }

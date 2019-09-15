@@ -9,10 +9,7 @@ import com.shengchanshixi.gongxiangyigui.service.ClothPicService;
 import com.shengchanshixi.gongxiangyigui.service.OrderManageService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -58,7 +55,7 @@ public class GoodsController extends BaseController{
     //TODO:还没有确定返回值类型
     @ApiOperation(value = "租赁商品",notes = "")
     @RequestMapping(value = "/rent/{id}")
-    public String rent(@PathVariable("id")int id, Order order){
+    public String rent(@PathVariable("id")int id,@RequestBody Order order){
         //TODO:生成订单
         try {
             //只有VIP能租赁衣服

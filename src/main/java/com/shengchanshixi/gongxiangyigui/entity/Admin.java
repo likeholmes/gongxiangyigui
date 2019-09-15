@@ -47,4 +47,15 @@ public class Admin {
         result = 31 * result + (pwd != null ? pwd.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"id\":\"")
+                .append(id).append('\"');
+        sb.append(",\"pwd\":\"")
+                .append(pwd).append('\"');
+        sb.append('}');
+        return sb.toString();
+    }
 }

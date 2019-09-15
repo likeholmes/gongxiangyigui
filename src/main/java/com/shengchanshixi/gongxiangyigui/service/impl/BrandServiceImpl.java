@@ -6,6 +6,8 @@ import com.shengchanshixi.gongxiangyigui.entity.Brand;
 import com.shengchanshixi.gongxiangyigui.entity.Cloth;
 import com.shengchanshixi.gongxiangyigui.service.BrandService;
 import com.sun.xml.internal.bind.v2.TODO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,8 @@ public class BrandServiceImpl implements BrandService {
 
     @Autowired
     private ClothDao clothDao;
+
+    private Logger logger= LoggerFactory.getLogger(this.getClass());
 
     //将所有商品的品牌栏改为无
     //删除该品牌
@@ -38,7 +42,8 @@ public class BrandServiceImpl implements BrandService {
     //新建品牌
     @Override
     public Brand add(Brand brand) {
-        if(brandDao.findByName(brand.getName())!=null){
+        if(brandDao.findByName(brand.getName()).size()>0){
+            logger.warn("发现有重复品牌");
             return null;
         }
         return brandDao.save(brand);

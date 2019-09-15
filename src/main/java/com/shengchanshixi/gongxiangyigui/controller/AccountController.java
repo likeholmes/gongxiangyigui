@@ -53,7 +53,9 @@ public class AccountController extends BaseController {
     public String getAccounts(Model model) {
         List<User> users=accountService.findAllList();
         model.addAttribute("users",users);
-        return null;
+        //用户首页
+        logger.info("将users渲染");
+        return "account/list";
     }
 
     @RequestMapping("")
