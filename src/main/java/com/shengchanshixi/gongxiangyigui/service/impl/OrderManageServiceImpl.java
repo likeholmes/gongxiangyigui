@@ -82,6 +82,7 @@ public class OrderManageServiceImpl implements OrderManageService {
     @Override
     public Order dealBugOrder(String id) {
         Order old=orderDao.findById(id);
+        System.out.println(old.toString());
         if (null==old)
             return null;
         old.setBugdeal("已处理");

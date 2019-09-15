@@ -243,4 +243,45 @@ public class User {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"id\":\"")
+                .append(id).append('\"');
+        sb.append(",\"pwd\":\"")
+                .append(pwd).append('\"');
+        sb.append(",\"status\":\"")
+                .append(status).append('\"');
+        sb.append(",\"name\":\"")
+                .append(name).append('\"');
+        sb.append(",\"idnum\":\"")
+                .append(idnum).append('\"');
+        sb.append(",\"phone\":\"")
+                .append(phone).append('\"');
+        sb.append(",\"sex\":\"")
+                .append(sex).append('\"');
+        sb.append(",\"regtime\":\"")
+                .append(regtime).append('\"');
+        sb.append(",\"viptime\":\"")
+                .append(viptime).append('\"');
+        sb.append(",\"level\":")
+                .append(level);
+        sb.append(",\"clothcub\":")
+                .append(clothcub);
+        sb.append(",\"follwer\":")
+                .append(follwer);
+        sb.append(",\"province\":\"")
+                .append(province).append('\"');
+        sb.append(",\"city\":\"")
+                .append(city).append('\"');
+        sb.append(",\"district\":\"")
+                .append(district).append('\"');
+        sb.append(",\"postcode\":\"")
+                .append(postcode).append('\"');
+        sb.append(",\"address\":\"")
+                .append(address).append('\"');
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -13,6 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -36,8 +39,9 @@ public class GoodsControllerTest {
     public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         User user =new User();
-        user.setId("hh");
+        user.setId("wang");
         user.setPwd("123");
+        user.setLevel(1);
         session = new MockHttpSession();
         session.setAttribute(Const.LOGIN_SESSION_KEY,user);
     }
@@ -71,7 +75,11 @@ public class GoodsControllerTest {
         Order order=new Order();
         order.setBacktime(2);
         order.setExpressid(1);
-        mockMvc.perform(put("/rent/13").contentType(MediaType.APPLICATION_JSON).content(order.toString())).session(session)
+        mockMvc.perform(put("/rent/13").contentType(MediaType.APPLICATION_JSON)
+                .content(order.toString())
+                .session(session)
+        )
+
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn().getResponse().getContentAsString();

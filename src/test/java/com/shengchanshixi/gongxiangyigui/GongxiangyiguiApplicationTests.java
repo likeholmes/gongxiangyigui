@@ -4,13 +4,17 @@ import com.shengchanshixi.gongxiangyigui.dao.AdminDao;
 import com.shengchanshixi.gongxiangyigui.dao.ClothDao;
 import com.shengchanshixi.gongxiangyigui.entity.Admin;
 import com.shengchanshixi.gongxiangyigui.entity.Cloth;
+import com.shengchanshixi.gongxiangyigui.entity.Order;
 import com.shengchanshixi.gongxiangyigui.service.AccountService;
 import com.shengchanshixi.gongxiangyigui.service.ClothManageService;
+import com.shengchanshixi.gongxiangyigui.service.OrderManageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,11 +26,21 @@ public class GongxiangyiguiApplicationTests {
 	private ClothManageService clothManageService;
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private OrderManageService orderManageService;
 	
 	@Test
 	public void contextLoads() {
 	}
 
+	@Test
+	public void findSendOrders(){
+		List<Order> orders=orderManageService.findForSendOrder();
+		for (Order order:orders
+			 ) {
+			System.out.println(order.toString());
+		}
+	}
 	@Test
 	public void testLockUser(){
 		System.out.println(accountService.findById("wang"));

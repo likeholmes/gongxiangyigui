@@ -54,7 +54,7 @@ public class GoodsController extends BaseController{
     //租赁页--->传递服装的信息和快递公司信息
     //TODO:还没有确定返回值类型
     @ApiOperation(value = "租赁商品",notes = "")
-    @RequestMapping(value = "/rent/{id}")
+    @PutMapping(value = "/rent/{id}")
     public String rent(@PathVariable("id")int id,@RequestBody Order order){
         //TODO:生成订单
         try {
@@ -63,6 +63,7 @@ public class GoodsController extends BaseController{
                 return "0";
             order.setUserid(getUserId());
             order.setClothid(id);
+            System.out.println(order.toString());
             if(null==orderManageService.add(order))
             {
                 logger.warn("未成功生成订单");

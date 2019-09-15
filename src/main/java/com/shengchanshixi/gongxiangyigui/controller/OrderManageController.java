@@ -74,6 +74,7 @@ public class OrderManageController extends BaseController{
     @ApiOperation(value = "填写物流信息",notes = "")
     @PutMapping(value = "/send/{id}")
     public String setSend(@PathVariable("id")String id,@RequestParam("trackid") String trackid){
+        System.out.println(trackid);
         orderManageService.dealSendOrder(id,trackid);
         return "redirect:/send/all";
     }
@@ -148,7 +149,7 @@ public class OrderManageController extends BaseController{
         return "redirect:/check/all";
     }
 
-    @ApiOperation(value = "搜索等待取回订单信息",notes = "")
+    @ApiOperation(value = "搜索等待审核订单信息",notes = "")
     @GetMapping(value = "/check")
     public String searchCheck(@RequestParam("key")String key,Model model){
         List<Order> orders=orderManageService.searchByKey(key,orderManageService.findForCheckOrder());
