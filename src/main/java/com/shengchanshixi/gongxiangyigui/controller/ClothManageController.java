@@ -40,9 +40,9 @@ public class ClothManageController extends BaseController{
     @Autowired
     private ClothPicService clothPicService;
 
-    @RequestMapping("/index")
+    @RequestMapping({"/","/index"})
     public String index(){
-        return "redirect:/list";
+        return "redirect:/cloth/list";
     }
 
     @Log(module = "服装管理",description = "删除服装")
@@ -50,7 +50,7 @@ public class ClothManageController extends BaseController{
     @DeleteMapping(value = "/{id}")
     public String delCloth(@PathVariable("id") int id){
         clothManageService.delete(id);
-        return "redirect:/list";
+        return "redirect:/cloth/list";
     }
 
     @ApiOperation(value = "获取全部商品信息",notes = "将所有商品信息显示列表")

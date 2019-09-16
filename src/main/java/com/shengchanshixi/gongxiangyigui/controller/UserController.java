@@ -1,5 +1,6 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.shengchanshixi.gongxiangyigui.entity.Cloth;
 import com.shengchanshixi.gongxiangyigui.entity.Collect;
 import com.shengchanshixi.gongxiangyigui.entity.Order;
@@ -66,7 +67,7 @@ public class UserController extends BaseController {
     public String login(@RequestBody User user,HttpServletResponse response) {
         System.out.println("有用户正在登录");
         try {
-
+            System.out.println(JSON.toJSONString(user));
             User loginUser = accountService.findById(user.getId());
             if (null == loginUser) {
                 System.out.println("没找到该用户");

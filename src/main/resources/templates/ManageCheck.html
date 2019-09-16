@@ -38,7 +38,7 @@
                                 <li><a href="Tag.html" th:href="@{/Tag}">标签管理</a></li>
                             </ul>
                         </li>
-                        <li><a href="Order.html" th:href="@{/Order}">管理订单</a></li>
+                        <li><a href="order.html" th:href="@{/order}">管理订单</a></li>
                         <li>
                             <a href="ManagePiece.html" th:href="@{/ManagePiece}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理派送<b class="caret"></b>
@@ -60,26 +60,24 @@
     <div class="col-md-10" style="background-color:#FFFFFF;box-shadow:
          inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
 
-<div>
-    <form th:action="@{/Order}" th:object="${order_list}" method="post">
+<div th:object="${orders}">
         <table class="table table-hover">
         <tr><th>id</th><th>商品ID</th><th>用户ID</th><th>状态</th><th>收货时间</th>
             <th>归还单号</th><th>审核</th>
         </tr>
-        <tr th:each="Order:${order_list}">
-            <td th:text="${Order.id}"></td>
-            <td th:text="${Order.clothid}"></td>
-            <td th:text="${Order.userid}"></td>
-            <td th:text="${Order.status}"></td>
-            <td th:text="${Order.recevtime}"></td>
-            <td th:text="${Order.backtrack}"></td>
+        <tr th:each="order:${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.clothid}"></td>
+            <td th:text="${order.userid}"></td>
+            <td th:text="${order.status}"></td>
+            <td th:text="${order.recevtime}"></td>
+            <td th:text="${order.backtrack}"></td>
             <td>
                 <a class="btn btn-primary" href="Modify_status.html" th:href="@{/Modify_status}">修改状态</a>
                 <a class="btn btn-primary" href="Return_deposit.html" th:href="@{/Return_deposit}">返还押金</a>
             </td>
         </tr>
         </table>
-    </form>
 </div>
     </div>
 </div>

@@ -41,6 +41,7 @@ public class SelectController extends BaseController {
     @ApiOperation(value = "搜索筛选",notes = "通过搜索栏筛选商品信息")
     @RequestMapping(value = "/search")
     public List<ClothPic> search(@RequestParam("key") String key){
+        System.out.println(key);
         return clothPicService.findByList(clothManageService.findBySearch(key));
     }
 
