@@ -32,6 +32,9 @@ public interface FeedbackDao extends JpaRepository<Feedback,Long>{
 
     Feedback findById(int id);
 
+    @Transactional
+    @Query(value = "select * from feedback_list where userid LIKE ?1 or sort LIKE ?1", nativeQuery = true)
+    @Modifying
     List<Feedback> findByUseridLikeOrSortLike(String key);
 
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>注册</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1 align="center">欢迎用户注册</h1>
+<div align="center">
+    <form action="#" th:action="@{/zhuce}" th:object="${admin_login}" method="post">
+        <table>
+    <tr><th>名字</th><td><input type="text" th:field="*{id}"/></td></tr>
+    <tr><th>密码</th><td><input type="password" th:field="*{pwd}"/></td></tr>
+    <tr><th>再次输入密码</th><td><input type="password" th:field="*{pwd2}"/></td></tr>
+            <tr><td colspan="2" align="center"><input type="submit"></td></tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

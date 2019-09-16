@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>返还押金</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1 align="center">返回押金</h1>
+<table>
+    <form th:action="@{/Return_deposit}" th:object="${order_list}" method="post">
+        <tr><th>返还押金</th><td><input type="text" th:field="*{staus}"></td></tr>
+        <tr><td colspan="2" align="center"><input type="submit"></td></tr>
+    </form>
+</table>
+</body>
+</html>

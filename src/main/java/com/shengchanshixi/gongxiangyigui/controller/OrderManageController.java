@@ -25,7 +25,7 @@ public class OrderManageController extends BaseController{
     @Autowired
     ClothPicService clothPicService;
 
-    @RequestMapping("")
+    @RequestMapping("/index")
     public String index(){
         return "redirect:/all";
     }
@@ -36,7 +36,7 @@ public class OrderManageController extends BaseController{
         List<Order> orders=orderManageService.findAll();
         model.addAttribute("orders",orders);
         //TODO:订单管理首页
-        return null;
+        return "Order";
     }
 
     @Log(module = "订单管理",description = "删除订单")

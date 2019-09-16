@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>修改衣服状态</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1 align="center">修改衣服状态</h1>
+<div align="center">
+    <form th:action="@{/Modify_status}" th:object="${order_list}" method="post">
+        <table>
+        <tr><th>修改状态</th><td><input type="text" th:field="*{staus}"></td></tr>
+        <input type="submit" />
+        </table>
+    </form>
+</div>
+</body>
+</html>

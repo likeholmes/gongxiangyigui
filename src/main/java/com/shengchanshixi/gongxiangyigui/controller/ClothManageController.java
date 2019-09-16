@@ -40,7 +40,7 @@ public class ClothManageController extends BaseController{
     @Autowired
     private ClothPicService clothPicService;
 
-    @RequestMapping("")
+    @RequestMapping("/index")
     public String index(){
         return "redirect:/list";
     }
@@ -59,7 +59,7 @@ public class ClothManageController extends BaseController{
         List<Cloth> cloths=clothManageService.findAll();
         model.addAttribute("cloths",cloths);
         //TODO:商品管理首页
-        return null;
+        return "Cloth";
     }
 
     @Log(module = "服装管理",description = "添加服装")

@@ -47,6 +47,8 @@ public class LogServiceImpl implements LogService {
             //获取Admin
             Admin admin=(Admin)request.getSession().getAttribute("login_admin");
             String ip = request.getHeader("X-Real-IP");
+            if (null==ip)
+                ip=request.getRemoteAddr();
             log.setAdminid(admin.getId());
             log.setModule(module);
             log.setIp(ip);

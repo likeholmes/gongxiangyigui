@@ -54,27 +54,27 @@ public class AdminController extends BaseController {
     @com.shengchanshixi.gongxiangyigui.util.logUtil.Log(module = "登录管理",description = "管理员登录")
     @ApiOperation(value = "管理员登录",notes = "")
     @PostMapping(value = "/login")
-    public String login(@RequestBody Admin admin, HttpServletResponse response) {
+    public String login(Admin admin) {
         try {
             Admin loginAdmin = adminService.findById(admin.getId());
             if (null == loginAdmin) {
                 //TODO:提示框，登陆失败
                 //TODO:登陆页面
                 logger.warn("没有该管理员");
-                return null;
+                return "helloHtml";
             } else if (!loginAdmin.getPwd().equals(admin.getPwd())) {
                 //TODO:提示框，登陆失败
                 //TODO:登陆页面
                 logger.warn("密码错误");
-                return null;
+                return "helloHtml";
             }
-            Cookie cookie = new Cookie("login_admin", cookieSign(loginAdmin.getId()));
-            cookie.setMaxAge(Const.COOKIE_TIMEOUT);
-            cookie.setPath("/");
-            response.addCookie(cookie);
+           // Cookie cookie = new Cookie("login_admin", cookieSign(loginAdmin.getId()));
+           // cookie.setMaxAge(Const.COOKIE_TIMEOUT);
+           // cookie.setPath("/");
+            //response.addCookie(cookie);
             getSession().setAttribute("login_admin", loginAdmin);
             //TODO:登录成功，跳转至首页
-            return null;
+            return "ManagerMain";
         } catch (Exception e) {
             logger.error("Admin login failed, ", e);
             //TODO:出错页面
@@ -84,17 +84,17 @@ public class AdminController extends BaseController {
 
     @com.shengchanshixi.gongxiangyigui.util.logUtil.Log(module = "登录管理",description = "管理员登出")
     @ApiOperation(value = "管理员登出",notes = "")
-    @PostMapping(value = "/logout")
+    @RequestMapping(value = "/logout")
     public String logout() {
         getSession().invalidate();
         //TODO:登录页面
-        return null;
+        return "helloHtml";
     }
 
-    @RequestMapping("")
+    @RequestMapping("/index")
     public String index(){
         //TODO:登录页面
-        return null;
+        return "helloHtml";
     }
 
     @ApiOperation(value = "查看所有日志",notes = "")

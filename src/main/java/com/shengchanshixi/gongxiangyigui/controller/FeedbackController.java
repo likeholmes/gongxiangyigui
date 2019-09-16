@@ -19,7 +19,7 @@ import java.util.List;
  * 反馈控制器
  */
 @Controller
-@RequestMapping("feedback")
+@RequestMapping("/feedback")
 public class FeedbackController extends BaseController{
 
     @Autowired
@@ -29,7 +29,7 @@ public class FeedbackController extends BaseController{
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    @RequestMapping("")
+    @RequestMapping("/index")
     public String index(){
         return "redirect:/list";
     }

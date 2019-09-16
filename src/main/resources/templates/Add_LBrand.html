@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>添加礼服品牌</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div align="center">
+<h1>添加礼服品牌</h1>
+<form th:action="@{/Add_CBrand}" th:object="${brand_list}" method="post">
+    <table>
+        <tr><th>礼服品牌名字</th><td><input type="text" name="name"></td>/tr>
+        <tr><td colspan="2" align="center"><input type="submit"></td></tr>
+    </table>
+</form>
+</div>
+</body>
+</html>

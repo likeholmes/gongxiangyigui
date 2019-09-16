@@ -62,7 +62,7 @@ public class AccountController extends BaseController {
         return "account/list";
     }
 
-    @RequestMapping("")
+    @RequestMapping("/index")
     public String index() {
         return "redirect:/list";
     }
