@@ -30,10 +30,18 @@ public interface FeedbackService {
 
     Feedback add(Feedback feedback);
 
+    Msg addMsg(Msg msg);
+
     Feedback update(Feedback feedback);
 
-    List<Msg> findByUseridList(String userid,Sort sort);
+    List<Msg> findByUseridList(String userid);
+
+    List<Msg> findMsgs(int id);
 
     Page<Msg> findByUseridPage(String userid,Pageable pageable);
+
+    Feedback findById(int id);
+
+    List<Feedback> findByKey(String key);
 
 }

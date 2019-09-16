@@ -2,8 +2,6 @@ package com.shengchanshixi.gongxiangyigui.controller;
 
 import com.shengchanshixi.gongxiangyigui.entity.Admin;
 import com.shengchanshixi.gongxiangyigui.entity.User;
-import com.shengchanshixi.gongxiangyigui.entity.result.ExceptionMsg;
-import com.shengchanshixi.gongxiangyigui.entity.result.Response;
 import com.shengchanshixi.gongxiangyigui.util.Const;
 import com.shengchanshixi.gongxiangyigui.util.Des3EncryptionUtil;
 import com.shengchanshixi.gongxiangyigui.util.MD5Util;
@@ -22,13 +20,6 @@ public class BaseController {
 
     protected Logger logger =  LoggerFactory.getLogger(this.getClass());
 
-    protected Response result(ExceptionMsg msg){
-        return new Response(msg);
-    }
-    protected Response result(){
-        return new Response();
-    }
-
     protected HttpServletRequest getRequest() {
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     }
@@ -38,11 +29,11 @@ public class BaseController {
     }
 
     protected Admin getAdmin() {
-        return (Admin) getSession().getAttribute(Const.LOGIN_SESSION_KEY);
+        return (Admin) getSession().getAttribute("login_admin");
     }
 
     protected User getUser() {
-        return (User) getSession().getAttribute(Const.LOGIN_SESSION_KEY);
+        return (User) getSession().getAttribute("login_user");
     }
 
     protected String getUserId() {

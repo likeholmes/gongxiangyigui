@@ -2,6 +2,7 @@ package com.shengchanshixi.gongxiangyigui.controller;
 
 import com.shengchanshixi.gongxiangyigui.entity.Tag;
 import com.shengchanshixi.gongxiangyigui.service.TagService;
+import com.shengchanshixi.gongxiangyigui.util.logUtil.Log;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class TagManageController extends BaseController{
     @Autowired
     private TagService tagService;
 
+    @Log(module = "标签管理",description = "删除标签")
     @ApiOperation(value = "删除标签",notes = "")
     @DeleteMapping(value = "/{tag}")
     public String delTag(@PathVariable("tag") String tag){
@@ -28,6 +30,7 @@ public class TagManageController extends BaseController{
         return "redirect:/list";
     }
 
+    @Log(module = "标签管理",description = "删除标签")
     @ApiOperation(value = "新建标签",notes = "")
     @PostMapping(value = "/add")
     public String addTag(@RequestParam("sort") String sort,@RequestParam("tag") String tag){

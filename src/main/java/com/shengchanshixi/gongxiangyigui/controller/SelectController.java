@@ -10,7 +10,9 @@ import com.shengchanshixi.gongxiangyigui.service.ClothPicService;
 import com.shengchanshixi.gongxiangyigui.service.TagService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,8 +39,8 @@ public class SelectController extends BaseController {
     BrandService brandService;
 
     @ApiOperation(value = "搜索筛选",notes = "通过搜索栏筛选商品信息")
-    @RequestMapping(value = "/key")
-    public List<ClothPic> search(String key){
+    @RequestMapping(value = "/search")
+    public List<ClothPic> search(@RequestParam("key") String key){
         return clothPicService.findByList(clothManageService.findBySearch(key));
     }
 
@@ -57,7 +59,7 @@ public class SelectController extends BaseController {
 
     @ApiOperation(value = "全部筛选",notes = "通过设置条件筛选商品信息")
     @RequestMapping(value = "/term")
-    public List<ClothPic> searchBytags(List<Tag> tags){
+    public List<ClothPic> searchBytags(@RequestBody List<Tag> tags){
         return clothPicService.findByList(clothManageService.findByConditon(tags));
     }
 

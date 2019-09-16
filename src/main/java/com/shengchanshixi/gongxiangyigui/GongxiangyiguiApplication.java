@@ -16,5 +16,4 @@ public class GongxiangyiguiApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		SpringApplication.run(GongxiangyiguiApplication.class, args);
 	}
-
 }

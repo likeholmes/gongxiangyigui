@@ -3,7 +3,6 @@ package com.shengchanshixi.gongxiangyigui.controller;
 import com.shengchanshixi.gongxiangyigui.entity.Cloth;
 import com.shengchanshixi.gongxiangyigui.entity.ClothPic;
 import com.shengchanshixi.gongxiangyigui.entity.Order;
-import com.shengchanshixi.gongxiangyigui.entity.result.Response;
 import com.shengchanshixi.gongxiangyigui.service.ClothManageService;
 import com.shengchanshixi.gongxiangyigui.service.ClothPicService;
 import com.shengchanshixi.gongxiangyigui.service.OrderManageService;

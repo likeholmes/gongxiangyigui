@@ -4,9 +4,6 @@ import com.shengchanshixi.gongxiangyigui.entity.Cloth;
 import com.shengchanshixi.gongxiangyigui.entity.Collect;
 import com.shengchanshixi.gongxiangyigui.entity.Order;
 import com.shengchanshixi.gongxiangyigui.entity.User;
-import com.shengchanshixi.gongxiangyigui.entity.result.ExceptionMsg;
-import com.shengchanshixi.gongxiangyigui.entity.result.Response;
-import com.shengchanshixi.gongxiangyigui.entity.result.ResponseData;
 import com.shengchanshixi.gongxiangyigui.service.AccountService;
 import com.shengchanshixi.gongxiangyigui.service.ClothManageService;
 import com.shengchanshixi.gongxiangyigui.service.CollectService;
@@ -66,7 +63,7 @@ public class UserController extends BaseController {
         }
     }*/
     @PostMapping(value = "/login")
-    public String login(@RequestBody User user) {
+    public String login(@RequestBody User user,HttpServletResponse response) {
         System.out.println("有用户正在登录");
         try {
 
@@ -77,6 +74,11 @@ public class UserController extends BaseController {
             } else if (!loginUser.getPwd().equals(user.getPwd())) {
                 return "0";
             }
+            Cookie cookie = new Cookie("login_user", cookieSign(loginUser.getId().toString()));
+            cookie.setMaxAge(Const.COOKIE_TIMEOUT);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            getSession().setAttribute("login_user", loginUser);
             return "1";
         } catch (Exception e) {
             // TODO: handle exception
@@ -88,7 +90,7 @@ public class UserController extends BaseController {
     //TODO:返回值类型
     @ApiOperation(value = "用户注册",notes = "")
     @PostMapping(value = "/regist")
-    public String create(User user) {
+    public String create(@RequestBody User user) {
         try {
             User registerUser=accountService.findById(user.getId());
             if (null!=registerUser)
@@ -120,7 +122,7 @@ public class UserController extends BaseController {
     //TODO:返回值不确定
     @ApiOperation(value = "开通会员",notes = "更改会员状态")
     @RequestMapping(value = "/vip")
-    public String vip(int level)
+    public String vip(@RequestParam("level") int level)
     {
         try {
             User user=getUser();
@@ -140,7 +142,7 @@ public class UserController extends BaseController {
             collectService.add(getUserId(),id);
             return "1";
         }catch (Exception e){
-            logger.error("开通会员错误");
+            logger.error("收藏错误");
             return "0";
         }
     }

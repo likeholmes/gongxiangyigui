@@ -30,4 +30,8 @@ public interface FeedbackDao extends JpaRepository<Feedback,Long>{
 
     List<Feedback> findBySort(String sort);
 
+    Feedback findById(int id);
+
+    List<Feedback> findByUseridLikeOrSortLike(String key);
+
 }

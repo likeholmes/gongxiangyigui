@@ -79,7 +79,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     //从上到下显示从旧到新
     @Override
-    public List<Msg> findByUseridList(String userid, Sort sort) {
+    public List<Msg> findByUseridList(String userid) {
         return msgDao.findByUseridOrderByTimeAsc(userid);
     }
 
@@ -95,5 +95,26 @@ public class FeedbackServiceImpl implements FeedbackService {
              ) {
             delete(feedback.getId());
         }
+    }
+
+    @Override
+    public Feedback findById(int id) {
+        return feedbackDao.findById(id);
+    }
+
+    @Override
+    public List<Feedback> findByKey(String key) {
+        return feedbackDao.findByUseridLikeOrSortLike("%"+key+"%");
+    }
+
+    @Override
+    public List<Msg> findMsgs(int id) {
+        return msgDao.findByFeedbackid(id);
+    }
+
+    @Override
+    public Msg addMsg(Msg msg) {
+        msg.setTime(new java.sql.Timestamp(System.currentTimeMillis()));
+        return msgDao.save(msg);
     }
 }

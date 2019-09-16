@@ -10,6 +10,7 @@ public class Msg {
     private int feedbackid;
     private Timestamp time;
     private String userid;
+    private String message;
 
     @Id
     @Column(name = "id")
@@ -51,6 +52,16 @@ public class Msg {
         this.userid = userid;
     }
 
+    @Basic
+    @Column(name = "message")
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,6 +73,7 @@ public class Msg {
         if (feedbackid != msg.feedbackid) return false;
         if (time != null ? !time.equals(msg.time) : msg.time != null) return false;
         if (userid != null ? !userid.equals(msg.userid) : msg.userid != null) return false;
+        if (message != null ? !message.equals(msg.message) : msg.message != null) return false;
 
         return true;
     }
@@ -72,6 +84,7 @@ public class Msg {
         result = 31 * result + feedbackid;
         result = 31 * result + (time != null ? time.hashCode() : 0);
         result = 31 * result + (userid != null ? userid.hashCode() : 0);
+        result = 31 * result + (message != null ? message.hashCode() : 0);
         return result;
     }
 }

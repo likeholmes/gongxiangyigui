@@ -28,7 +28,7 @@ public class Const {
 
     //待修改
     @Autowired(required = true)
-    public void setBasePath(@Value("${favorites.base.path}")String basePath) {
+    public void setBasePath(@Value("${gongxiangyigui.base.path}")String basePath) {
         Const.BASE_PATH = basePath;
     }
 

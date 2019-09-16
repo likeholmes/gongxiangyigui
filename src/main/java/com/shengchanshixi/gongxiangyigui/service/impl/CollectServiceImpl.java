@@ -94,7 +94,7 @@ public class CollectServiceImpl implements CollectService {
         //该商品的标签被收藏数+1
         collect(clothid);
 
-        return collect;
+        return collectDao.save(collect);
     }
 
     @Override

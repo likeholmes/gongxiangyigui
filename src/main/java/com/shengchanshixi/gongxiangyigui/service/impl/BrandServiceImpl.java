@@ -5,6 +5,7 @@ import com.shengchanshixi.gongxiangyigui.dao.ClothDao;
 import com.shengchanshixi.gongxiangyigui.entity.Brand;
 import com.shengchanshixi.gongxiangyigui.entity.Cloth;
 import com.shengchanshixi.gongxiangyigui.service.BrandService;
+import com.shengchanshixi.gongxiangyigui.util.logUtil.Log;
 import com.sun.xml.internal.bind.v2.TODO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ public class BrandServiceImpl implements BrandService {
     private ClothDao clothDao;
 
     private Logger logger= LoggerFactory.getLogger(this.getClass());
+
 
     //将所有商品的品牌栏改为无
     //删除该品牌

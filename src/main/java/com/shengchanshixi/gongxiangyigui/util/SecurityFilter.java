@@ -29,12 +29,10 @@ public class SecurityFilter implements Filter {
     @Override
     public void init(FilterConfig arg0) throws ServletException {
         // TODO Auto-generated method stub
-        GreenUrlSet.add("/user");
-        GreenUrlSet.add("/goods");
+        GreenUrlSet.add("/user/login");
+        GreenUrlSet.add("/user/regist");
         GreenUrlSet.add("/index");
         GreenUrlSet.add("/login");
-        GreenUrlSet.add("/recom");
-        GreenUrlSet.add("/select");
     }
 
     @Override
@@ -43,9 +41,9 @@ public class SecurityFilter implements Filter {
         // TODO Auto-generated method stub
         HttpServletRequest request = (HttpServletRequest) srequest;
         String uri = request.getRequestURI();
-        if (request.getSession().getAttribute(Const.LOGIN_SESSION_KEY) == null) {
+        if (request.getSession().getAttribute("login_admin")==null) {
             Cookie[] cookies = request.getCookies();
-            if (containsSuffix(uri)  || GreenUrlSet.contains(uri) || containsKey(uri)) {
+            if (containsSuffix(uri)  || GreenUrlSet.contains(uri)) {
                 logger.debug("don't check  url , " + request.getRequestURI());
                 filterChain.doFilter(srequest, sresponse);
                 return;
@@ -53,7 +51,8 @@ public class SecurityFilter implements Filter {
                 boolean flag = true;
                 for (int i = 0; i < cookies.length; i++) {
                     Cookie cookie = cookies[i];
-                    if (cookie.getName().equals(Const.LOGIN_SESSION_KEY)) {
+                    String html = "";
+                    if (cookie.getName().equals("login_admin")) {
                         if(StringUtils.isNotBlank(cookie.getValue())){
                             flag = false;
                         }else{
@@ -61,48 +60,38 @@ public class SecurityFilter implements Filter {
                         }
                         String adminId = getAdminId(cookie.getValue());
                         Admin admin = adminService.findById(adminId);
-                        String html = "";
                         if(null == admin){
                             html = "<script type=\"text/javascript\">window.location.href=\"_BP_login\"</script>";
                         }else{
-                            logger.info("userId :" + admin.getId());
-                            request.getSession().setAttribute(Const.LOGIN_SESSION_KEY, admin);
-                            String referer = this.getRef(request);
-                            if(referer.indexOf("/collect?") >= 0 || referer.indexOf("/lookAround") >= 0){
-                                filterChain.doFilter(srequest, sresponse);
-                                return;
-                            }else{
-                                html = "<script type=\"text/javascript\">window.location.href=\"_BP_\"</script>";
-                            }
+                            logger.info("amdinId :" + admin.getId());
+                            request.getSession().setAttribute("login_admin", admin);
+                            //String referer = this.getRef(request);
+                            filterChain.doFilter(srequest, sresponse);
+                            return;
                         }
-                        html = html.replace("_BP_", Const.BASE_PATH);
-                        sresponse.getWriter().write(html);
-                        /**
-                         * HttpServletResponse response = (HttpServletResponse) sresponse;
-                         response.sendRedirect("/");
-                         */
                     }
+                    html = html.replace("_BP_", Const.BASE_PATH);
+                    sresponse.getWriter().write(html);
                 }
-
                 //跳转到登陆页面
                 String referer = this.getRef(request);
                 logger.debug("security filter, deney, " + request.getRequestURI());
                 String html = "";
-                if(referer.contains("/collect?") || referer.contains("/lookAround")){
-                    html = "<script type=\"text/javascript\">window.location.href=\"_BP_login\"</script>";
-                }else{
-                    html = "<script type=\"text/javascript\">window.location.href=\"_BP_index\"</script>";
-                }
-                    html = html.replace("_BP_", Const.BASE_PATH);
-                    sresponse.getWriter().write(html);
-                }
-
+                html = "<script type=\"text/javascript\">window.location.href=\"_BP_login\"</script>";
+                html = html.replace("_BP_", Const.BASE_PATH);
+                sresponse.getWriter().write(html);
+            }
+            //跳转到登陆页面
+            String referer = this.getRef(request);
+            logger.debug("security filter, deney, " + request.getRequestURI());
+            String html = "";
+            html = "<script type=\"text/javascript\">window.location.href=\"_BP_login\"</script>";
+            html = html.replace("_BP_", Const.BASE_PATH);
+            sresponse.getWriter().write(html);
         }else{
             filterChain.doFilter(srequest, sresponse);
         }
     }
-
-
 
     /**
      * @param url
@@ -128,33 +117,6 @@ public class SecurityFilter implements Filter {
             return false;
         }
     }
-
-    /**
-     * @param url
-     * @return
-     * @author neo
-     * @date 2016-5-4
-     */
-    private boolean containsKey(String url) {
-
-        if (url.contains("/media/")
-                || url.contains("/login")||url.contains("/user/login")
-                || url.contains("/register")||url.contains("/user/regist")||url.contains("/index")
-                || url.contains("/forgotPassword")||url.contains("/user/sendForgotPasswordEmail")
-                || url.contains("/newPassword")||url.contains("/user/setNewPassword")
-                || (url.contains("/collector") && !url.contains("/collect/detail/"))
-                || url.contains("/collect/standard/")||url.contains("/collect/simple/")
-                || url.contains("/user")||url.contains("/favorites")||url.contains("/comment")
-                || url.contains("/lookAround")
-                || url.startsWith("/user/")
-                || url.startsWith("/feedback")
-                || url.startsWith("/standard/")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 
 
     @Override
@@ -199,4 +161,5 @@ public class SecurityFilter implements Filter {
         }
         return null;
     }
+
 }

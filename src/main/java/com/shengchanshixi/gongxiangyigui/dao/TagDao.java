@@ -11,7 +11,7 @@ import java.util.List;
 public interface TagDao extends JpaRepository<Tag,Long> {
 
     @Transactional
-    @Query(value = "delete from sort_tag where id=?1 ", nativeQuery = true)
+    @Query(value = "delete from sort_tag where tag=?1 ", nativeQuery = true)
     @Modifying
     void deleteByTag(String tag);
 

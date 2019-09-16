@@ -16,6 +16,8 @@ public interface MsgDao extends JpaRepository<Msg,Long>{
 
     List<Msg> findByUseridOrderByTimeAsc(String userid);
 
+    List<Msg> findByFeedbackid(int feedbackid);
+
     @Transactional
     @Query(value = "delete from user_msg where userid=?1 ", nativeQuery = true)
     @Modifying

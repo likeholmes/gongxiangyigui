@@ -5,6 +5,7 @@ import com.shengchanshixi.gongxiangyigui.entity.ClothPic;
 import com.shengchanshixi.gongxiangyigui.entity.Order;
 import com.shengchanshixi.gongxiangyigui.service.ClothPicService;
 import com.shengchanshixi.gongxiangyigui.service.OrderManageService;
+import com.shengchanshixi.gongxiangyigui.util.logUtil.Log;
 import io.swagger.annotations.ApiOperation;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class OrderManageController extends BaseController{
         return null;
     }
 
+    @Log(module = "订单管理",description = "删除订单")
     @ApiOperation(value = "删除订单",notes = "")
     @DeleteMapping(value = "/{id}")
     public String delOrder(@PathVariable("id")String id){
@@ -55,6 +57,7 @@ public class OrderManageController extends BaseController{
         return null;
     }
 
+    @Log(module = "订单管理",description = "处理异常订单")
     @ApiOperation(value = "处理异常订单",notes = "")
     @PutMapping(value = "/{id}")
     public String dealOrder(@PathVariable("id")String id){
@@ -71,6 +74,7 @@ public class OrderManageController extends BaseController{
         return null;
     }
 
+    @Log(module = "订单管理",description = "处理待发货订单")
     @ApiOperation(value = "填写物流信息",notes = "")
     @PutMapping(value = "/send/{id}")
     public String setSend(@PathVariable("id")String id,@RequestParam("trackid") String trackid){
@@ -88,6 +92,7 @@ public class OrderManageController extends BaseController{
         return null;
     }
 
+    @Log(module = "订单管理",description = "处理待取件订单")
     @ApiOperation(value = "确认已取件",notes = "")
     @PutMapping(value = "/back/{id}")
     public String confirmOk(@PathVariable("id")String id){
@@ -131,6 +136,7 @@ public class OrderManageController extends BaseController{
         return null;
     }
 
+    @Log(module = "订单管理",description = "处理待审核订单")
     @ApiOperation(value = "等待审核的订单",notes = "")
     @GetMapping(value = "/check/{id}")
     public String checkOrder(@PathVariable("id")String id,@RequestParam("deal")String deal){

@@ -2,6 +2,7 @@ package com.shengchanshixi.gongxiangyigui.controller;
 
 import com.shengchanshixi.gongxiangyigui.entity.User;
 import com.shengchanshixi.gongxiangyigui.service.AccountService;
+import com.shengchanshixi.gongxiangyigui.util.logUtil.Log;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ public class AccountController extends BaseController {
     @Autowired
     private AccountService accountService;
 
+
+    @Log(module = "会员管理",description = "冻结用户")
     @ApiOperation(value = "冻结账户", notes = "")
     @RequestMapping(value = "/lock/{id}")
     public String lock(@PathVariable("id") String id) {
@@ -32,6 +35,7 @@ public class AccountController extends BaseController {
         return "redirect:/list";
     }
 
+    @Log(module = "会员管理",description = "解锁用户")
     @ApiOperation(value = "解冻账户", notes = "")
     @RequestMapping(value = "/unlock/{id}")
     public String unlock(@PathVariable("id") String id) {

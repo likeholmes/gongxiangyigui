@@ -1,11 +1,11 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
 import com.shengchanshixi.gongxiangyigui.entity.*;
-import com.shengchanshixi.gongxiangyigui.entity.result.Response;
 import com.shengchanshixi.gongxiangyigui.service.BrandService;
 import com.shengchanshixi.gongxiangyigui.service.ClothManageService;
 import com.shengchanshixi.gongxiangyigui.service.ClothPicService;
 import com.shengchanshixi.gongxiangyigui.service.TagService;
+import com.shengchanshixi.gongxiangyigui.util.logUtil.Log;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,6 +45,7 @@ public class ClothManageController extends BaseController{
         return "redirect:/list";
     }
 
+    @Log(module = "服装管理",description = "删除服装")
     @ApiOperation(value = "删除商品信息",notes = "删除商品信息后显示更新后的所有商品信息")
     @DeleteMapping(value = "/{id}")
     public String delCloth(@PathVariable("id") int id){
@@ -61,6 +62,7 @@ public class ClothManageController extends BaseController{
         return null;
     }
 
+    @Log(module = "服装管理",description = "添加服装")
     @ApiOperation(value = "添加商品信息",notes = "添加后显示商品总页面")
     @PostMapping(value = "/add")
     public String addCloth(@RequestBody Cloth cloth,@RequestBody MultipartFile[] files){
@@ -151,6 +153,7 @@ public class ClothManageController extends BaseController{
         return null;
     }
 
+    @Log(module = "服装管理",description = "修改服装")
     @ApiOperation(value = "修改商品信息",notes = "修改后返回商品页面")
     @PutMapping(value = "/{id}")
     public String editCloth(@PathVariable("id")int id,@RequestBody Cloth cloth){

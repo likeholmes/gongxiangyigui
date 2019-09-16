@@ -2,6 +2,7 @@ package com.shengchanshixi.gongxiangyigui.controller;
 
 import com.shengchanshixi.gongxiangyigui.entity.Admin;
 import com.shengchanshixi.gongxiangyigui.service.AdminService;
+import com.shengchanshixi.gongxiangyigui.service.LogService;
 import com.shengchanshixi.gongxiangyigui.util.Const;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class AdminController extends BaseController {
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private LogService logService;
     /*@ApiOperation(value = "管理员登录",notes = "")
     @PostMapping(value = "/login")
     public String login(Admin admin, HttpServletResponse response){
@@ -46,6 +51,7 @@ public class AdminController extends BaseController {
         }
     }*/
 
+    @com.shengchanshixi.gongxiangyigui.util.logUtil.Log(module = "登录管理",description = "管理员登录")
     @ApiOperation(value = "管理员登录",notes = "")
     @PostMapping(value = "/login")
     public String login(@RequestBody Admin admin, HttpServletResponse response) {
@@ -62,11 +68,11 @@ public class AdminController extends BaseController {
                 logger.warn("密码错误");
                 return null;
             }
-            Cookie cookie = new Cookie(Const.LOGIN_SESSION_KEY, cookieSign(loginAdmin.getId()));
+            Cookie cookie = new Cookie("login_admin", cookieSign(loginAdmin.getId()));
             cookie.setMaxAge(Const.COOKIE_TIMEOUT);
             cookie.setPath("/");
             response.addCookie(cookie);
-            getSession().setAttribute(Const.LOGIN_SESSION_KEY, loginAdmin);
+            getSession().setAttribute("login_admin", loginAdmin);
             //TODO:登录成功，跳转至首页
             return null;
         } catch (Exception e) {
@@ -75,7 +81,17 @@ public class AdminController extends BaseController {
             return null;
         }
     }
-        @RequestMapping("")
+
+    @com.shengchanshixi.gongxiangyigui.util.logUtil.Log(module = "登录管理",description = "管理员登出")
+    @ApiOperation(value = "管理员登出",notes = "")
+    @PostMapping(value = "/logout")
+    public String logout() {
+        getSession().invalidate();
+        //TODO:登录页面
+        return null;
+    }
+
+    @RequestMapping("")
     public String index(){
         //TODO:登录页面
         return null;
@@ -84,6 +100,9 @@ public class AdminController extends BaseController {
     @ApiOperation(value = "查看所有日志",notes = "")
     @GetMapping(value = "/log")
     public String getAllLog(Model model){
+        List<com.shengchanshixi.gongxiangyigui.entity.Log> logs=logService.findAll();
+        model.addAttribute("logs",logs);
+        //TODO:日志管理页面
         return null;
     }
 
