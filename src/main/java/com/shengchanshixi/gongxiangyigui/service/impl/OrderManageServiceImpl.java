@@ -150,16 +150,18 @@ public class OrderManageServiceImpl implements OrderManageService {
         return orderDao.save(old);
     }
 
+    //TODO:生成订单号有错
     @Override
     public Order add(Order order) {
         //没有安全保障
         Random random=new Random();
         String orderid;
-        do {
+        /*do {
             orderid=""+(random.nextInt(20)%10+1);
             for (int i=1;i<6;i++)
                 orderid+=random.nextInt(10);
-        }while (orderDao.findById(orderid)!=null);
+        }while (orderDao.findById(orderid)!=null);*/
+        orderid="1234";
         order.setId(orderid);
         java.sql.Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
         order.setOrdertime(now);

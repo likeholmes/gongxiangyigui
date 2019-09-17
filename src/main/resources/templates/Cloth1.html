@@ -184,7 +184,7 @@
                </tr>
              </thead>
              <tbody>
-                 <tr th:each="cloth,iterStat:${cloths}">
+                 <tr th:each="cloth:${cloths}">
                      <td th:text="${cloth.id}"></td>
                      <td th:text="${cloth.name}"></td>
                      <td th:text="${cloth.brand}"></td>
@@ -202,24 +202,13 @@
                      <td th:text="${cloth.colcnt}"></td>
                      <td th:text="${cloth.sort}"></td>
                      <td>
-
-                         <script th:inline="javascript">
-                             function Values(id) {
-                                 var cloths = [[${cloths}]];
-                                 $("#a").val(id);
-                                 $("#name").val(cloths[id].name);
-                                 $("#value").val(cloths[id].value);
-                                 $("#clothcub").val(cloths[id].clothcub);
-                             }
-                         </script>
-
-                         <button class="btn btn-primary" data-toggle="modal" data-target="#editModal" th:onclick="'javascript:Values('+${iterStat.index}+')'">
-                             <span class="glyphicon glyphicon-pencil"></span>
-                         </button>
                          <!--  <div>
                              <button type="button" class="btn btn-info" data-toggle="modal" onclick="return get_edit_info({cloth_info.id})" data-target="#addUserModal">编辑</button>
                         </div>-->
                         <div>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
                                 <!-- 模态框（Modal） -->
                                 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -233,36 +222,37 @@
                                                 </h2>
                                             </div>
                                             <div class="modal-body" align="center">
-                                                <form th:action="@{/cloth/}" method="put">
+
+                                                <form th:action="@{/cloth/(${cloth.id})}" th:object="${cloth}" method="put">
+
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">商品名称</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" class="form-control" name="name" id="name" >
+                                                            <input type="text" class="form-control" name="name"  th:value="${cloth.name}">
                                                         </div>
                                                     </div>
-                                                    <input type="text" class="form-control" name="a" id="a">
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">品牌</label>
                                                         <div class="col-sm-8" th:object="${brands}">
                                                             <select name="brand" id="brands" class="form-control">
-                                                                <option th:each="brand:${brands}" th:value="${brand.name}" th:text="${brand.name}"></option>
+                                                                <option th:each="brand:${brands}" th:selected="${brand.name} == ${cloth.brand}" th:value="${brand.name}" th:text="${brand.name}"></option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">价值</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" class="form-control" name="value"  id="value">
+                                                            <input type="text" class="form-control" name="value"  th:value="${cloth.value}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">状态</label>
                                                         <div id="clothsta" class="col-sm-8">
                                                             <div class="radio-inline">
-                                                                <label><input name="clothsta" type="radio" value="全新" /> 全新</label>
+                                                                <label><input name="clothsta" type="radio" th:checked="${clothsta} == ${cloth.clothsta}" value="全新" /> 全新</label>
                                                             </div>
                                                             <div class="radio-inline">
-                                                                <label><input name="clothsta" type="radio" value="二手" /> 二手</label>
+                                                                <label><input name="clothsta" type="radio" th:checked="${clothsta} == ${cloth.clothsta}" value="二手" /> 二手</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -270,10 +260,10 @@
                                                         <label class="col-sm-4 control-label">商品上架状态</label>
                                                         <div id="shelfsta" class="col-sm-8">
                                                             <div class="radio-inline">
-                                                                <label><input name="shelfsta" type="radio" value="上架" /> 上架</label>
+                                                                <label><input name="shelfsta" type="radio" th:checked="${shelfsta} == ${cloth.shelfsta}" value="上架" /> 上架</label>
                                                             </div>
                                                             <div class="radio-inline">
-                                                                <label><input name="shelfsta" type="radio" value="借走" /> 借走</label>
+                                                                <label><input name="shelfsta" type="radio" th:checked="${shelfsta} == ${cloth.shelfsta}" value="借走" /> 借走</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -281,7 +271,7 @@
                                                         <label class="col-sm-4 control-label">尺寸</label>
                                                         <div class="col-sm-8">
                                                             <select name="size" id="size" class="form-control" >
-                                                                <option th:each="size:${sizes}" th:value="${size.tag}" th:text="${size.tag}"></option>
+                                                                <option th:each="size:${sizes}" th:value="${size.tag}" th:selected="${size.tag} == ${cloth.size}" th:text="${size.tag}"></option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -289,21 +279,21 @@
                                                         <label class="col-sm-4 control-label">衣着部位</label>
                                                         <div class="col-sm-8">
                                                             <select name="part" id="part" class="form-control" >
-                                                                <option th:each="part:${parts}" th:value="${part.tag}" th:text="${part.tag}"></option>
+                                                                <option th:each="part:${parts}" th:value="${part.tag}" th:selected="${part.tag} == ${cloth.part}" th:text="${part.tag}"></option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">占用衣柜</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" class="form-control" name="clothcub"  id="clothcub">
+                                                            <input type="text" class="form-control" name="clothcub"  th:value="${cloth.clothcub}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">场合</label>
                                                         <div class="col-sm-8">
                                                             <select name="scenes" id="scenes" class="form-control" >
-                                                                <option th:each="scene:${scenes}" th:value="${scene.tag}" th:text="${scene.tag}"></option>
+                                                                <option th:each="scene:${scenes}" th:value="${scene.tag}" th:selected="${scene.tag} == ${cloth.scenes}" th:text="${scene.tag}"></option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -311,7 +301,7 @@
                                                         <label class="col-sm-4 control-label">季节</label>
                                                         <div class="col-sm-8">
                                                             <select name="season" id="season" class="form-control" >
-                                                                <option th:each="season:${seasons}" th:value="${season.tag}" th:text="${season.tag}"></option>
+                                                                <option th:each="season:${seasons}" th:value="${season.tag}" th:selected="${season.tag} == ${cloth.season}" th:text="${season.tag}"></option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -319,7 +309,7 @@
                                                         <label class="col-sm-4 control-label">颜色</label>
                                                         <div class="col-sm-8">
                                                             <select name="color" id="color" class="form-control">
-                                                                <option th:each="color:${colors}" th:value="${color.tag}" th:text="${color.tag}"></option>
+                                                                <option th:each="color:${colors}" th:value="${color.tag}" th:selected="${color.tag} == ${cloth.color}" th:text="${color.tag}"></option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -327,7 +317,7 @@
                                                         <label class="col-sm-4 control-label">风格</label>
                                                         <div class="col-sm-8">
                                                             <select name="style" id="style" class="form-control">
-                                                                <option th:each="style:${styles}" th:value="${style.tag}" th:text="${style.tag}"></option>
+                                                                <option th:each="style:${styles}" th:value="${style.tag}" th:selected="${style.tag} == ${cloth.style}" th:text="${style.tag}"></option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -335,10 +325,10 @@
                                                         <label class="col-sm-4 control-label">常礼服分类</label>
                                                         <div id="sort" class="col-sm-8">
                                                             <div class="radio-inline">
-                                                                <label><input name="sort" type="radio" value="常服" /> 常服</label>
+                                                                <label><input name="sort" type="radio" th:checked="${sort.tag} == ${cloth.sort}" value="常服" /> 常服</label>
                                                             </div>
                                                             <div class="radio-inline">
-                                                                <label><input name="sort" type="radio" value="礼服" /> 礼服</label>
+                                                                <label><input name="sort" type="radio" th:checked="${sort.tag} == ${cloth.sort}" value="礼服" /> 礼服</label>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -1,5 +1,6 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.shengchanshixi.gongxiangyigui.entity.*;
 import com.shengchanshixi.gongxiangyigui.service.BrandService;
 import com.shengchanshixi.gongxiangyigui.service.ClothManageService;
@@ -58,6 +59,20 @@ public class ClothManageController extends BaseController{
     public String getClothList(Model model){
         List<Cloth> cloths=clothManageService.findAll();
         model.addAttribute("cloths",cloths);
+        List<Tag> sizes=tagService.findBySort("尺寸");
+        model.addAttribute("sizes",sizes);
+        List<Tag> styles=tagService.findBySort("风格");
+        model.addAttribute("styles",styles);
+        List<Tag> scenes=tagService.findBySort("场景");
+        model.addAttribute("scenes",scenes);
+        List<Tag> colors=tagService.findBySort("颜色");
+        model.addAttribute("colors",colors);
+        List<Tag> parts=tagService.findBySort("部位");
+        model.addAttribute("parts",parts);
+        List<Tag> seasons=tagService.findBySort("季节");
+        model.addAttribute("seasons",seasons);
+        List<Brand> brands=brandService.findAllList();
+        model.addAttribute("brands",brands);
         //TODO:商品管理首页
         return "Cloth";
     }
@@ -65,7 +80,7 @@ public class ClothManageController extends BaseController{
     @Log(module = "服装管理",description = "添加服装")
     @ApiOperation(value = "添加商品信息",notes = "添加后显示商品总页面")
     @PostMapping(value = "/add")
-    public String addCloth(@RequestBody Cloth cloth,@RequestBody MultipartFile[] files){
+    public String addCloth(Cloth cloth,MultipartFile[] files){
         try {
             if(null==clothManageService.add(cloth))
                 logger.warn("添加信息未成功");
@@ -78,7 +93,7 @@ public class ClothManageController extends BaseController{
                     //TODO:图片未上传
                     if (files==null||files.length<1){
                         logger.warn("文件为空");
-                        return "redirect:/list";
+                        return "redirect:/cloth/list";
                     }
                     for (int i = 0; i < files.length; i++) {
                         MultipartFile uploadFile = files[i];
@@ -104,7 +119,7 @@ public class ClothManageController extends BaseController{
         }catch (Exception e){
             logger.error("添加失败");
         }
-        return "redirect:/list";
+        return "redirect:/cloth/list";
     }
 
     @ApiOperation(value = "去添加商品信息",notes = "跳转至添加信息页面")
@@ -125,7 +140,7 @@ public class ClothManageController extends BaseController{
         List<Brand> brands=brandService.findAllList();
         model.addAttribute("brands",brands);
         //TODO:添加页面
-        return null;
+        return "Cloth";
     }
 
     @ApiOperation(value = "去修改商品信息",notes = "跳转至修改信息页面")
@@ -156,11 +171,13 @@ public class ClothManageController extends BaseController{
     @Log(module = "服装管理",description = "修改服装")
     @ApiOperation(value = "修改商品信息",notes = "修改后返回商品页面")
     @PutMapping(value = "/{id}")
-    public String editCloth(@PathVariable("id")int id,@RequestBody Cloth cloth){
+    public String editCloth(@PathVariable("id")int id,Cloth cloth){
+        System.out.println("修改");
+        System.out.println(JSON.toJSON(cloth));
         cloth.setId(id);
         clothManageService.update(cloth);
         //TODO:修改图片？？
-        return "redirect:/list";
+        return "redirect:/cloth/list";
     }
 
     @ApiOperation(value = "获取商品信息",notes = "可以查看商品图片")

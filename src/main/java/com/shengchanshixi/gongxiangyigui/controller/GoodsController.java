@@ -1,14 +1,18 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.shengchanshixi.gongxiangyigui.entity.Cloth;
 import com.shengchanshixi.gongxiangyigui.entity.ClothPic;
 import com.shengchanshixi.gongxiangyigui.entity.Order;
+import com.shengchanshixi.gongxiangyigui.entity.User;
+import com.shengchanshixi.gongxiangyigui.service.AccountService;
 import com.shengchanshixi.gongxiangyigui.service.ClothManageService;
 import com.shengchanshixi.gongxiangyigui.service.ClothPicService;
 import com.shengchanshixi.gongxiangyigui.service.OrderManageService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.List;
 
@@ -27,6 +31,9 @@ public class GoodsController extends BaseController{
     @Autowired
     private OrderManageService orderManageService;
     //支付页
+
+    @Autowired
+    private AccountService accountService;
 
     @ApiOperation(value = "获取所有商品图片",notes = "显示所有的商品图片")
     @GetMapping(value = "/goods/all")
@@ -53,20 +60,30 @@ public class GoodsController extends BaseController{
     //租赁页--->传递服装的信息和快递公司信息
     //TODO:还没有确定返回值类型
     @ApiOperation(value = "租赁商品",notes = "")
-    @PutMapping(value = "/rent/{id}")
-    public String rent(@PathVariable("id")int id,@RequestBody Order order){
+    @RequestMapping(value = "/rent")
+    public String rent(@RequestParam("clothid") int clothid,@RequestParam("userid") String userid){
         //TODO:生成订单
+        System.out.println("test");
         try {
             //只有VIP能租赁衣服
-            if (getUser().getLevel()<=0)
-                return "0";
-            order.setUserid(getUserId());
-            order.setClothid(id);
-            System.out.println(order.toString());
+            System.out.println("租赁服装");
+            Order order=new Order();
+            User user=accountService.findById(userid);
+            order.setUserid(userid);
+            order.setClothid(clothid);
+            order.setPhone(user.getPhone());
+            order.setBugdeal("未处理");
+            order.setBacktime(7);
+            if (null==user.getAddress())
+                return "-1";
+            order.setAddress(user.getAddress());
+            if (user.getLevel()<=0)
+                return "-2";
+            System.out.println(JSON.toJSONString(order));
             if(null==orderManageService.add(order))
             {
                 logger.warn("未成功生成订单");
-                return "0";
+                return "-3";
             }
             return "1";
         }catch (Exception e){

@@ -124,6 +124,7 @@ public class AccountServiceImpl implements AccountService {
         user.setLevel(level);
         java.sql.Timestamp now=new java.sql.Timestamp(System.currentTimeMillis());
         user.setViptime(now);
+        System.out.println("test");
         return userDao.save(user);
     }
 }

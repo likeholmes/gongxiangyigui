@@ -11,6 +11,7 @@ public class Collect {
     private String shelfsta;
     private String clothsta;
     private int clothcub;
+    private double value;
 
     @Id
     @Column(name = "userid")
@@ -62,6 +63,16 @@ public class Collect {
         this.clothcub = clothcub;
     }
 
+    @Basic
+    @Column(name = "value")
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,6 +82,7 @@ public class Collect {
 
         if (clothid != collect.clothid) return false;
         if (clothcub != collect.clothcub) return false;
+        if (Double.compare(collect.value, value) != 0) return false;
         if (userid != null ? !userid.equals(collect.userid) : collect.userid != null) return false;
         if (shelfsta != null ? !shelfsta.equals(collect.shelfsta) : collect.shelfsta != null) return false;
         if (clothsta != null ? !clothsta.equals(collect.clothsta) : collect.clothsta != null) return false;
@@ -80,11 +92,15 @@ public class Collect {
 
     @Override
     public int hashCode() {
-        int result = userid != null ? userid.hashCode() : 0;
+        int result;
+        long temp;
+        result = userid != null ? userid.hashCode() : 0;
         result = 31 * result + clothid;
         result = 31 * result + (shelfsta != null ? shelfsta.hashCode() : 0);
         result = 31 * result + (clothsta != null ? clothsta.hashCode() : 0);
         result = 31 * result + clothcub;
+        temp = Double.doubleToLongBits(value);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 }

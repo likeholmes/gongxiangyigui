@@ -233,43 +233,4 @@ public class Cloth {
         result = 31 * result + (sort != null ? sort.hashCode() : 0);
         return result;
     }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"id\":")
-                .append(id);
-        sb.append(",\"name\":\"")
-                .append(name).append('\"');
-        sb.append(",\"brand\":\"")
-                .append(brand).append('\"');
-        sb.append(",\"value\":")
-                .append(value);
-        sb.append(",\"clothsta\":\"")
-                .append(clothsta).append('\"');
-        sb.append(",\"shelfsta\":\"")
-                .append(shelfsta).append('\"');
-        sb.append(",\"time\":\"")
-                .append(time).append('\"');
-        sb.append(",\"size\":\"")
-                .append(size).append('\"');
-        sb.append(",\"part\":\"")
-                .append(part).append('\"');
-        sb.append(",\"clothcub\":")
-                .append(clothcub);
-        sb.append(",\"scenes\":\"")
-                .append(scenes).append('\"');
-        sb.append(",\"season\":\"")
-                .append(season).append('\"');
-        sb.append(",\"color\":\"")
-                .append(color).append('\"');
-        sb.append(",\"style\":\"")
-                .append(style).append('\"');
-        sb.append(",\"colcnt\":")
-                .append(colcnt);
-        sb.append(",\"sort\":\"")
-                .append(sort).append('\"');
-        sb.append('}');
-        return sb.toString();
-    }
 }

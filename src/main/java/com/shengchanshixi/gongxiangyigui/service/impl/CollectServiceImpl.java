@@ -89,7 +89,7 @@ public class CollectServiceImpl implements CollectService {
         collect.setClothcub(cloth.getClothcub());
         collect.setClothsta(cloth.getClothsta());
         collect.setShelfsta(cloth.getShelfsta());
-
+        collect.setValue(cloth.getValue());
         //该商品被收藏数+1
         //该商品的标签被收藏数+1
         collect(clothid);
