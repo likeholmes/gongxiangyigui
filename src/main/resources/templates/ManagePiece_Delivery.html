@@ -29,13 +29,13 @@
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href= href="Cloth.html" th:href="@{/Cloth}" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href= href="Cloth.html" th:href="@{/cloth/list}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理衣服<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="Cloth.html" th:href="@{/Cloth}">服装管理</a></li>
-                                <li><a href="Brand.html" th:href="@{/Brand}">品牌管理</a></li>
-                                <li><a href="Tag.html" th:href="@{/Tag}">标签管理</a></li>
+                                <li><a href="Cloth.html" th:href="@{/cloth/list}">服装管理</a></li>
+                                <li><a href="Brand.html" th:href="@{/brand/list}">品牌管理</a></li>
+                                <li><a href="Tag.html" th:href="@{/tag/list}">标签管理</a></li>
                             </ul>
                         </li>
                         <li><a href="Order.html" th:href="@{/Order}">管理订单</a></li>
@@ -76,15 +76,64 @@
             </div>
         </nav>
 
-
         <div>
             <form th:action="@{/Order}" th:object="${order_list}" method="post">
-                <table align="center">
-                    <tr><th>快递单号</th><td><input type="text" th:field="*{trackid}"></td></tr>
-                    <tr><td colspan="2" align="center"><input type="submit"></td></tr>
-                </table>
-            </form>
-        </div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr><th>id</th><th>商品ID</th><th>用户ID</th><th>下单时间</th><th>管理</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="Order:${order_list}">
+                        <td th:text="${Order.id}"></td>
+                        <td th:text="${Order.clothid}"></td>
+                        <td th:text="${Order.userid}"></td>
+                        <td th:text="${Order.ordertime}"></td>
+                        <td>
+                                                <div>
+                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                    <!-- 模态框（Modal） -->
+                                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                                        &times;
+                                                                    </button>
+                                                                    <h2 class="modal-title" id="myModalLabel" align="center">
+                                                                        添加衣服
+                                                                    </h2>
+                                                                </div>
+                                                                <div class="modal-body" align="center">
+                                                                    <form th:action="@{/Order.html}" th:object="${order_list}" method="post">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 control-label">派送单号</label>
+                                                                            <div class="col-sm-8">
+                                                                                <input type="text" class="form-control" name="trackid"  placeholder="请输入派送单号">
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-primary">
+                                                                        填写物流信息
+                                                                    </button>
+                                                                </div>
+                                                            </div><!-- /.modal-content -->
+                                                        </div><!-- /.modal -->
+                                                    </div>
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
     </div>
 </div>
 

@@ -52,13 +52,15 @@ public class ClothManageServiceImpl implements ClothManageService {
     //TODO：可能需要更改
     @Override
     public Cloth update(Cloth cloth) {
-        /*Cloth old=clothDao.findById(cloth.getId());
-        //暂时只改了名字
+        Cloth old=clothDao.findById(cloth.getId());
+        cloth.setTime(old.getTime());
+        /*
         if(cloth.getName()!=null&&!cloth.getName().equals(old.getName()))
         {
             old.setName(cloth.getName());
         }
         return clothDao.save(old);*/
+
         System.out.println(cloth.toString());
         return clothDao.save(cloth);
     }

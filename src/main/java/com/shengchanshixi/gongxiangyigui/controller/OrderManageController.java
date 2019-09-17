@@ -25,9 +25,9 @@ public class OrderManageController extends BaseController{
     @Autowired
     ClothPicService clothPicService;
 
-    @RequestMapping("/index")
+    @RequestMapping({"/","/index"})
     public String index(){
-        return "redirect:/all";
+        return "redirect:/order/all";
     }
 
     @ApiOperation(value = "显示全部订单",notes = "")
@@ -39,10 +39,19 @@ public class OrderManageController extends BaseController{
         return "Order";
     }
 
+    @ApiOperation(value = "显示待处理订单",notes = "")
+    @GetMapping(value = "/deal/all")
+    public String getDealAll(Model model){
+        List<Order> orders=orderManageService.findForBugOrder();
+        model.addAttribute("orders",orders);
+        //TODO:订单管理首页
+        return "Order";
+    }
+
     @Log(module = "订单管理",description = "删除订单")
     @ApiOperation(value = "删除订单",notes = "")
-    @DeleteMapping(value = "/{id}")
-    public String delOrder(@PathVariable("id")String id){
+    @RequestMapping(value = "/del")
+    public String delOrder(@RequestParam("id")String id){
         return null;
     }
 
@@ -71,13 +80,13 @@ public class OrderManageController extends BaseController{
         List<Order> orders=orderManageService.findForSendOrder();
         model.addAttribute("orders",orders);
         //TODO:待发货订单首页
-        return null;
+        return "ManagePiece";
     }
 
     @Log(module = "订单管理",description = "处理待发货订单")
     @ApiOperation(value = "填写物流信息",notes = "")
-    @PutMapping(value = "/send/{id}")
-    public String setSend(@PathVariable("id")String id,@RequestParam("trackid") String trackid){
+    @PostMapping(value = "/send")
+    public String setSend(@RequestParam("id")String id,@RequestParam("trackid") String trackid){
         System.out.println(trackid);
         orderManageService.dealSendOrder(id,trackid);
         return "redirect:/send/all";

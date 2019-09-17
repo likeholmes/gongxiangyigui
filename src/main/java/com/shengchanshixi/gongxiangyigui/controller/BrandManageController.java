@@ -23,18 +23,18 @@ public class BrandManageController extends BaseController{
 
     @Log(module = "品牌管理",description = "删除品牌")
     @ApiOperation(value = "删除品牌",notes = "")
-    @DeleteMapping(value = "/{id}")
-    public String delBrand(@PathVariable("id")int id){
+    @RequestMapping(value = "/del")
+    public String delBrand(@RequestParam("id")int id){
         brandService.delete(id);
-        return "redirect:/list";
+        return "redirect:/brand/list";
     }
 
     @Log(module = "品牌管理",description = "添加品牌")
     @ApiOperation(value = "添加品牌",notes = "")
     @PostMapping(value = "/add")
-    public String addBrand(@RequestBody Brand brand){
+    public String addBrand(Brand brand){
         brandService.add(brand);
-        return "redirect:/list";
+        return "redirect:/brand/list";
     }
 
 
@@ -44,11 +44,11 @@ public class BrandManageController extends BaseController{
         List<Brand> brands=brandService.findAllList();
         model.addAttribute("brands",brands);
         //TODO:品牌管理首页
-        return null;
+        return "Brand";
     }
 
-    @RequestMapping("")
+    @RequestMapping({"/","/index"})
     public String index(){
-        return "redirect:/list";
+        return "redirect:/brand/list";
     }
 }

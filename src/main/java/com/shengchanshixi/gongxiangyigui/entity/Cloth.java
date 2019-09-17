@@ -1,5 +1,7 @@
 package com.shengchanshixi.gongxiangyigui.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 

@@ -9,16 +9,21 @@ import com.shengchanshixi.gongxiangyigui.service.TagService;
 import com.shengchanshixi.gongxiangyigui.util.logUtil.Log;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +53,8 @@ public class ClothManageController extends BaseController{
 
     @Log(module = "服装管理",description = "删除服装")
     @ApiOperation(value = "删除商品信息",notes = "删除商品信息后显示更新后的所有商品信息")
-    @DeleteMapping(value = "/{id}")
-    public String delCloth(@PathVariable("id") int id){
+    @RequestMapping(value = "/del")
+    public String delCloth(@RequestParam("id") int id){
         clothManageService.delete(id);
         return "redirect:/cloth/list";
     }
@@ -122,27 +127,6 @@ public class ClothManageController extends BaseController{
         return "redirect:/cloth/list";
     }
 
-    @ApiOperation(value = "去添加商品信息",notes = "跳转至添加信息页面")
-    @RequestMapping(value = "/toAdd")
-    public String toAdd(Model model){
-        List<Tag> sizes=tagService.findBySort("尺寸");
-        model.addAttribute("sizes",sizes);
-        List<Tag> styles=tagService.findBySort("风格");
-        model.addAttribute("styles",styles);
-        List<Tag> scenes=tagService.findBySort("场景");
-        model.addAttribute("scenes",scenes);
-        List<Tag> colors=tagService.findBySort("颜色");
-        model.addAttribute("colors",colors);
-        List<Tag> parts=tagService.findBySort("部位");
-        model.addAttribute("parts",parts);
-        List<Tag> seasons=tagService.findBySort("季节");
-        model.addAttribute("seasons",seasons);
-        List<Brand> brands=brandService.findAllList();
-        model.addAttribute("brands",brands);
-        //TODO:添加页面
-        return "Cloth";
-    }
-
     @ApiOperation(value = "去修改商品信息",notes = "跳转至修改信息页面")
     @RequestMapping(value = "/toEdit/{id}")
     public String toEdit(@PathVariable("id") int id,Model model){
@@ -170,11 +154,10 @@ public class ClothManageController extends BaseController{
 
     @Log(module = "服装管理",description = "修改服装")
     @ApiOperation(value = "修改商品信息",notes = "修改后返回商品页面")
-    @PutMapping(value = "/{id}")
-    public String editCloth(@PathVariable("id")int id,Cloth cloth){
+    @RequestMapping(value = "/edit")
+    public String editCloth(Cloth cloth){
         System.out.println("修改");
         System.out.println(JSON.toJSON(cloth));
-        cloth.setId(id);
         clothManageService.update(cloth);
         //TODO:修改图片？？
         return "redirect:/cloth/list";

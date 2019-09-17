@@ -1,6 +1,8 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
 import com.shengchanshixi.gongxiangyigui.entity.Admin;
+import com.shengchanshixi.gongxiangyigui.entity.User;
+import com.shengchanshixi.gongxiangyigui.service.AccountService;
 import com.shengchanshixi.gongxiangyigui.service.AdminService;
 import com.shengchanshixi.gongxiangyigui.service.LogService;
 import com.shengchanshixi.gongxiangyigui.util.Const;
@@ -18,6 +20,9 @@ import java.util.List;
 public class AdminController extends BaseController {
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private LogService logService;
@@ -91,10 +96,19 @@ public class AdminController extends BaseController {
         return "helloHtml";
     }
 
-    @RequestMapping("/index")
+    @RequestMapping({"/","/index"})
     public String index(){
         //TODO:登录页面
         return "helloHtml";
+    }
+
+    @ApiOperation(value = "查看会员",notes = "")
+    @GetMapping(value = "/user/all")
+    public String getAllUser(Model model){
+        List<User> users=accountService.findAllList();
+        model.addAttribute("users",users);
+        //TODO:会员管理页面
+        return null;
     }
 
     @ApiOperation(value = "查看所有日志",notes = "")
