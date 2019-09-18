@@ -24,7 +24,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="ManagerMain.html">管理后台</a>
+                    <a class="navbar-brand" href="ManagerMain1.html">管理后台</a>
 
                 </div>
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
@@ -39,9 +39,9 @@
                                 <li class="active"><a href="Tag.html" th:href="@{/tag/index}">标签管理</a></li>
                             </ul>
                         </li>
-                        <li><a href="Order.html" th:href="@{/order/all}">管理订单</a></li>
+                        <li><a href="Order.html" th:href="@{/order/deal/all}">管理订单</a></li>
                         <li>
-                            <a href="ManagePiece_Delivery.html" th:href="@{/order/send/all}" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="ManagePiece_Delivery.html" th:href="@{/order/all}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理派送<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
@@ -49,8 +49,7 @@
                                 <li><a href="ManagePiece_Retrieve.html" th:href="@{/order/back/all}">取回管理</a></li>
                             </ul>
                         </li>
-                        <li><a href="User.html" th:href="@{/user/all}">管理会员</a></li>
-                        <li><a href="FeedBack.html" th:href="@{/feedback/all}">管理反馈</a></li>
+                        <li><a href="User.html" th:href="@{/account/list}">管理会员</a></li>
                         <li><a href="ManageCheck.html" th:href="@{/order/check/all}">管理审核</a></li>
                         <li><a href="Log.html" th:href="@{/log/all}">查看日志</a></li>
                     </ul>
@@ -65,7 +64,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="Cloth2.html" th:href="@{/Clothm/index}">管理衣服</a>
+                    <a class="navbar-brand" href="Cloth2.html" th:href="@{/cloth/index}">管理衣服</a>
                 </div>
                 <div>
                     <ul class="nav navbar-nav">

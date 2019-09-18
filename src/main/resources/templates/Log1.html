@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>管理订单</title>
+    <title>查看日志</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1 align="center">管理订单</h1>
+<h1 align="center">查看日志</h1>
 <div class="row">
     <div class="col-md-2" style="background-color: #dedef8;box-shadow:
          inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
@@ -23,7 +23,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="ManagerMain1.html">管理后台</a>
+                    <a class="navbar-brand" href="ManagerMain.html">管理后台</a>
 
                 </div>
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
@@ -38,7 +38,7 @@
                                 <li><a href="Tag.html" th:href="@{/tag/index}">标签管理</a></li>
                             </ul>
                         </li>
-                        <li class="active"><a href="Order.html" th:href="@{/order/deal/all}">管理订单</a></li>
+                        <li><a href="Order.html" th:href="@{/order/deal/all}">管理订单</a></li>
                         <li>
                             <a href="ManagePiece_Delivery.html" th:href="@{/order/all}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理派送<b class="caret"></b>
@@ -50,38 +50,28 @@
                         </li>
                         <li><a href="User.html" th:href="@{/account/list}">管理会员</a></li>
                         <li><a href="ManageCheck.html" th:href="@{/order/check/all}">管理审核</a></li>
-                        <li><a href="Log.html" th:href="@{/log/all}">查看日志</a></li>
+                        <li class="active"><a href="Log.html" th:href="@{/log/all}">查看日志</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+
     </div>
-
-    <div class="col-md-10">
-        <div class="row">
-            <div class="col-sm-3">
-                <form th:action="@{/cloth/sort}" method="get">
-                    <input type="text" class="form-control" name="key"  placeholder="关键词" style="width:75%;float:left">
-                    <button type="submit" class="btn btn-primary" >搜索</button>
-                </form>
-            </div>
-        </div>
-
-             <table class="table table-hover">
-                 <tr><th>id</th><th>商品ID</th><th>用户ID</th><th>异常状态</th><th>异常处理</th><th>审核</th>
-                   </tr>
-                 <tr th:each="Order:${order_list}">
-                     <td th:text="${Order.id}"></td>
-                     <td th:text="${Order.clothid}"></td>
-                     <td th:text="${Order.userid}"></td>
-                     <td th:text="${Order.bugsta}"></td>
-                     <td th:text="${Order.bugdeal}"></td>
-                     <td>
-                     <a class="btn btn-primary" th:href="@{/order/bug(id=${Order.id})}">处理</a>
-                    </td>
-                  </tr>
+    <div class="col-md-10" style="background-color:#FFFFFF;box-shadow:
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <table class="table table-hover">
+                <tr><th>id</th><th>管理员ID</th><th>ip</th><th>模块名称</th><th>操作名称</th><th>详细内容</th><th>时间</th>
+                </tr>
+                <tr th:each="log:${logs}">
+                    <td th:text="${log.id}"></td>
+                    <td th:text="${log.adminid}"></td>
+                    <td th:text="${log.ip}"></td>
+                    <td th:text="${log.mdule}"></td>
+                    <td th:text="${log.bugdeal}"></td>
+                    <td th:text="${log.operate}"></td>
+                    <td th:text="${log.time}"></td>
+                </tr>
             </table>
-
     </div>
 </div>
 </body>

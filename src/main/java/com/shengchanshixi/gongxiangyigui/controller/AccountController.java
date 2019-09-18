@@ -29,7 +29,7 @@ public class AccountController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("冻结用户出错",e);
-            return null;
+            return "redirect:/account/list";
         }
         System.out.println("lockuser");
         return "redirect:/account/list";
@@ -46,7 +46,6 @@ public class AccountController extends BaseController {
             }
         } catch (Exception e) {
             logger.error("解锁用户出错",e);
-            return null;
         }
         System.out.println("unlockuser");
         return "redirect:/account/list";

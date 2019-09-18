@@ -1,5 +1,6 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.shengchanshixi.gongxiangyigui.entity.Cloth;
 import com.shengchanshixi.gongxiangyigui.entity.ClothPic;
 import com.shengchanshixi.gongxiangyigui.entity.Order;
@@ -36,7 +37,7 @@ public class OrderManageController extends BaseController{
         List<Order> orders=orderManageService.findAll();
         model.addAttribute("orders",orders);
         //TODO:订单管理首页
-        return "Order";
+        return "ManagePiece";
     }
 
     @ApiOperation(value = "显示待处理订单",notes = "")
@@ -46,13 +47,6 @@ public class OrderManageController extends BaseController{
         model.addAttribute("orders",orders);
         //TODO:订单管理首页
         return "Order";
-    }
-
-    @Log(module = "订单管理",description = "删除订单")
-    @ApiOperation(value = "删除订单",notes = "")
-    @RequestMapping(value = "/del")
-    public String delOrder(@RequestParam("id")String id){
-        return null;
     }
 
     @ApiOperation(value = "显示订单详细信息",notes = "")
@@ -80,7 +74,7 @@ public class OrderManageController extends BaseController{
         List<Order> orders=orderManageService.findForSendOrder();
         model.addAttribute("orders",orders);
         //TODO:待发货订单首页
-        return "ManagePiece";
+        return "ManagePiece_Delivery";
     }
 
     @Log(module = "订单管理",description = "处理待发货订单")
@@ -97,13 +91,14 @@ public class OrderManageController extends BaseController{
     public String getAllBack(Model model){
         List<Order> orders=orderManageService.findForBackOrder();
         model.addAttribute("orders",orders);
+        System.out.println(JSON.toJSONString(orders));
         //TODO:待归还首页
-        return null;
+        return "ManagePiece_Retrieve";
     }
 
     @Log(module = "订单管理",description = "处理待取件订单")
     @ApiOperation(value = "确认已取件",notes = "")
-    @PutMapping(value = "/back")
+    @GetMapping(value = "/back")
     public String confirmOk(@RequestParam("id")String id){
         orderManageService.dealBackOrder(id);
         return "redirect:/order/back/all";
@@ -115,7 +110,7 @@ public class OrderManageController extends BaseController{
         List<Order> orders=orderManageService.searchByKey(key,orderManageService.findAll());
         model.addAttribute("orders",orders);
         //TODO:搜索后的订单管理页面
-        return null;
+        return "ManagePiece";
     }
 
     @ApiOperation(value = "搜索等待发货订单信息",notes = "")
@@ -124,16 +119,16 @@ public class OrderManageController extends BaseController{
         List<Order> orders=orderManageService.searchByKey(key,orderManageService.findForSendOrder());
         model.addAttribute("orders",orders);
         //TODO:搜索后的待发货订单管理页面
-        return null;
+        return "ManagePiece_Delivery";
     }
 
     @ApiOperation(value = "搜索等待取回订单信息",notes = "")
-    @GetMapping(value = "/back")
+    @GetMapping(value = "/back/search")
     public String searchBack(@RequestParam("key")String key,Model model){
         List<Order> orders=orderManageService.searchByKey(key,orderManageService.findForBackOrder());
         model.addAttribute("orders",orders);
         //TODO:搜索后的待取回订单管理页面
-        return null;
+        return "ManagePiece_Retrieve";
     }
 
     @ApiOperation(value = "显示等待审核的订单",notes = "")
@@ -171,7 +166,7 @@ public class OrderManageController extends BaseController{
         List<Order> orders=orderManageService.searchByKey(key,orderManageService.findForCheckOrder());
         model.addAttribute("orders",orders);
         //TODO:搜索后的待审核订单管理页面
-        return null;
+        return "ManageCheck";
     }
 
     @ApiOperation(value = "搜索等待处理订单信息",notes = "")

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>管理员主界面</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+</head>
+<body>
+<h1 align="center">管理员主界面</h1>
+<div align="center" th:object="${admin}">
+    <p th:text="'欢迎管理员'+${admin.id}+'!'"></p>
+    <ul class="list-inline">
+        <li><a class="btn btn-primary" href="helloHtml.html" th:href="@{/logout}">退出登录</a></li>
+        <li><a class="btn btn-primary" href="helloHtml.html" th:href="@{/logout}">切换账号</a></li>
+        <li><a class="btn btn-primary" href="Cloth2.html" th:href="@{/cloth/index}">管理衣服</a></li>
+        <li><a class="btn btn-primary" href="Order.html" th:href="@{/order/index}">管理订单</a></li>
+        <li><a class="btn btn-primary" href="ManagePiece1.html" th:href="@{/order/all}">管理派送</a></li>
+        <li><a class="btn btn-primary" href="User.html" th:href="@{/account/index}">管理会员</a></li>
+        <li><a class="btn btn-primary" href="ManageCheck.html" th:href="@{/order/check/all}">管理审核</a></li>
+        <li><a class="btn btn-primary" href="Log.html" th:href="@{/log/all}">查看日志</a></li>
+    </ul>
+</div>
+</body>
+</html>

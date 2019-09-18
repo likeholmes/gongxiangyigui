@@ -1,5 +1,7 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.shengchanshixi.gongxiangyigui.dao.LogDao;
 import com.shengchanshixi.gongxiangyigui.entity.Admin;
 import com.shengchanshixi.gongxiangyigui.entity.User;
 import com.shengchanshixi.gongxiangyigui.service.AccountService;
@@ -83,7 +85,7 @@ public class AdminController extends BaseController {
         } catch (Exception e) {
             logger.error("Admin login failed, ", e);
             //TODO:出错页面
-            return null;
+            return "error";
         }
     }
 
@@ -112,12 +114,13 @@ public class AdminController extends BaseController {
     }
 
     @ApiOperation(value = "查看所有日志",notes = "")
-    @GetMapping(value = "/log")
+    @GetMapping(value = "/log/all")
     public String getAllLog(Model model){
-        List<com.shengchanshixi.gongxiangyigui.entity.Log> logs=logService.findAll();
-        model.addAttribute("logs",logs);
+        List<com.shengchanshixi.gongxiangyigui.entity.Log> loginfos=logService.findAll();
+        model.addAttribute("loginfos",loginfos);
+        System.out.println(JSON.toJSONString(loginfos));
         //TODO:日志管理页面
-        return null;
+        return "Log";
     }
 
     @ApiOperation(value = "查看日志详细信息",notes = "")
@@ -126,9 +129,4 @@ public class AdminController extends BaseController {
         return null;
     }
 
-    @ApiOperation(value = "删除日志",notes = "")
-    @DeleteMapping(value = "/log/{id}")
-    public String delLog(@PathVariable("id")int id, Model model){
-        return null;
-    }
 }

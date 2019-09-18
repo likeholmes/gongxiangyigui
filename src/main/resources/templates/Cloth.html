@@ -42,7 +42,7 @@
 
 <body>
 <div id="div1">
-    <img id="divImg" src="../static/image/top.jpg" style="width: 500px;height: 130px">
+    <img id="divImg" th:src="@{/image/top.jpg}" style="width: 500px;height: 130px">
     <div id="txtp">
         <span class="color text-center" vertical-align="bottom">
             &nbsp;&nbsp;
@@ -63,7 +63,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="ManagerMain.html">管理后台</a>
+                    <a class="navbar-brand" href="ManagerMain1.html">管理后台</a>
 
                 </div>
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
@@ -78,9 +78,9 @@
                                 <li><a href="Tag.html" th:href="@{/tag/index}">标签管理</a></li>
                             </ul>
                         </li>
-                        <li><a href="Order.html" th:href="@{/order/all}">管理订单</a></li>
+                        <li><a href="Order.html" th:href="@{/order/deal/all}">管理订单</a></li>
                         <li>
-                            <a href="ManagePiece_Delivery.html" th:href="@{/order/send/all}" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="ManagePiece_Delivery.html" th:href="@{/order/all}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理派送<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
@@ -88,8 +88,7 @@
                                 <li><a href="ManagePiece_Retrieve.html" th:href="@{/order/back/all}">取回管理</a></li>
                             </ul>
                         </li>
-                        <li><a href="User.html" th:href="@{/user/all}">管理会员</a></li>
-                        <li><a href="FeedBack.html" th:href="@{/feedback/all}">管理反馈</a></li>
+                        <li><a href="User.html" th:href="@{/account/list}">管理会员</a></li>
                         <li><a href="ManageCheck.html" th:href="@{/order/check/all}">管理审核</a></li>
                         <li><a href="Log.html" th:href="@{/log/all}">查看日志</a></li>
                     </ul>
@@ -101,7 +100,7 @@
         <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="Cloth.html" th:href="@{/Clothm/index}">管理衣服</a>
+            <a class="navbar-brand" href="Cloth.html" th:href="@{/cloth/index}">管理衣服</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
@@ -325,7 +324,7 @@
                         <!--  <div>
                             <button type="button" class="btn btn-info" data-toggle="modal" onclick="return get_edit_info({cloth_info.id})" data-target="#addUserModal">编辑</button>
                        </div>-->
-                        <div>
+
                             <!-- 模态框（Modal） -->
                             <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -476,10 +475,37 @@
                             <!--  <a class="btn btn-primary" href="Add_Cloth.html" th:href="@{/Add_Cloth}">
                                  <span class="glyphicon glyphicon-plus"></span>
                              </a>-->
-                        </div>
+                        <a class="btn btn-primary" th:href="@{/cloth/del(id=${cloth.id})}"><span class="glyphicon glyphicon-remove"></span></a>
+                        <script th:inline="javascript">
+                            function Values(idx) {
+                                var cloths = [[${cloths}]];
+                                document.getElementById("img").src="http://localhost:8080"+cloths[idx].pic;
+                            }
+                        </script>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" th:onclick="'javascript:Values('+${iterStat.index}+')'">
+                            图片
+                            </button>
 
-                        <div> <a class="btn btn-primary" th:href="@{/cloth/del(id=${cloth.id})}"><span class="glyphicon glyphicon-remove"></span></a>
-                        </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <!--<h5 class="modal-title" id="exampleModalLabel"></h5>-->
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                            </div>
+                                                <div align="center">
+                                                    <img id="img"/>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
                     </td>
                 </tr>
                 </tbody>

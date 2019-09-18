@@ -25,34 +25,33 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="ManagerMain.html">管理后台</a>
+                    <a class="navbar-brand" href="ManagerMain1.html">管理后台</a>
                 </div>
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href= href="Cloth.html" th:href="@{/Cloth}" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href= href="Cloth.html" th:href="@{/cloth/index}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理衣服<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="Cloth2.html" th:href="@{/Cloth}">服装管理</a></li>
-                                <li><a href="Brand.html" th:href="@{/Brand}">品牌管理</a></li>
-                                <li><a href="Tag1.html" th:href="@{/Tag}">标签管理</a></li>
+                                <li><a href="Cloth2.html" th:href="@{/cloth/index}">服装管理</a></li>
+                                <li><a href="Brand.html" th:href="@{/brand/index}">品牌管理</a></li>
+                                <li><a href="Tag1.html" th:href="@{/tag/index}">标签管理</a></li>
                             </ul>
                         </li>
-                        <li><a href="Order.html" th:href="@{/Order}">管理订单</a></li>
+                        <li><a href="Order.html" th:href="@{/order/deal/all}">管理订单</a></li>
                         <li>
-                            <a href="ManagePiece.html" th:href="@{/ManagePiece}" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="ManagePiece1.html" th:href="@{/order/all}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理派送<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="ManagePiece_Delivery.html" th:href="@{/ManagePiece_Delivery}">送件管理</a></li>
-                                <li><a href="ManagePiece_Retrieve.html" th:href="@{/ManagePiece_Retrieve}">取回管理</a></li>
+                                <li><a href="ManagePiece_Delivery.html" th:href="@{/order/send/all}">送件管理</a></li>
+                                <li><a href="ManagePiece_Retrieve.html" th:href="@{/order/back/all}">取回管理</a></li>
                             </ul>
                         </li>
-                        <li class="active"><a href="User.html" th:href="@{/User}">管理会员</a></li>
-                        <li><a href="FeedBack.html" th:href="@{/FeedBack}">管理反馈</a></li>
-                        <li><a href="ManageCheck.html" th:href="@{/ManageCheck}">管理审核</a></li>
-                        <li><a href="Log.html" th:href="@{/Log}">查看日志</a></li>
+                        <li class="active"><a href="User.html" th:href="@{/account/list}">管理会员</a></li>
+                        <li><a href="ManageCheck.html" th:href="@{/order/check/all}">管理审核</a></li>
+                        <li><a href="Log.html" th:href="@{/log/all}">查看日志</a></li>
                     </ul>
                 </div>
             </div>

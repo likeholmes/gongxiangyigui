@@ -24,7 +24,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="ManagerMain.html">管理后台</a>
+                    <a class="navbar-brand" href="ManagerMain1.html">管理后台</a>
                 </div>
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
                     <ul class="nav navbar-nav">
@@ -38,20 +38,19 @@
                                 <li><a href="Tag1.html" th:href="@{/tag/list}">标签管理</a></li>
                             </ul>
                         </li>
-                        <li><a href="Order.html" th:href="@{/Order}">管理订单</a></li>
+                        <li><a href="Order.html" th:href="@{/order/deal/all}">管理订单</a></li>
                         <li>
-                            <a href="ManagePiece.html" th:href="@{/ManagePiece}" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="ManagePiece1.html" th:href="@{/order/all}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理派送<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="active"><a href="ManagePiece_Delivery.html" th:href="@{/ManagePiece_Delivery}">送件管理</a></li>
-                                <li><a href="ManagePiece_Retrieve.html" th:href="@{/ManagePiece_Retrieve}">取回管理</a></li>
+                                <li class="active"><a href="ManagePiece_Delivery.html" th:href="@{/order/send/all}">送件管理</a></li>
+                                <li><a href="ManagePiece_Retrieve.html" th:href="@{/order/back/all}">取回管理</a></li>
                             </ul>
                         </li>
-                        <li><a href="User.html" th:href="@{/User}">管理会员</a></li>
-                        <li><a href="FeedBack.html" th:href="@{/FeedBack}">管理反馈</a></li>
-                        <li><a href="ManageCheck.html" th:href="@{/ManageCheck}">管理审核</a></li>
-                        <li><a href="Log.html" th:href="@{/Log}">查看日志</a></li>
+                        <li><a href="User.html" th:href="@{/account/list}">管理会员</a></li>
+                        <li><a href="ManageCheck.html" th:href="@{/order/check/all}">管理审核</a></li>
+                        <li><a href="Log.html" th:href="@{/log/all}">查看日志</a></li>
                     </ul>
                 </div>
             </div>
@@ -59,28 +58,31 @@
     </div>
 
 
-    <div class="col-md-10" style="background-color:#FFFFFF;box-shadow:
-         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+    <div class="col-md-10">
 
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="ManagePiece.html" th:href="@{/ManagePiece}">管理送件</a>
+                    <a class="navbar-brand" href="ManagePiece1.html" th:href="@{/order/all}">管理派送</a>
                 </div>
                 <div>
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="ManagePiece_Delivery.html" th:href="@{/ManagePiece_Delivery}">送件管理</a></li>
-                        <li><a href="ManagePiece_Retrieve.html" th:href="@{/ManagePiece_Retrieve}">取回管理</a></li>
+                        <li class="active"><a href="ManagePiece_Delivery.html" th:href="@{/order/send/all}">送件管理</a></li>
+                        <li><a href="ManagePiece_Retrieve.html" th:href="@{/order/back/all}">取回管理</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
         <div>
-            <form th:action="@{/Order}" th:object="${orders}" method="post">
+            <form th:action="@{/order/send/search}" method="get">
+                <input type="text" class="form-control" name="key"  placeholder="关键词" style="width:75%;float:left">
+                <button type="submit" class="btn btn-primary" >搜索</button>
+            </form>
+
                 <table class="table table-hover">
                     <thead>
-                    <tr><th>id</th><th>商品ID</th><th>用户ID</th><th>下单时间</th><th>管理</th>
+                    <tr><th>id</th><th>商品ID</th><th>用户ID</th><th>下单时间</th><th>发货</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -91,8 +93,14 @@
                         <td th:text="${Order.ordertime}"></td>
                         <td>
                                                 <div>
-                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    <script th:inline="javascript">
+                                                        function Values(idx) {
+                                                            var orders = [[${orders}]];
+                                                            $("#id").val(orders[idx].id);
+                                                        }
+                                                    </script>
+                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" th:onclick="'javascript:Values('+${iterStat.index}+')'">
+                                                        <span class="glyphicon glyphicon-pencil"></span>
                                                     </button>
                                                     <!-- 模态框（Modal） -->
                                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -103,25 +111,26 @@
                                                                         &times;
                                                                     </button>
                                                                     <h2 class="modal-title" id="myModalLabel" align="center">
-                                                                        添加衣服
+                                                                        填写派送单号
                                                                     </h2>
                                                                 </div>
                                                                 <div class="modal-body" align="center">
-                                                                    <form th:action="@{/Order.html}" th:object="${order_list}" method="post">
+                                                                    <form th:action="@{/order/send}" method="post">
+                                                                        <input type="hidden" name="id" id="id">
                                                                         <div class="form-group">
                                                                             <label class="col-sm-4 control-label">派送单号</label>
                                                                             <div class="col-sm-8">
                                                                                 <input type="text" class="form-control" name="trackid"  placeholder="请输入派送单号">
                                                                             </div>
                                                                         </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-primary">
+                                                                                提交
+                                                                            </button>
+                                                                        </div>
                                                                     </form>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-primary">
-                                                                        填写物流信息
-                                                                    </button>
                                                                 </div>
                                                             </div><!-- /.modal-content -->
                                                         </div><!-- /.modal -->
@@ -132,7 +141,6 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                </form>
                             </div>
     </div>
 </div>

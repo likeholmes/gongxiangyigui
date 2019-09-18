@@ -6,23 +6,119 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-image: url(http://localhost:8080/image/homebg.jpg);
+            background-size:400px 800px;
+        }
+        div {
+            margin: 0 auto;
+        }
+        .logo {
+            width: 960px;
+            height: 180px;
+        }
+        .core {
+            height: 410px;
+            /* 设置顶部内边距的作用是为了预留渐变条区域 */
+            padding-top: 10px;
+        }
+        .foot {
+            width: 960px;
+            height: 50px;
+        }
+        .content {
+            width: 950px;
+            height: 390px;
+            border: 5px solid #b9a6d6;
+            border-radius: 30px;
+            filter:alpha(opacity=50);
+        }
+        .content1 {
+            width: 950px;
+            height: 80px;
+        }
+        body {
+            background-color: #d5bded;
+        }
+        .content {
+            background-color: #ffffff;
+        }
+        #divImg{
+            position: absolute;
+            top: 70px;
+            -webkit-border-radius: 100%;
+            -moz-border-radius: 100%;
+            border-radius: 100%;
+        }
+        #txtp{
+            position:absolute;
+            top:110px;
+            left:450px;
+            padding:0px;
+            margin:0px;
+            color: #9e7cd6;
+        }
+        #txtq{
+            position:absolute;
+            right:200px;
+            padding:0px;
+            margin:0px;
+            color: #9e7cd6;
+        }
+        #txtz{
+            height: 45px;
+            width: 200px;
+        }
+        #txtl{
+            height: 45px;
+            width: 350px;
+        }
+        .btn-default{
+            background: #e4d5ed;
+            color: #9e7cd6;
+        }
+    </style>
 </head>
-</head>
+
 <body>
-<h1 align="center">管理员主界面</h1>
-<div align="center" th:object="${admin}">
-    <p th:text="'欢迎管理员'+${admin.id}+'!'"></p>
-    <ul class="list-inline">
-        <li><a class="btn btn-primary" href="helloHtml.html" th:href="@{/logout}">退出登录</a></li>
-        <li><a class="btn btn-primary" href="helloHtml.html" th:href="@{/logout}">切换账号</a></li>
-        <li><a class="btn btn-primary" href="Cloth2.html" th:href="@{/cloth/index}">管理衣服</a></li>
-        <li><a class="btn btn-primary" href="Order.html" th:href="@{/order/index}">管理订单</a></li>
-        <li><a class="btn btn-primary" href="ManagePiece.html" th:href="@{/ManagePiece}">管理派送</a></li>
-        <li><a class="btn btn-primary" href="User.html" th:href="@{/account/index}">管理会员</a></li>
-        <li><a class="btn btn-primary" href="FeedBack.html" th:href="@{/feedback/index}">管理反馈</a></li>
-        <li><a class="btn btn-primary" href="ManageCheck.html" th:href="@{/ManageCheck}">管理审核</a></li>
-        <li><a class="btn btn-primary" href="Log.html" th:href="@{/log}">查看日志</a></li>
-    </ul>
+<div class="logo">
+    <div class="col-md-2">
+        <img id="divImg" th:src="@{/image/tou.jpg}" style="width: 110px;height: 110px"></div>
+    <div class="col-md-4" id="txtp"><h2>欢迎，共享衣柜管理员</h2></div>
+    <a th:href="@{/logout}" style="float:right"><h3>[退出登录]</h3></a>
 </div>
+<!-- 菜单区 -->
+
+<!-- 核心区 -->
+<div class="core">
+
+    <div class="content">
+        <div class="content1"></div>
+        <div align="center" th:object="${admin}">
+                <p th:text="'欢迎管理员'+${admin.id}+'!'"></p>
+                <ul class="list-inline">
+                    <li><a id="txtz" class="btn btn-default" href="Cloth.html" th:href="@{/cloth/index}"><span class="glyphicon glyphicon-gift" style="color: #9e7cd6; font-size: 16px;"></span>&nbsp;管理衣服</a></li>
+                    <li><a id="txtz" class="btn btn-default" href="Order.html" th:href="@{/order/deal/all}"><span class="glyphicon glyphicon-file" style="color: #9e7cd6; font-size: 16px;"></span>&nbsp;管理订单</a></li>
+                    <li><a id="txtz" class="btn btn-default" href="ManagePiece.html" th:href="@{/order/all}"><span class="glyphicon glyphicon-send" style="color: #9e7cd6; font-size: 16px;"></span>&nbsp;管理派送</a></li>
+                </ul>
+                <ul class="list-inline">
+                    <li><a id="txtz" class="btn btn-default" href="User.html" th:href="@{/account/list}"><span class="glyphicon glyphicon-user" style="color: #9e7cd6; font-size: 16px;"></span>&nbsp;管理会员</a></li>
+                    <li><a id="txtz" class="btn btn-default" href="ManageCheck.html" th:href="@{/order/check/all}"><span class="glyphicon glyphicon-saved" style="color: #9e7cd6; font-size: 16px;"></span>&nbsp;管理审核</a></li>
+                </ul>
+                <ul class="list-inline">
+                    <li><a id="txtl" class="btn btn-default" href="Log.html" th:href="@{/log/all}"><span class="glyphicon glyphicon-list-alt" style="color: #9e7cd6; font-size: 16px;"></span>&nbsp;查看管理员日志</a></li>
+                </ul>
+        </div>
+    </div>
+</div>
+<div class="foot">
+    <h3 style="float:right" id="txtq">共享衣柜  §2019实训</h3>
+</div>
+
 </body>
 </html>

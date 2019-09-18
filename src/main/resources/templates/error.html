@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>出错</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" href="bootstrap.css" type="text/css">
+    <div th:style="'background:url(' + @{/<path-to-image>} + ');'"></div>
+ -->
+
+
+    <style type="text/css">
+        #div1{
+            position: relative;
+            height: 700px;
+            background: #ffffff;
+        }
+        #divImg{
+            position: absolute;
+            margin-left: -500px;
+            margin-top: -350px;
+            left: 50%;
+            top: 50%;
+        }
+        #txtp{
+            position:absolute;
+            bottom:100px;
+            right:400px;
+            padding:0px;
+            margin:0px
+        }
+        .color{
+            color: #872909;
+        }
+    </style>
+
+</head>
+<body>
+<div id="div1">
+    <img id="divImg" th:src="@{/image/error.png}" style="width: 1000px;height: 700px">
+    <div id="txtp">
+        <span class="color text-center" vertical-align="bottom"><h2>点此<a th:href="@{/index}" >返回登录页</a>。</h2></span>
+    </div>
+</div>
+
+</body>
+</html>
