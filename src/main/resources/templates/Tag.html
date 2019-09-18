@@ -184,7 +184,7 @@
         </div>
 
         <div class="col-md-2">
-            <h4 align="center">场合</h4>
+            <h4 align="center">场景</h4>
             <div align="center">
                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal3">
                       <span class="glyphicon glyphicon-plus"></span>
@@ -198,7 +198,7 @@
                                     &times;
                                 </button>
                                 <h2 class="modal-title" id="myModalLabel" align="center">
-                                    添加场合
+                                    添加场景
                                 </h2>
                             </div>
                             <div class="modal-body">
@@ -206,8 +206,8 @@
 
                                     <form th:action="@{/tag/add}" method="post">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">场合</label>
-                                            <input type="hidden" name="sort" th:value="场合">
+                                            <label class="col-sm-4 control-label">场景</label>
+                                            <input type="hidden" name="sort" th:value="场景">
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="tag"  placeholder="请输入衣着场合">
                                             </div>
