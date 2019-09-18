@@ -33,9 +33,9 @@
                                 管理衣服<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="Cloth.html" th:href="@{/cloth/list}">服装管理</a></li>
+                                <li><a href="Cloth2.html" th:href="@{/cloth/list}">服装管理</a></li>
                                 <li><a href="Brand.html" th:href="@{/brand/list}">品牌管理</a></li>
-                                <li><a href="Tag.html" th:href="@{/tag/list}">标签管理</a></li>
+                                <li><a href="Tag1.html" th:href="@{/tag/list}">标签管理</a></li>
                             </ul>
                         </li>
                         <li><a href="Order.html" th:href="@{/Order}">管理订单</a></li>
@@ -77,14 +77,14 @@
         </nav>
 
         <div>
-            <form th:action="@{/Order}" th:object="${order_list}" method="post">
+            <form th:action="@{/Order}" th:object="${orders}" method="post">
                 <table class="table table-hover">
                     <thead>
                     <tr><th>id</th><th>商品ID</th><th>用户ID</th><th>下单时间</th><th>管理</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="Order:${order_list}">
+                    <tr th:each="Order,iterStat:${orders}">
                         <td th:text="${Order.id}"></td>
                         <td th:text="${Order.clothid}"></td>
                         <td th:text="${Order.userid}"></td>

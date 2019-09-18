@@ -120,6 +120,23 @@ public class UserController extends BaseController {
         return accountService.findById(userid);
     }
 
+    @ApiOperation(value = "修改个人信息",notes = "")
+    @RequestMapping(value = "/change")
+    public String getUserInfo(@RequestBody User user)
+    {
+        System.out.println("hh");
+        try {
+            User user1=accountService.update(user);
+            if (null==user1)
+                return "0";
+            return "1";
+        }catch (Exception e)
+        {
+            logger.error("更改信息错误");
+            return "0";
+        }
+    }
+
     //TODO:返回值不确定
     @ApiOperation(value = "开通会员",notes = "更改会员状态")
     @RequestMapping(value = "/vip")

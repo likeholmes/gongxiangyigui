@@ -96,7 +96,7 @@ public class AdminController extends BaseController {
         return "helloHtml";
     }
 
-    @RequestMapping({"/","/index"})
+    @RequestMapping({"","/index"})
     public String index(){
         //TODO:登录页面
         return "helloHtml";

@@ -1,7 +1,5 @@
 package com.shengchanshixi.gongxiangyigui.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -24,6 +22,7 @@ public class Cloth {
     private String style;
     private int colcnt;
     private String sort;
+    private String pic;
 
     @Id
     @Column(name = "id")
@@ -185,6 +184,16 @@ public class Cloth {
         this.sort = sort;
     }
 
+    @Basic
+    @Column(name = "pic")
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -208,6 +217,7 @@ public class Cloth {
         if (color != null ? !color.equals(cloth.color) : cloth.color != null) return false;
         if (style != null ? !style.equals(cloth.style) : cloth.style != null) return false;
         if (sort != null ? !sort.equals(cloth.sort) : cloth.sort != null) return false;
+        if (pic != null ? !pic.equals(cloth.pic) : cloth.pic != null) return false;
 
         return true;
     }
@@ -233,6 +243,7 @@ public class Cloth {
         result = 31 * result + (style != null ? style.hashCode() : 0);
         result = 31 * result + colcnt;
         result = 31 * result + (sort != null ? sort.hashCode() : 0);
+        result = 31 * result + (pic != null ? pic.hashCode() : 0);
         return result;
     }
 }

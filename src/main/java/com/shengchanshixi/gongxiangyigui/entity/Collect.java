@@ -12,6 +12,8 @@ public class Collect {
     private String clothsta;
     private int clothcub;
     private double value;
+    private String pic;
+    private String clothname;
 
     @Id
     @Column(name = "userid")
@@ -73,6 +75,26 @@ public class Collect {
         this.value = value;
     }
 
+    @Basic
+    @Column(name = "pic")
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    @Basic
+    @Column(name = "clothname")
+    public String getClothname() {
+        return clothname;
+    }
+
+    public void setClothname(String clothname) {
+        this.clothname = clothname;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,6 +108,8 @@ public class Collect {
         if (userid != null ? !userid.equals(collect.userid) : collect.userid != null) return false;
         if (shelfsta != null ? !shelfsta.equals(collect.shelfsta) : collect.shelfsta != null) return false;
         if (clothsta != null ? !clothsta.equals(collect.clothsta) : collect.clothsta != null) return false;
+        if (pic != null ? !pic.equals(collect.pic) : collect.pic != null) return false;
+        if (clothname != null ? !clothname.equals(collect.clothname) : collect.clothname != null) return false;
 
         return true;
     }
@@ -101,6 +125,8 @@ public class Collect {
         result = 31 * result + clothcub;
         temp = Double.doubleToLongBits(value);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (pic != null ? pic.hashCode() : 0);
+        result = 31 * result + (clothname != null ? clothname.hashCode() : 0);
         return result;
     }
 }

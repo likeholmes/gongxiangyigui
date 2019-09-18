@@ -1,23 +1,107 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="navi::naviHeader('服装管理')">
+<head>
+    <meta charset="UTF-8"/>
+    <title>服装管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+    body{
+        background:#ece8f8;
+        background-size:cover;
+    }
+    #div1{
+        position: relative;
+        height: 150px;
+        background: #ece8f8;
+        background-size:cover;
+    }
+    #divImg{
+        position: absolute;
+        margin-left: -250px;
+        margin-top: -350px;
+        left: 50%;
+        bottom:10px;
+        -webkit-border-radius: 40px;
+        -moz-border-radius: 40px;
+        border-radius: 40px;
+    }
+    #txtp{
+        position:absolute;
+        bottom:50px;
+        right:540px;
+        padding:0px;
+        margin:0px
+    }
+    .color{
+        color: #ab92d6;
+    }
+</style>
 </head>
 
 <body>
-<h1 align="center">服装管理</h1>
+<div id="div1">
+    <img id="divImg" src="../static/image/top.jpg" style="width: 500px;height: 130px">
+    <div id="txtp">
+        <span class="color text-center" vertical-align="bottom">
+            &nbsp;&nbsp;
+            <h1>  服    装    管    理  </h1></span>
+    </div>
+</div>
 
-<div align="right">
-<button type="button" class="btn btn-default btn-lg">
-    <span class="glyphicon glyphicon-user" style="color:rgb(0,133,255);font-size:17px;"></span>
-</button></div>
-
-    <div th:include="navi::naviNav"></div>
-    <div class="col-md-10" style="background-color:#FFFFFF;box-shadow:
+    <div class="col-md-2" style="background-color: #dedef8;box-shadow:
          inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+        <h3>导航栏</h3>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#example-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="ManagerMain.html">管理后台</a>
+
+                </div>
+                <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a  href="Cloth.html" th:href="@{/cloth/index}" class="dropdown-toggle" data-toggle="dropdown">
+                                管理衣服<b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="active"><a href="Cloth.html" th:href="@{/cloth/index}">服装管理</a></li>
+                                <li><a href="Brand.html" th:href="@{/brand/index}">品牌管理</a></li>
+                                <li><a href="Tag.html" th:href="@{/tag/index}">标签管理</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="Order.html" th:href="@{/order/all}">管理订单</a></li>
+                        <li>
+                            <a href="ManagePiece_Delivery.html" th:href="@{/order/send/all}" class="dropdown-toggle" data-toggle="dropdown">
+                                管理派送<b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="ManagePiece_Delivery.html" th:href="@{/order/send/all}">送件管理</a></li>
+                                <li><a href="ManagePiece_Retrieve.html" th:href="@{/order/back/all}">取回管理</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="User.html" th:href="@{/user/all}">管理会员</a></li>
+                        <li><a href="FeedBack.html" th:href="@{/feedback/all}">管理反馈</a></li>
+                        <li><a href="ManageCheck.html" th:href="@{/order/check/all}">管理审核</a></li>
+                        <li><a href="Log.html" th:href="@{/log/all}">查看日志</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="col-md-10">
         <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="Cloth.html" th:href="@{/cloth/index}">管理衣服</a>
+            <a class="navbar-brand" href="Cloth.html" th:href="@{/Clothm/index}">管理衣服</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
@@ -29,349 +113,378 @@
        </div>
         </nav>
 
-    <div align="right">
 
-    <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+
+    <div align="right">
+        <div class="row">
+            <div class="col-sm-3">
+                <form th:action="@{/cloth/sort}" method="get">
+                    <input type="text" class="form-control" name="key"  placeholder="关键词" style="width:75%;float:left">
+                    <button type="submit" class="btn btn-primary" >搜索</button>
+                </form>
+            </div>
+        </div>
+
+
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
         <span class="glyphicon glyphicon-plus"></span>
     </button>
     <!-- 模态框（Modal） -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h2 class="modal-title" id="addModalLabel" align="center">
+                &times;
+            </button>
+                    <h2 class="modal-title" id="myModalLabel" align="center">
                         添加衣服
                     </h2>
                 </div>
                 <div class="modal-body" align="center">
-
-                        <form th:action="@{/cloth/add}" th:object="${cloth}" method="post">
-
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">商品名称</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="name"  placeholder="请输入商品名称">
+                    <form th:action="@{/cloth/add}" th:object="${cloth}" enctype="multipart/form-data" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">商品名称</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="name"  placeholder="请输入商品名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">品牌</label>
+                            <div class="col-sm-8" th:object="${brands}">
+                                <select name="brand" id="brands" class="form-control" placeholder="请输入商品品牌">
+                                    <option th:each="brand:${brands}" th:value="${brand.name}" th:text="${brand.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">价值</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="value"  placeholder="请输入商品价值">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">状态</label>
+                            <div id="clothsta" class="col-sm-8">
+                                <div class="radio-inline">
+                                    <label><input name="clothsta" type="radio" value="全新" /> 全新</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label><input name="clothsta" type="radio" value="二手" /> 二手</label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">品牌</label>
-                                <div class="col-sm-8" th:object="${brands}">
-                                    <select name="brand" id="brands" class="form-control" placeholder="请输入商品品牌">
-                                        <option th:each="brand:${brands}" th:value="${brand.name}" th:text="${brand.name}"></option>
-                                    </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">商品上架状态</label>
+                            <div id="shelfsta" class="col-sm-8">
+                                <div class="radio-inline">
+                                    <label><input name="shelfsta" type="radio" value="上架" /> 上架</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label><input name="shelfsta" type="radio" value="借走" /> 借走</label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">价值</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="value"  placeholder="请输入商品价值">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">尺寸</label>
+                            <div class="col-sm-8">
+                                <select name="size" id="size" class="form-control" placeholder="请输入商品尺寸">
+                                    <option th:each="size:${sizes}" th:value="${size.tag}" th:text="${size.tag}"></option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">状态</label>
-                                <div id="clothsta" class="col-sm-8">
-                                    <div class="radio-inline">
-                                        <label><input name="clothsta" type="radio" value="全新" /> 全新</label>
-                                    </div>
-                                    <div class="radio-inline">
-                                        <label><input name="clothsta" type="radio" value="二手" /> 二手</label>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">衣着部位</label>
+                            <div class="col-sm-8">
+                                <select name="part" id="part" class="form-control" placeholder="请输入衣着部位">
+                                    <option th:each="part:${parts}" th:value="${part.tag}" th:text="${part.tag}"></option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">商品上架状态</label>
-                                <div id="shelfsta" class="col-sm-8">
-                                    <div class="radio-inline">
-                                        <label><input name="shelfsta" type="radio" value="上架" /> 上架</label>
-                                    </div>
-                                    <div class="radio-inline">
-                                        <label><input name="shelfsta" type="radio" value="借走" /> 借走</label>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">占用衣柜</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="clothcub"  placeholder="请输入商品占用衣柜">
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">尺寸</label>
-                                <div class="col-sm-8">
-                                    <select name="size" id="size" class="form-control" placeholder="请输入商品尺寸">
-                                        <option th:each="size:${sizes}" th:value="${size.tag}" th:text="${size.tag}"></option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">场合</label>
+                            <div class="col-sm-8">
+                                <select name="scenes" id="scenes" class="form-control" placeholder="请输入穿着场合">
+                                    <option th:each="scene:${scenes}" th:value="${scene.tag}" th:text="${scene.tag}"></option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">衣着部位</label>
-                                <div class="col-sm-8">
-                                    <select name="part" id="part" class="form-control" placeholder="请输入衣着部位">
-                                        <option th:each="part:${parts}" th:value="${part.tag}" th:text="${part.tag}"></option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">季节</label>
+                            <div class="col-sm-8">
+                                <select name="season" id="season" class="form-control" placeholder="请输入穿着季节">
+                                    <option th:each="season:${seasons}" th:value="${season.tag}" th:text="${season.tag}"></option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">占用衣柜</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="clothcub"  placeholder="请输入商品占用衣柜">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">场合</label>
-                                <div class="col-sm-8">
-                                    <select name="scenes" id="scenes" class="form-control" placeholder="请输入穿着场合">
-                                        <option th:each="scene:${scenes}" th:value="${scene.tag}" th:text="${scene.tag}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">季节</label>
-                                <div class="col-sm-8">
-                                    <select name="season" id="season" class="form-control" placeholder="请输入穿着季节">
-                                        <option th:each="season:${seasons}" th:value="${season.tag}" th:text="${season.tag}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">颜色</label>
-                                <div class="col-sm-8">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">颜色</label>
+                            <div class="col-sm-8">
                                 <select name="color" id="color" class="form-control" placeholder="请输入颜色">
                                     <option th:each="color:${colors}" th:value="${color.tag}" th:text="${color.tag}"></option>
                                 </select>
-                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">风格</label>
-                                <div class="col-sm-8">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">风格</label>
+                            <div class="col-sm-8">
                                 <select name="style" id="style" class="form-control" placeholder="请输入风格">
                                     <option th:each="style:${styles}" th:value="${style.tag}" th:text="${style.tag}"></option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">常礼服分类</label>
+                            <div id="sort" class="col-sm-8">
+                                <div class="radio-inline">
+                                    <label><input name="sort" type="radio" value="常服" /> 常服</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label><input name="sort" type="radio" value="礼服" /> 礼服</label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label">常礼服分类</label>
-                                <div id="sort" class="col-sm-8">
-                                    <div class="radio-inline">
-                                        <label><input name="sort" type="radio" value="常服" /> 常服</label>
-                                    </div>
-                                    <div class="radio-inline">
-                                        <label><input name="sort" type="radio" value="礼服" /> 礼服</label>
-                                    </div>
-                                </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">服装图片</label>
+                            <div  class="col-sm-8">
+                                <input type="file" name="file" value="请选择文件">
                             </div>
-                            <input type="file" name="files" value="请选择文件" multiple="multiple">
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                </button>
-                                <button type="submit" class="btn btn-primary">
-                                    提交
-                                </button>
-                            </div>
-                        </form>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                提交
+                            </button>
+                        </div>
+
+                    </form>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
-    <!--  <a class="btn btn-primary" href="Add_Cloth.html" th:href="@{/Add_Cloth}">
-         <span class="glyphicon glyphicon-plus"></span>
-     </a>-->
- </div>
+        <!--  <a class="btn btn-primary" href="Add_Cloth.html" th:href="@{/Add_Cloth}">
+             <span class="glyphicon glyphicon-plus"></span>
+         </a>-->
+    </div>
 
- <div>
-         <table class="table table-hover" th:object="${cloths}">
-             <thead>
-               <tr><th>id</th><th>商品名称</th><th>品牌</th><th>价值</th><th>状态</th>
-                 <th>上架状态</th><th>录入时间</th><th>尺寸</th><th>衣着部位</th><th>占用衣柜</th>
-                 <th>场景</th><th>季节</th><th>颜色</th><th>风格</th><th>数量</th><th>分类</th><th>管理</th>
-               </tr>
-             </thead>
-             <tbody>
-                 <tr th:each="cloth,iterStat:${cloths}">
-                     <td th:text="${cloth.id}"></td>
-                     <td th:text="${cloth.name}"></td>
-                     <td th:text="${cloth.brand}"></td>
-                     <td th:text="${cloth.value}"></td>
-                     <td th:text="${cloth.clothsta}"></td>
-                     <td th:text="${cloth.shelfsta}"></td>
-                     <td th:text="${cloth.time}"></td>
-                     <td th:text="${cloth.size}"></td>
-                     <td th:text="${cloth.part}"></td>
-                     <td th:text="${cloth.clothcub}"></td>
-                     <td th:text="${cloth.scenes}"></td>
-                     <td th:text="${cloth.season}"></td>
-                     <td th:text="${cloth.color}"></td>
-                     <td th:text="${cloth.style}"></td>
-                     <td th:text="${cloth.colcnt}"></td>
-                     <td th:text="${cloth.sort}"></td>
-                     <td>
+        <div>
+            <table class="table table-hover" th:object="${cloths}">
+                <thead>
+                <tr><th>id</th><th>商品名称</th><th>品牌</th><th>价值</th><th>状态</th>
+                    <th>上架状态</th><th>录入时间</th><th>尺寸</th><th>衣着部位</th><th>占用衣柜</th>
+                    <th>场景</th><th>季节</th><th>颜色</th><th>风格</th><th>数量</th><th>分类</th><th>管理</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cloth,iterStat:${cloths}">
+                    <td th:text="${cloth.id}"></td>
+                    <td th:text="${cloth.name}"></td>
+                    <td th:text="${cloth.brand}"></td>
+                    <td th:text="${cloth.value}"></td>
+                    <td th:text="${cloth.clothsta}"></td>
+                    <td th:text="${cloth.shelfsta}"></td>
+                    <td th:text="${cloth.time}"></td>
+                    <td th:text="${cloth.size}"></td>
+                    <td th:text="${cloth.part}"></td>
+                    <td th:text="${cloth.clothcub}"></td>
+                    <td th:text="${cloth.scenes}"></td>
+                    <td th:text="${cloth.season}"></td>
+                    <td th:text="${cloth.color}"></td>
+                    <td th:text="${cloth.style}"></td>
+                    <td th:text="${cloth.colcnt}"></td>
+                    <td th:text="${cloth.sort}"></td>
+                    <td>
 
-                         <script th:inline="javascript">
-                             function Values(idx) {
-                                 var cloths = [[${cloths}]];
-                                 $("#name").val(cloths[idx].name);
-                                 $("#value").val(cloths[idx].value);
-                                 $("#clothcub").val(cloths[idx].clothcub);
-                                 $("#id").val(cloths[idx].id);
-                                 $("#colcnt").val(cloths[idx].colcnt);
-                                 $("#pic").val(cloths[idx].pic);
-                             }
-                         </script>
+                        <script th:inline="javascript">
+                            function Values(idx) {
+                                var cloths = [[${cloths}]];
+                                $("#name").val(cloths[idx].name);
+                                $("#value").val(cloths[idx].value);
+                                $("#clothcub").val(cloths[idx].clothcub);
+                                $("#id").val(cloths[idx].id);
+                                $("#colcnt").val(cloths[idx].colcnt);
+                                $("#pic").val(cloths[idx].pic);
+                            }
+                        </script>
 
-                         <button class="btn btn-primary" data-toggle="modal" data-target="#editModal" th:onclick="'javascript:Values('+${iterStat.index}+')'">
-                             <span class="glyphicon glyphicon-pencil"></span>
-                         </button>
-                         <!--  <div>
-                             <button type="button" class="btn btn-info" data-toggle="modal" onclick="return get_edit_info({cloth_info.id})" data-target="#addUserModal">编辑</button>
-                        </div>-->
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#editModal" th:onclick="'javascript:Values('+${iterStat.index}+')'">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <!--  <div>
+                            <button type="button" class="btn btn-info" data-toggle="modal" onclick="return get_edit_info({cloth_info.id})" data-target="#addUserModal">编辑</button>
+                       </div>-->
                         <div>
-                                <!-- 模态框（Modal） -->
-                                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                    &times;
-                                                </button>
-                                                <h2 class="modal-title" id="myModalLabel" align="center">
-                                                    修改衣服
-                                                </h2>
-                                            </div>
-                                            <div class="modal-body" align="center">
-                                                <form id="editForm" th:action="@{/cloth/edit}" method="post">
-                                                    <input type="hidden" name="id" id="id">
-                                                    <input type="hidden" name="colcnt" id="colcnt">
-                                                    <input type="hidden" name="pic" id="pic">
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">商品名称</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" name="name" id="name" >
+                            <!-- 模态框（Modal） -->
+                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+                                            <h2 class="modal-title" id="myModalLabel" align="center">
+                                                修改衣服
+                                            </h2>
+                                        </div>
+                                        <div class="modal-body" align="center">
+                                            <form id="editForm" th:action="@{/cloth/edit}" method="post" enctype="">
+                                                <input type="hidden" name="id" id="id">
+                                                <input type="hidden" name="colcnt" id="colcnt">
+                                                <input type="hidden" name="pic" id="pic">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">商品名称</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" name="name" id="name" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">品牌</label>
+                                                    <div class="col-sm-8" th:object="${brands}">
+                                                        <select name="brand" id="brands" class="form-control">
+                                                            <option th:each="brand:${brands}" th:value="${brand.name}" th:text="${brand.name}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">价值</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" name="value"  id="value">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">状态</label>
+                                                    <div id="clothsta" class="col-sm-8">
+                                                        <div class="radio-inline">
+                                                            <label><input name="clothsta" type="radio" value="全新" /> 全新</label>
+                                                        </div>
+                                                        <div class="radio-inline">
+                                                            <label><input name="clothsta" type="radio" value="二手" /> 二手</label>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">品牌</label>
-                                                        <div class="col-sm-8" th:object="${brands}">
-                                                            <select name="brand" id="brands" class="form-control">
-                                                                <option th:each="brand:${brands}" th:value="${brand.name}" th:text="${brand.name}"></option>
-                                                            </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">商品上架状态</label>
+                                                    <div id="shelfsta" class="col-sm-8">
+                                                        <div class="radio-inline">
+                                                            <label><input name="shelfsta" type="radio" value="上架" /> 上架</label>
+                                                        </div>
+                                                        <div class="radio-inline">
+                                                            <label><input name="shelfsta" type="radio" value="借走" /> 借走</label>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">价值</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" name="value"  id="value">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">尺寸</label>
+                                                    <div class="col-sm-8">
+                                                        <select name="size" id="size" class="form-control" >
+                                                            <option th:each="size:${sizes}" th:value="${size.tag}" th:text="${size.tag}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">衣着部位</label>
+                                                    <div class="col-sm-8">
+                                                        <select name="part" id="part" class="form-control" >
+                                                            <option th:each="part:${parts}" th:value="${part.tag}" th:text="${part.tag}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">占用衣柜</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" name="clothcub"  id="clothcub">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">场合</label>
+                                                    <div class="col-sm-8">
+                                                        <select name="scenes" id="scenes" class="form-control" >
+                                                            <option th:each="scene:${scenes}" th:value="${scene.tag}" th:text="${scene.tag}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">季节</label>
+                                                    <div class="col-sm-8">
+                                                        <select name="season" id="season" class="form-control" >
+                                                            <option th:each="season:${seasons}" th:value="${season.tag}" th:text="${season.tag}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">颜色</label>
+                                                    <div class="col-sm-8">
+                                                        <select name="color" id="color" class="form-control">
+                                                            <option th:each="color:${colors}" th:value="${color.tag}" th:text="${color.tag}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">风格</label>
+                                                    <div class="col-sm-8">
+                                                        <select name="style" id="style" class="form-control">
+                                                            <option th:each="style:${styles}" th:value="${style.tag}" th:text="${style.tag}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">常礼服分类</label>
+                                                    <div id="sort" class="col-sm-8">
+                                                        <div class="radio-inline">
+                                                            <label><input name="sort" type="radio" value="常服" /> 常服</label>
+                                                        </div>
+                                                        <div class="radio-inline">
+                                                            <label><input name="sort" type="radio" value="礼服" /> 礼服</label>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">状态</label>
-                                                        <div id="clothsta" class="col-sm-8">
-                                                            <div class="radio-inline">
-                                                                <label><input name="clothsta" type="radio" value="全新" /> 全新</label>
-                                                            </div>
-                                                            <div class="radio-inline">
-                                                                <label><input name="clothsta" type="radio" value="二手" /> 二手</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">商品上架状态</label>
-                                                        <div id="shelfsta" class="col-sm-8">
-                                                            <div class="radio-inline">
-                                                                <label><input name="shelfsta" type="radio" value="上架" /> 上架</label>
-                                                            </div>
-                                                            <div class="radio-inline">
-                                                                <label><input name="shelfsta" type="radio" value="借走" /> 借走</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">尺寸</label>
-                                                        <div class="col-sm-8">
-                                                            <select name="size" id="size" class="form-control" >
-                                                                <option th:each="size:${sizes}" th:value="${size.tag}" th:text="${size.tag}"></option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">衣着部位</label>
-                                                        <div class="col-sm-8">
-                                                            <select name="part" id="part" class="form-control" >
-                                                                <option th:each="part:${parts}" th:value="${part.tag}" th:text="${part.tag}"></option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">占用衣柜</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" name="clothcub"  id="clothcub">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">场合</label>
-                                                        <div class="col-sm-8">
-                                                            <select name="scenes" id="scenes" class="form-control" >
-                                                                <option th:each="scene:${scenes}" th:value="${scene.tag}" th:text="${scene.tag}"></option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">季节</label>
-                                                        <div class="col-sm-8">
-                                                            <select name="season" id="season" class="form-control" >
-                                                                <option th:each="season:${seasons}" th:value="${season.tag}" th:text="${season.tag}"></option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">颜色</label>
-                                                        <div class="col-sm-8">
-                                                            <select name="color" id="color" class="form-control">
-                                                                <option th:each="color:${colors}" th:value="${color.tag}" th:text="${color.tag}"></option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">风格</label>
-                                                        <div class="col-sm-8">
-                                                            <select name="style" id="style" class="form-control">
-                                                                <option th:each="style:${styles}" th:value="${style.tag}" th:text="${style.tag}"></option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">常礼服分类</label>
-                                                        <div id="sort" class="col-sm-8">
-                                                            <div class="radio-inline">
-                                                                <label><input name="sort" type="radio" value="常服" /> 常服</label>
-                                                            </div>
-                                                            <div class="radio-inline">
-                                                                <label><input name="sort" type="radio" value="礼服" /> 礼服</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <input type="file" name="files" value="请选择文件" multiple="multiple">
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary">
-                                                            提交
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal -->
-                                </div>
-                                <!--  <a class="btn btn-primary" href="Add_Cloth.html" th:href="@{/Add_Cloth}">
-                                     <span class="glyphicon glyphicon-plus"></span>
-                                 </a>-->
-                            </div>
+                                                </div>
 
-                         <div> <a class="btn btn-primary" th:href="@{/cloth/del(id=${cloth.id})}"><span class="glyphicon glyphicon-remove"></span></a>
-                         </div>
-                     </td>
-                  </tr>
-             </tbody>
-         </table>
-     </div>
- </div>
-<div th:include="navi::naviFooter"></div>
- </body>
- </html>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">服装图片</label>
+                                                    <div  class="col-sm-8">
+                                                        <input type="file" name="files" value="请选择文件" multiple="multiple">
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">
+                                                        提交
+                                                    </button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal -->
+                            </div>
+                            <!--  <a class="btn btn-primary" href="Add_Cloth.html" th:href="@{/Add_Cloth}">
+                                 <span class="glyphicon glyphicon-plus"></span>
+                             </a>-->
+                        </div>
+
+                        <div> <a class="btn btn-primary" th:href="@{/cloth/del(id=${cloth.id})}"><span class="glyphicon glyphicon-remove"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

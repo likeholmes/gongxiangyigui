@@ -9,22 +9,11 @@ import com.shengchanshixi.gongxiangyigui.service.TagService;
 import com.shengchanshixi.gongxiangyigui.util.logUtil.Log;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +35,7 @@ public class ClothManageController extends BaseController{
     @Autowired
     private ClothPicService clothPicService;
 
-    @RequestMapping({"/","/index"})
+    @RequestMapping({"","/index"})
     public String index(){
         return "redirect:/cloth/list";
     }
@@ -85,81 +74,77 @@ public class ClothManageController extends BaseController{
     @Log(module = "服装管理",description = "添加服装")
     @ApiOperation(value = "添加商品信息",notes = "添加后显示商品总页面")
     @PostMapping(value = "/add")
-    public String addCloth(Cloth cloth,MultipartFile[] files){
+    public String addCloth(Cloth cloth,MultipartFile file){
         try {
-            if(null==clothManageService.add(cloth))
-                logger.warn("添加信息未成功");
-            else {
-                //添加图片
-                Cloth ncloth = clothManageService.findAfterTime(System.currentTimeMillis());
-                if (null == ncloth) {
+                if (null == cloth) {
                     logger.warn("添加信息未成功");
                 } else {
                     //TODO:图片未上传
-                    if (files==null||files.length<1){
+                    if (file==null){
                         logger.warn("文件为空");
-                        return "redirect:/cloth/list";
                     }
-                    for (int i = 0; i < files.length; i++) {
-                        MultipartFile uploadFile = files[i];
-                        String filename = uploadFile.getOriginalFilename();
-                        String realPath=getSession().getServletContext().getRealPath("/clothPics/");
-                        File dir=new File(realPath);
-                        //服务端保存的文件对象
-                        File fileServer = new File(dir, filename);
-                        System.out.println("file文件真实路径:" + fileServer.getAbsolutePath());
-                        //实现上传
-                        uploadFile.transferTo(fileServer);
-                        String filePath = getRequest().getScheme() + "://" +
-                                getRequest().getServerName() + ":"
-                                + getRequest().getServerPort()
-                                + "/clothPics/" + filename;
-                        ClothPic clothPic=new ClothPic();
-                        clothPic.setClothId(ncloth.getId());
-                        clothPic.setUrl(filePath);
-                        clothPicService.add(clothPic);
-                    }
+                    MultipartFile uploadFile = file;
+                    String filename = System.currentTimeMillis() + file.getOriginalFilename();
+                    String realPath="D:/gongxiangyigui/pic/";
+                    System.out.println("realPath:"+realPath);
+                    File dir=new File(realPath);
+                    if (!dir.exists())
+                        dir.mkdirs();
+                    //服务端保存的文件对象
+                    File fileServer = new File(dir, filename);
+                    System.out.println("file文件真实路径:" + fileServer.getAbsolutePath());
+                    //实现上传
+                    uploadFile.transferTo(fileServer);
+                    System.out.println("test");
+                    String filePath = "/pic/" + filename;
+                    //ClothPic clothPic=new ClothPic();
+                    //clothPic.setClothId(ncloth.getId());
+                    //clothPic.setUrl(filePath);
+                    //clothPicService.add(clothPic);
+                    cloth.setPic(filePath);
                 }
-            }
+            //}
+            clothManageService.add(cloth);
         }catch (Exception e){
             logger.error("添加失败");
         }
+
         return "redirect:/cloth/list";
     }
 
-    @ApiOperation(value = "去修改商品信息",notes = "跳转至修改信息页面")
-    @RequestMapping(value = "/toEdit/{id}")
-    public String toEdit(@PathVariable("id") int id,Model model){
-        Cloth cloth=clothManageService.findById(id);
-        model.addAttribute("cloth",cloth);
-        List<ClothPic> clothPics=clothPicService.findByClothid(id);
-        model.addAttribute("clothPics",clothPics);
-        List<Tag> sizes=tagService.findBySort("尺寸");
-        model.addAttribute("sizes",sizes);
-        List<Tag> styles=tagService.findBySort("风格");
-        model.addAttribute("styles",styles);
-        List<Tag> scenes=tagService.findBySort("场景");
-        model.addAttribute("scenes",scenes);
-        List<Tag> colors=tagService.findBySort("颜色");
-        model.addAttribute("colors",colors);
-        List<Tag> parts=tagService.findBySort("部位");
-        model.addAttribute("parts",parts);
-        List<Tag> seasons=tagService.findBySort("季节");
-        model.addAttribute("seasons",seasons);
-        List<Brand> brands=brandService.findAllList();
-        model.addAttribute("brands",brands);
-        //TODO:去编辑页面
-        return null;
-    }
 
     @Log(module = "服装管理",description = "修改服装")
     @ApiOperation(value = "修改商品信息",notes = "修改后返回商品页面")
     @RequestMapping(value = "/edit")
-    public String editCloth(Cloth cloth){
+    public String editCloth(Cloth cloth,MultipartFile file){
         System.out.println("修改");
         System.out.println(JSON.toJSON(cloth));
-        clothManageService.update(cloth);
-        //TODO:修改图片？？
+        try {
+            if (null!=file){
+                MultipartFile uploadFile = file;
+                String filename = System.currentTimeMillis() + file.getOriginalFilename();
+                String realPath="D:/gongxiangyigui/pic/";
+                System.out.println("realPath:"+realPath);
+                File dir=new File(realPath);
+                if (!dir.exists())
+                    dir.mkdirs();
+                //服务端保存的文件对象
+                File fileServer = new File(dir, filename);
+                System.out.println("file文件真实路径:" + fileServer.getAbsolutePath());
+                //实现上传
+                uploadFile.transferTo(fileServer);
+                System.out.println("test");
+                String filePath = "/pic/" + filename;
+                //ClothPic clothPic=new ClothPic();
+                //clothPic.setClothId(ncloth.getId());
+                //clothPic.setUrl(filePath);
+                //clothPicService.add(clothPic);
+                cloth.setPic(filePath);
+            }
+            clothManageService.update(cloth);
+        }catch (Exception e){
+            logger.error("修改出错");
+        }
         return "redirect:/cloth/list";
     }
 
@@ -178,16 +163,17 @@ public class ClothManageController extends BaseController{
         List<Cloth> cloths=clothManageService.findByName(name);
         model.addAttribute("cloths",cloths);
         //TODO:搜索后的服装列表页
-        return null;
+        return "Cloth";
     }
 
     //还有各种分页显示，搜索，过滤等先省略
     @ApiOperation(value = "排序显示商品信息",notes = "将所有商品信息按某种顺序显示")
     @GetMapping(value = "/sort")
     public String getClothSortByKey(@RequestParam("key") String key,Model model){
-        List<Cloth> cloths=clothManageService.findAll();
+        List<Cloth> cloths=clothManageService.findBySearch(key);
         model.addAttribute("cloths",cloths);
+        System.out.println(JSON.toJSONString(cloths));
         //TODO:未完成
-        return null;
+        return "Cloth";
     }
 }

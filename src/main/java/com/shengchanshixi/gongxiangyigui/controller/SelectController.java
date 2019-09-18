@@ -40,9 +40,9 @@ public class SelectController extends BaseController {
 
     @ApiOperation(value = "搜索筛选",notes = "通过搜索栏筛选商品信息")
     @RequestMapping(value = "/search")
-    public List<ClothPic> search(@RequestParam("key") String key){
+    public List<Cloth> search(@RequestParam("key") String key){
         System.out.println(key);
-        return clothPicService.findByList(clothManageService.findBySearch(key));
+        return clothManageService.findBySearch(key);
     }
 
     //获取全部标签信息
@@ -60,8 +60,8 @@ public class SelectController extends BaseController {
 
     @ApiOperation(value = "全部筛选",notes = "通过设置条件筛选商品信息")
     @RequestMapping(value = "/term")
-    public List<ClothPic> searchBytags(@RequestBody List<Tag> tags){
-        return clothPicService.findByList(clothManageService.findByConditon(tags));
+    public List<Cloth> searchBytags(@RequestBody List<Tag> tags){
+        return clothManageService.findByConditon(tags);
     }
 
     //推荐筛选

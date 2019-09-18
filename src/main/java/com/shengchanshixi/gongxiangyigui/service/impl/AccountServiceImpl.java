@@ -69,7 +69,15 @@ public class AccountServiceImpl implements AccountService {
     //不确定是否有效的方法
     @Override
     public User update(User user) {
-        return userDao.save(user);
+        User old=userDao.findById(user.getId());
+        if (null==user)
+            return null;
+        if (user.getAddress()!=null)
+            old.setAddress(user.getAddress());
+        if (user.getPhone()!=null)
+        //System.out.println(user.getPhone());
+            old.setPhone(user.getPhone());
+        return userDao.save(old);
     }
 
     @Override

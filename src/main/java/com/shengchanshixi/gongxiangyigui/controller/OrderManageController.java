@@ -25,7 +25,7 @@ public class OrderManageController extends BaseController{
     @Autowired
     ClothPicService clothPicService;
 
-    @RequestMapping({"/","/index"})
+    @RequestMapping({"","/index"})
     public String index(){
         return "redirect:/order/all";
     }
@@ -56,8 +56,8 @@ public class OrderManageController extends BaseController{
     }
 
     @ApiOperation(value = "显示订单详细信息",notes = "")
-    @GetMapping(value = "/{id}")
-    public String getOrder(@PathVariable("id")String id, Model model){
+    @GetMapping(value = "/detail")
+    public String getOrder(@RequestParam("id")String id, Model model){
         Order order=orderManageService.findById(id);
         model.addAttribute("order",order);
         List<ClothPic> clothPics=clothPicService.findByClothid(order.getClothid());
@@ -68,10 +68,10 @@ public class OrderManageController extends BaseController{
 
     @Log(module = "订单管理",description = "处理异常订单")
     @ApiOperation(value = "处理异常订单",notes = "")
-    @PutMapping(value = "/{id}")
-    public String dealOrder(@PathVariable("id")String id){
+    @PutMapping(value = "/bug")
+    public String dealOrder(@RequestParam("id")String id){
         orderManageService.dealBugOrder(id);
-        return "redirect:/check/all";
+        return "redirect:/order/deal/all";
     }
 
     @ApiOperation(value = "显示等待发货的订单",notes = "")
@@ -89,7 +89,7 @@ public class OrderManageController extends BaseController{
     public String setSend(@RequestParam("id")String id,@RequestParam("trackid") String trackid){
         System.out.println(trackid);
         orderManageService.dealSendOrder(id,trackid);
-        return "redirect:/send/all";
+        return "redirect:/order/send/all";
     }
 
     @ApiOperation(value = "显示等待返还的订单",notes = "已逾期的订单不在其中")
@@ -103,10 +103,10 @@ public class OrderManageController extends BaseController{
 
     @Log(module = "订单管理",description = "处理待取件订单")
     @ApiOperation(value = "确认已取件",notes = "")
-    @PutMapping(value = "/back/{id}")
-    public String confirmOk(@PathVariable("id")String id){
+    @PutMapping(value = "/back")
+    public String confirmOk(@RequestParam("id")String id){
         orderManageService.dealBackOrder(id);
-        return "redirect:/back/all";
+        return "redirect:/order/back/all";
     }
 
     @ApiOperation(value = "搜索订单信息",notes = "")
@@ -119,7 +119,7 @@ public class OrderManageController extends BaseController{
     }
 
     @ApiOperation(value = "搜索等待发货订单信息",notes = "")
-    @GetMapping(value = "/send")
+    @GetMapping(value = "/send/search")
     public String searchSend(@RequestParam("key")String key,Model model){
         List<Order> orders=orderManageService.searchByKey(key,orderManageService.findForSendOrder());
         model.addAttribute("orders",orders);
@@ -142,13 +142,14 @@ public class OrderManageController extends BaseController{
         List<Order> orders=orderManageService.findForCheckOrder();
         model.addAttribute("orders",orders);
         //TODO:搜索后的订单管理页面
-        return null;
+        System.out.println("!11111");
+        return "ManageCheck";
     }
 
     @Log(module = "订单管理",description = "处理待审核订单")
     @ApiOperation(value = "等待审核的订单",notes = "")
-    @GetMapping(value = "/check/{id}")
-    public String checkOrder(@PathVariable("id")String id,@RequestParam("deal")String deal){
+    @RequestMapping(value = "/check")
+    public String checkOrder(@RequestParam("id")String id,@RequestParam("deal")String deal){
         switch (deal){
             case "通过":
                 orderManageService.checkClothOk(id);
@@ -161,16 +162,25 @@ public class OrderManageController extends BaseController{
                 orderManageService.checkClothGone(id);
                 break;
         }
-        return "redirect:/check/all";
+        return "redirect:/order/check/all";
     }
 
     @ApiOperation(value = "搜索等待审核订单信息",notes = "")
-    @GetMapping(value = "/check")
+    @GetMapping(value = "/check/search")
     public String searchCheck(@RequestParam("key")String key,Model model){
         List<Order> orders=orderManageService.searchByKey(key,orderManageService.findForCheckOrder());
         model.addAttribute("orders",orders);
         //TODO:搜索后的待审核订单管理页面
         return null;
+    }
+
+    @ApiOperation(value = "搜索等待处理订单信息",notes = "")
+    @GetMapping(value = "/deal/search")
+    public String searchDeal(@RequestParam("key")String key,Model model){
+        List<Order> orders=orderManageService.searchByKey(key,orderManageService.findForBugOrder());
+        model.addAttribute("orders",orders);
+        //TODO:搜索后的待审核订单管理页面
+        return "Order";
     }
 
 }

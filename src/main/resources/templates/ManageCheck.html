@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-md-2" style="background-color: #dedef8;box-shadow:
          inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
-        <h4>导航栏</h4>
+        <h3>导航栏</h3>
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -25,60 +25,102 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="ManagerMain.html">管理后台</a>
+
                 </div>
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href= href="Cloth.html" th:href="@{/Cloth}" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="Cloth2.html" th:href="@{/cloth/index}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理衣服<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="Cloth.html" th:href="@{/Cloth}">服装管理</a></li>
-                                <li><a href="Brand.html" th:href="@{/Brand}">品牌管理</a></li>
-                                <li><a href="Tag.html" th:href="@{/Tag}">标签管理</a></li>
+                                <li><a href="Cloth2.html" th:href="@{/cloth/index}">服装管理</a></li>
+                                <li><a href="Brand.html" th:href="@{/brand/index}">品牌管理</a></li>
+                                <li><a href="Tag1.html" th:href="@{/tag/index}">标签管理</a></li>
                             </ul>
                         </li>
-                        <li><a href="order.html" th:href="@{/order}">管理订单</a></li>
+                        <li><a href="Order.html" th:href="@{/order/all}">管理订单</a></li>
                         <li>
-                            <a href="ManagePiece.html" th:href="@{/ManagePiece}" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="ManagePiece_Delivery.html" th:href="@{/order/send/all}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理派送<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="ManagePiece_Delivery.html" th:href="@{/ManagePiece_Delivery}">送件管理</a></li>
-                                <li><a href="ManagePiece_Retrieve.html" th:href="@{/ManagePiece_Retrieve}">取回管理</a></li>
+                                <li><a href="ManagePiece_Delivery.html" th:href="@{/order/send/all}">送件管理</a></li>
+                                <li><a href="ManagePiece_Retrieve.html" th:href="@{/order/back/all}">取回管理</a></li>
                             </ul>
                         </li>
-                        <li><a href="User.html" th:href="@{/User}">管理会员</a></li>
-                        <li><a href="FeedBack.html" th:href="@{/FeedBack}">管理反馈</a></li>
-                        <li class="active"><a href="ManageCheck.html" th:href="@{/ManageCheck}">管理审核</a></li>
-                        <li><a href="Log.html" th:href="@{/Log}">查看日志</a></li>
+                        <li><a href="User.html" th:href="@{/user/all}">管理会员</a></li>
+                        <li><a href="FeedBack.html" th:href="@{/feedback/all}">管理反馈</a></li>
+                        <li class="active"><a href="ManageCheck.html" th:href="@{/order/check/all}">管理审核</a></li>
+                        <li><a href="Log.html" th:href="@{/log/all}">查看日志</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-    </div>
-    <div class="col-md-10" style="background-color:#FFFFFF;box-shadow:
-         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
 
-<div th:object="${orders}">
-        <table class="table table-hover">
-        <tr><th>id</th><th>商品ID</th><th>用户ID</th><th>状态</th><th>收货时间</th>
-            <th>归还单号</th><th>审核</th>
-        </tr>
-        <tr th:each="order:${orders}">
-            <td th:text="${order.id}"></td>
-            <td th:text="${order.clothid}"></td>
-            <td th:text="${order.userid}"></td>
-            <td th:text="${order.status}"></td>
-            <td th:text="${order.recevtime}"></td>
-            <td th:text="${order.backtrack}"></td>
-            <td>
-                <a class="btn btn-primary" href="Modify_status.html" th:href="@{/Modify_status}">修改状态</a>
-                <a class="btn btn-primary" href="Return_deposit.html" th:href="@{/Return_deposit}">返还押金</a>
-            </td>
-        </tr>
-        </table>
-</div>
+    </div>
+    <div class="col-md-10" >
+
+        <div>
+            <table class="table table-hover">
+                <thead>
+                <tr><th>id</th><th>商品ID</th><th>用户ID</th><th>收货时间</th>
+                    <th>归还单号</th><th>审核</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="Order,iterStat:${orders}">
+                    <td th:text="${Order.id}"></td>
+                    <td th:text="${Order.clothid}"></td>
+                    <td th:text="${Order.userid}"></td>
+                    <td th:text="${Order.recevtime}"></td>
+                    <td th:text="${Order.backtrack}"></td>
+                    <td>
+                        <div>
+
+                            <script th:inline="javascript">
+                                function Values(idx) {
+                                    var orders = [[${orders}]];
+                                    $("#id").val(orders[idx].id);
+                                }
+                            </script>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" th:onclick="'javascript:Values('+${iterStat.index}+')'">
+                                通过
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <!--<h5 class="modal-title" id="exampleModalLabel"></h5>-->
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form th:action="@{/order/check}" method="post">
+                                            <div align="center">
+                                                <h3>返还押金</h3>
+                                            </div>
+                                            <input type="hidden" name="id" id="id">
+                                            <input type="hidden" name="deal" th:value="通过">
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                <button type="submit" class="btn btn-primary">提交</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <a class="btn btn-primary" href="" th:href="@{/order/check(id=${Order.id},deal=丢失)}">丢失</a>
+                       <a class="btn btn-primary" href="" th:href="@{/order/check(id=${Order.id},deal=损坏)}">损坏</a> </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>

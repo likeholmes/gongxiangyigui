@@ -26,6 +26,7 @@ public class Order {
     private String backtrack;
     private String bugsta;
     private String bugdeal;
+    private String clothname;
 
     @Id
     @Column(name = "id")
@@ -227,6 +228,16 @@ public class Order {
         this.bugdeal = bugdeal;
     }
 
+    @Basic
+    @Column(name = "clothname")
+    public String getClothname() {
+        return clothname;
+    }
+
+    public void setClothname(String clothname) {
+        this.clothname = clothname;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -254,6 +265,7 @@ public class Order {
         if (backtrack != null ? !backtrack.equals(order.backtrack) : order.backtrack != null) return false;
         if (bugsta != null ? !bugsta.equals(order.bugsta) : order.bugsta != null) return false;
         if (bugdeal != null ? !bugdeal.equals(order.bugdeal) : order.bugdeal != null) return false;
+        if (clothname != null ? !clothname.equals(order.clothname) : order.clothname != null) return false;
 
         return true;
     }
@@ -280,7 +292,7 @@ public class Order {
         result = 31 * result + (backtrack != null ? backtrack.hashCode() : 0);
         result = 31 * result + (bugsta != null ? bugsta.hashCode() : 0);
         result = 31 * result + (bugdeal != null ? bugdeal.hashCode() : 0);
+        result = 31 * result + (clothname != null ? clothname.hashCode() : 0);
         return result;
     }
-
 }

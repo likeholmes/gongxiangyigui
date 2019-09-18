@@ -1,5 +1,6 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.shengchanshixi.gongxiangyigui.entity.Tag;
 import com.shengchanshixi.gongxiangyigui.service.TagService;
 import com.shengchanshixi.gongxiangyigui.util.logUtil.Log;
@@ -24,10 +25,10 @@ public class TagManageController extends BaseController{
 
     @Log(module = "标签管理",description = "删除标签")
     @ApiOperation(value = "删除标签",notes = "")
-    @DeleteMapping(value = "/{tag}")
-    public String delTag(@PathVariable("tag") String tag){
+    @RequestMapping(value = "/del")
+    public String delTag(@RequestParam("tag") String tag){
         tagService.delete(tag);
-        return "redirect:/list";
+        return "redirect:/tag/list";
     }
 
     @Log(module = "标签管理",description = "删除标签")
@@ -38,20 +39,31 @@ public class TagManageController extends BaseController{
         ntag.setSort(sort);
         ntag.setTag(tag);
         tagService.add(ntag);
-        return "redirect:/list";
+        return "redirect:/tag/list";
     }
 
     @ApiOperation(value = "显示所有标签",notes = "")
     @GetMapping(value = "/list")
     public String getTags(Model model){
-        List<Tag> tags=tagService.findAllList();
-        model.addAttribute("tags",tags);
+        List<Tag> sizes=tagService.findBySort("尺寸");
+        System.out.println(JSON.toJSONString(sizes));
+        model.addAttribute("sizes",sizes);
+        List<Tag> colors=tagService.findBySort("颜色");
+        model.addAttribute("colors",colors);
+        List<Tag> styles=tagService.findBySort("风格");
+        model.addAttribute("styles",styles);
+        List<Tag> scenes=tagService.findBySort("场景");
+        model.addAttribute("scenes",scenes);
+        List<Tag> parts=tagService.findBySort("部位");
+        model.addAttribute("parts",parts);
+        List<Tag> seasons=tagService.findBySort("季节");
+        model.addAttribute("seasons",seasons);
         //TODO:标签管理首页
-        return null;
+        return "Tag";
     }
 
-    @RequestMapping("")
+    @RequestMapping({"","/index"})
     public String index(){
-        return "redirect:/list";
+        return "redirect:/tag/list";
     }
 }

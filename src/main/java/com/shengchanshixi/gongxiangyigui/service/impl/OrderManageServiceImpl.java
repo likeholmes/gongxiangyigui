@@ -126,6 +126,7 @@ public class OrderManageServiceImpl implements OrderManageService {
         if (null==old)
             return null;
         old.setStatus("正常");
+        old.setBugsta("无");
         //TODO:退款
         return orderDao.save(old);
     }

@@ -33,9 +33,9 @@
                                 管理衣服<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="active"><a href="Cloth.html" th:href="@{/cloth/index}">服装管理</a></li>
+                                <li class="active"><a href="Cloth2.html" th:href="@{/cloth/index}">服装管理</a></li>
                                 <li><a href="Brand.html" th:href="@{/brand/index}">品牌管理</a></li>
-                                <li><a href="Tag.html" th:href="@{/tag/index}">标签管理</a></li>
+                                <li><a href="Tag1.html" th:href="@{/tag/index}">标签管理</a></li>
                             </ul>
                         </li>
                         <li><a href="Order.html" th:href="@{/order/deal/all}">管理订单</a></li>
@@ -48,7 +48,7 @@
                                 <li><a href="ManagePiece_Retrieve.html" th:href="@{/order/back/all}">取回管理</a></li>
                             </ul>
                         </li>
-                            <li><a href="User.html" th:href="@{/user/all}">管理会员</a></li>
+                            <li><a href="User.html" th:href="@{/account/list}">管理会员</a></li>
                         <li><a href="FeedBack.html" th:href="@{/feedback/all}">管理反馈</a></li>
                         <li><a href="ManageCheck.html" th:href="@{/order/check/all}">管理审核</a></li>
                         <li><a href="Log.html" th:href="@{/log/all}">查看日志</a></li>
@@ -101,24 +101,19 @@
                                                     &times;
                                                 </button>
                                                 <h2 class="modal-title" id="myModalLabel" align="center">
-                                                    填写派送单号
+                                                    查看订单详细信息
                                                 </h2>
                                             </div>
                                             <div class="modal-body" align="center" th:object="${orders}">
-                                                <form th:action="@{/order/send}" method="post">
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">派送单号</label>
                                                         <div class="col-sm-8">
                                                             <input type="text" class="form-control" name="trackid"  placeholder="请输入派送单号">
                                                         </div>
                                                     </div>
-                                                </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                                </button>
-                                                <button type="button" class="btn btn-primary">
-                                                    填写物流信息
                                                 </button>
                                             </div>
                                         </div><!-- /.modal-content -->

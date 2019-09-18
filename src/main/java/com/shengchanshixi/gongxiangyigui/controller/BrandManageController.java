@@ -47,7 +47,7 @@ public class BrandManageController extends BaseController{
         return "Brand";
     }
 
-    @RequestMapping({"/","/index"})
+    @RequestMapping({"","/index"})
     public String index(){
         return "redirect:/brand/list";
     }

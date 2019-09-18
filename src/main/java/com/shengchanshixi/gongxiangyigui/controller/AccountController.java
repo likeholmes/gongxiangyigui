@@ -20,8 +20,8 @@ public class AccountController extends BaseController {
 
     @Log(module = "会员管理",description = "冻结用户")
     @ApiOperation(value = "冻结账户", notes = "")
-    @RequestMapping(value = "/lock/{id}")
-    public String lock(@PathVariable("id") String id) {
+    @RequestMapping(value = "/lock")
+    public String lock(@RequestParam("id") String id) {
         try {
             User user = accountService.lockAccount(id);
             if (null == user) {
@@ -32,13 +32,13 @@ public class AccountController extends BaseController {
             return null;
         }
         System.out.println("lockuser");
-        return "redirect:/list";
+        return "redirect:/account/list";
     }
 
     @Log(module = "会员管理",description = "解锁用户")
     @ApiOperation(value = "解冻账户", notes = "")
-    @RequestMapping(value = "/unlock/{id}")
-    public String unlock(@PathVariable("id") String id) {
+    @RequestMapping(value = "/unlock")
+    public String unlock(@RequestParam("id") String id) {
         try {
             User user = accountService.unlockAccount(id);
             if (null == user) {
@@ -49,7 +49,7 @@ public class AccountController extends BaseController {
             return null;
         }
         System.out.println("unlockuser");
-        return "redirect:/list";
+        return "redirect:/account/list";
     }
 
     @ApiOperation(value = "显示所有账户", notes = "")
@@ -59,11 +59,11 @@ public class AccountController extends BaseController {
         model.addAttribute("users",users);
         //用户首页
         logger.info("将users渲染");
-        return "account/list";
+        return "User";
     }
 
-    @RequestMapping("/index")
+    @RequestMapping({"","/index"})
     public String index() {
-        return "redirect:/list";
+        return "redirect:/account/list";
     }
 }

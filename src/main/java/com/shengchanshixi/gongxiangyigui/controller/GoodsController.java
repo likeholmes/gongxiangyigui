@@ -35,10 +35,16 @@ public class GoodsController extends BaseController{
     @Autowired
     private AccountService accountService;
 
-    @ApiOperation(value = "获取所有商品图片",notes = "显示所有的商品图片")
+    /*@ApiOperation(value = "获取所有商品图片",notes = "显示所有的商品图片")
     @GetMapping(value = "/goods/all")
     public List<ClothPic> getClothPics(){
         return clothPicService.findAll();
+    }*/
+
+    @ApiOperation(value = "获取所有商品",notes = "显示所有的商品")
+    @GetMapping(value = "/goods/all")
+    public List<Cloth> getCloths(){
+        return clothManageService.findAll();
     }
 
     //获取商品详情
@@ -51,8 +57,11 @@ public class GoodsController extends BaseController{
     //获取商品图片
     @ApiOperation(value = "获取商品图片",notes = "显示选取的商品图片")
     @GetMapping(value = "/goods/{id}/pic")
-    public List<ClothPic> getClothPic(@PathVariable("id")int id){
-        return clothPicService.findByClothid(id);
+    public ClothPic getClothPic(@PathVariable("id")int id){
+        List<ClothPic> clothPics=clothPicService.findByClothid(id);
+        if (clothPics.size()==0)
+            return null;
+        return clothPics.get(0);
     }
 
     //评论页
@@ -74,6 +83,7 @@ public class GoodsController extends BaseController{
             order.setPhone(user.getPhone());
             order.setBugdeal("未处理");
             order.setBacktime(7);
+            order.setClothname(clothManageService.findById(clothid).getName());
             if (null==user.getAddress())
                 return "-1";
             order.setAddress(user.getAddress());
