@@ -98,6 +98,8 @@ public class ClothManageServiceImpl implements ClothManageService {
         Set<Cloth> clothSet=new HashSet<>();
         for (Tag tag:tags
              ) {
+            if (null==tag.getSort())
+                continue;
             switch (tag.getSort()){
                 case "尺寸":
                     clothSet.addAll(clothDao.findBySize(tag.getTag()));

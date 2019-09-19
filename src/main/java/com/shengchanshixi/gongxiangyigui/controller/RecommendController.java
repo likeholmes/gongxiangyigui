@@ -27,8 +27,8 @@ public class RecommendController extends BaseController{
     @ApiOperation(value = "上新推荐",notes = "从新dao旧显示20个服装信息")
     @RequestMapping(value = "/new")
     //如何分页显示，应该传入什么API和参数
-    public List<ClothPic> recomNew(){
-        return clothPicService.findByList(clothManageService.findByTime());
+    public List<Cloth> recomNew(){
+        return clothManageService.findByTime();
     }
 
     @ApiOperation(value = "随机推荐",notes = "随机显示20个服装信息")

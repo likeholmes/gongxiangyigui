@@ -155,14 +155,7 @@ public class OrderManageServiceImpl implements OrderManageService {
     @Override
     public Order add(Order order) {
         //没有安全保障
-        Random random=new Random();
-        String orderid;
-        /*do {
-            orderid=""+(random.nextInt(20)%10+1);
-            for (int i=1;i<6;i++)
-                orderid+=random.nextInt(10);
-        }while (orderDao.findById(orderid)!=null);*/
-        orderid="1234";
+        String orderid=""+System.currentTimeMillis();
         order.setId(orderid);
         java.sql.Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
         order.setOrdertime(now);

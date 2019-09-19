@@ -1,5 +1,6 @@
 package com.shengchanshixi.gongxiangyigui.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.shengchanshixi.gongxiangyigui.entity.Brand;
 import com.shengchanshixi.gongxiangyigui.entity.Cloth;
 import com.shengchanshixi.gongxiangyigui.entity.ClothPic;
@@ -61,6 +62,8 @@ public class SelectController extends BaseController {
     @ApiOperation(value = "全部筛选",notes = "通过设置条件筛选商品信息")
     @RequestMapping(value = "/term")
     public List<Cloth> searchBytags(@RequestBody List<Tag> tags){
+        System.out.println("全部筛选");
+        System.out.println(JSON.toJSONString(tags));
         return clothManageService.findByConditon(tags);
     }
 

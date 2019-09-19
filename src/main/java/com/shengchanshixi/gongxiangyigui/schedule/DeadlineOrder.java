@@ -13,9 +13,10 @@ public class DeadlineOrder {
     @Autowired
     private OrderDao orderDao;
 
-    //十分钟检查一次订单是否有逾期
-    @Scheduled(fixedRate = 1000*60*10)
+    //三分钟检查一次订单是否有逾期
+    @Scheduled(fixedRate = 1000*60*3)
     public void updateOrder(){
+        System.out.println("检查订单是否逾期");
         List<Order> orders=orderDao.findAll();
         for (Order order:orders
              ) {

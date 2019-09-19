@@ -44,6 +44,7 @@ public class OrderManageController extends BaseController{
     @GetMapping(value = "/deal/all")
     public String getDealAll(Model model){
         List<Order> orders=orderManageService.findForBugOrder();
+        System.out.println("待处理订单："+JSON.toJSONString(orders));
         model.addAttribute("orders",orders);
         //TODO:订单管理首页
         return "Order";
@@ -62,7 +63,7 @@ public class OrderManageController extends BaseController{
 
     @Log(module = "订单管理",description = "处理异常订单")
     @ApiOperation(value = "处理异常订单",notes = "")
-    @PutMapping(value = "/bug")
+    @RequestMapping(value = "/bug")
     public String dealOrder(@RequestParam("id")String id){
         orderManageService.dealBugOrder(id);
         return "redirect:/order/deal/all";
@@ -91,6 +92,7 @@ public class OrderManageController extends BaseController{
     public String getAllBack(Model model){
         List<Order> orders=orderManageService.findForBackOrder();
         model.addAttribute("orders",orders);
+        System.out.println("");
         System.out.println(JSON.toJSONString(orders));
         //TODO:待归还首页
         return "ManagePiece_Retrieve";

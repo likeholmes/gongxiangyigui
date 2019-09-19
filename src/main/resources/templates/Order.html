@@ -29,11 +29,11 @@
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a  href="Cloth.html" th:href="@{/cloth/index}" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="Cloth2.html" th:href="@{/cloth/index}" class="dropdown-toggle" data-toggle="dropdown">
                                 管理衣服<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="Cloth.html" th:href="@{/cloth/index}">服装管理</a></li>
+                                <li><a href="Cloth2.html" th:href="@{/cloth/index}">服装管理</a></li>
                                 <li><a href="Brand.html" th:href="@{/brand/index}">品牌管理</a></li>
                                 <li><a href="Tag.html" th:href="@{/tag/index}">标签管理</a></li>
                             </ul>
@@ -70,7 +70,7 @@
              <table class="table table-hover">
                  <tr><th>id</th><th>商品ID</th><th>用户ID</th><th>异常状态</th><th>异常处理</th><th>审核</th>
                    </tr>
-                 <tr th:each="Order:${order_list}">
+                 <tr th:each="Order:${orders}">
                      <td th:text="${Order.id}"></td>
                      <td th:text="${Order.clothid}"></td>
                      <td th:text="${Order.userid}"></td>
